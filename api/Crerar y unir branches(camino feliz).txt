@@ -1,0 +1,23 @@
+(A) En https://github.com/henry-labs/ecommerce-ft08-g03 =>
+	1) Desplegar menu master y escrbir la rama;
+	2) Luego de colocar nmbre a la rama "Create branch: 'nombre'".
+
+(B) En terminal(consola) => 
+git remote -v: en qué repo estoy;
+git branch: veo la rama que estoy parado;
+git branch -a: veo todas las ramas;
+	1) git pull: traigo ramas creadas en https://github.com/henry-labs/ecommerce-ft08-g03;
+	2) git checkout "nombre de la rama": configura y me muevo a la rama especificada;
+	3) git add: como venimos haciendo;
+	4) git commit -m '': como venimos haciendo;
+	5) git push origin "nombre de la rama": lo subo a mi rama local.
+
+Vuelvo a (A) =>
+	1) Selecciono la rama;
+	2) Hago un Pull request;
+	3) Solicito a taves de un mensaje con lo que realicé;
+	4) Create pull request;
+	5) Otro integrante acepta el pull request.
+
+Vuelvo a (B) =>
+git pull para ver si hubo un cambio
