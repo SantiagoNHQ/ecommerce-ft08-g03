@@ -21,5 +21,20 @@ module.exports = (sequelize) => {
     elaboracion: {
       type: DataTypes.INTEGER,
     },
+    stock: {
+      type: DataTypes.INTEGER,
+    },
+    precio: {
+      type: DataTypes.REAL
+    },
+    descripcion: {
+      type: DataTypes.STRING
+    },
+    img: {
+      type: DataTypes.STRING
+    },
+    thumbImg: {
+      type: DataTypes.STRING
+    }
   });
 };
