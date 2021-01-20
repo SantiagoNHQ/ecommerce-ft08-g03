@@ -1,0 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Antic Slab", serif;
+  font-size: medium;
+}
+.contenedor {
+  padding: 60px 0px;
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.titulo {
+  color: #c20505;
+  font-family: "Anton", sans-serif;
+  font-size: xx-large;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* HEADER */
+
+header {
+  width: 100%;
+  height: 600px;
+  background: #200122; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+      to right,
+      hsla(0, 100%, 22%, 0.411),
+      hsla(295, 94%, 7%, 0.404)
+    ),
+    url("https://lh3.googleusercontent.com/proxy/Kp1EyXqbWhwpnnmHHBNUh8BONY_bxz6Jo62dIqCpjroUqHwNA_MqLsdtPctPymJUn4s9NSfy7a8zfFBY-xNDUA99CQpyXO0tO4yxpdX0Qqg"); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+      to right,
+      hsla(0, 100%, 22%, 0.411),
+      hsla(295, 94%, 7%, 0.404)
+    ),
+    url("https://s1.1zoom.me/b5050/232/Germany_Scenery_Fields_Struempfelbach_Shrubs_539234_1920x1080.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+}
+nav {
+  text-align: right;
+  padding: 30px 50px 0 0;
+}
+
+nav > a {
+  color: white;
+  font-weight: 300;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+nav > a:hover {
+  color: #f0ecebb2;
+}
+
+header .textos-header {
+  display: flex;
+  height: 430px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-direction: column;
+  text-align: center;
+}
+
+.textos-header h1 {
+  font-size: 80px;
+  color: white;
+}
+.span {
+  color: #c20505;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Sobre nosotros */
+
+.contenedor-sobre-nosotros {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.imagen-about-us {
+  width: 50%;
+}
+
+.sobre-nosotros .contenido-textos {
+  width: 48%;
+}
+
+.contenido-textos h3 {
+  margin-bottom: 15px;
+  margin-top: 85px;
+  margin-left: 35px;
+}
+
+.contenido-textos h3 span {
+  background: #c20505;
+  color: white;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  width: 35px;
+  height: 35px;
+  margin-right: 7px;
+  padding: 3px;
+  box-shadow: 0 0 4px 0 black;
+}
+
+.contenido-textos p {
+  margin-bottom: 20px;
+  margin-left: 80px;
+}
+
+.portafolio {
+  background: #c20505;
+}
+
+.galeria-port {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.imagen-port {
+  width: 14%;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.imagen-port > img {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-service .contenedor {
+  display: flex;
+}
+
+.about-service .contenedor img {
+  width: 60%;
+  align-items: center;
+  margin-top: 80px;
+}
