@@ -47,4 +47,18 @@ server.get("/:products", (req, res) => {
     });
 });
 
+server.delete("/", (req, res) => {
+  console.log("BODY: ", req.body)
+  Product.destroy({
+    where: { nombre: req.body.nombre },
+  })
+    .then((response) => {
+      res.send("Producto eliminado correctamente")
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json(err);
+    });
+});
+
 module.exports = server;

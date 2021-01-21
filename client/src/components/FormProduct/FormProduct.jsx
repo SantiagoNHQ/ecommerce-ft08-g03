@@ -8,7 +8,7 @@ export default function FormProduct(props) {
 
    function submit(e) {
         console.log()
-        axios.post("http://localhost:3001/product/", state)
+        axios.post("http://localhost:3001/product/", state.formulario)
         .then(res => {
             console.log ("bien", res)
         })
@@ -22,10 +22,22 @@ export default function FormProduct(props) {
         setState({formulario: {...state.formulario, [e.target.name]: e.target.value}})
         
     }
-    function eliminar(e){
+    function CambiosEliminar(e){
         e.preventDefault()
         console.log("Aca estoy!!!" ,e)
-        setState({eliminado: {...state, [e.target.name]: e.target.value}})
+        setState({...state, eliminar: {nombre: e.target.value}})
+    }
+    function submitEliminar(e) {
+        console.log("STATE ELIMINAR: ", state.eliminar)
+        axios.delete("http://localhost:3001/product", {
+            data: state.eliminar
+        })
+        .then(res => {
+            console.log ("bien", res)
+        })
+        .catch (err => {
+            console.log("mal", err)
+        })
     }
 
     return (
@@ -42,8 +54,8 @@ export default function FormProduct(props) {
                 <input type="submit" key="boton" />
             </form>
             <h3>Eliminar</h3>
-            <form>
-                <input key="nombre" type="text" onChange={eliminar} placeholder="nombre" name="nombre"/>
+            <form onSubmit={ submitEliminar }>
+                <input key="nombre" type="text" onChange={CambiosEliminar} placeholder="nombre" name="nombre"/>
                 <input type="submit" key="boton" />
             </form>
         </div>
