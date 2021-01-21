@@ -19,9 +19,15 @@ export default function FormProduct(props) {
    function cambios (e){
         e.preventDefault()
         console.log("ACA ESTOY" ,e)
-        setState({...state, [e.target.name]: e.target.value})
+        setState({formulario: {...state.formulario, [e.target.name]: e.target.value}})
         
     }
+    function eliminar(e){
+        e.preventDefault()
+        console.log("Aca estoy!!!" ,e)
+        setState({eliminado: {...state, [e.target.name]: e.target.value}})
+    }
+
     return (
         <div>
             <form onSubmit={ submit }>
@@ -33,6 +39,11 @@ export default function FormProduct(props) {
                 <input key="precio" type="number" onChange={cambios} placeholder="precio" style={{width: 30}} name="precio"/> 
                 <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 30}} name="origen"/> 
                 <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 30}} name="descripcion"/> 
+                <input type="submit" key="boton" />
+            </form>
+            <h3>Eliminar</h3>
+            <form>
+                <input key="nombre" type="text" onChange={eliminar} placeholder="nombre" name="nombre"/>
                 <input type="submit" key="boton" />
             </form>
         </div>
