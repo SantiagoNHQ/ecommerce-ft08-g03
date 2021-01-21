@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 // import Product from "./components/Product/product";
+import SearchBar from "./components/SearchBar/SearchBar.jsx";
+import ProductCards from "./components/ProductCards/ProductCards.jsx";
 
 function App() {
   return (
@@ -17,21 +19,23 @@ function App() {
           <h1>Winergy</h1>
           <h2>Vinos Nacionales e Internacionales</h2>
         </section>
-        <div style="height: 150px; overflow: hidden;">
+        <div style={({ height: "150px" }, { overflow: "hidden" })}>
           <svg
             viewBox="0 0 500 150"
             preserveAspectRatio="none"
-            style="height: 100%; width: 100%;"
+            style={({ height: "100%" }, { width: "100%" })}
           >
             <path
               d="M-20.04,-25.34 C100.16,251.92 303.88,-23.36 552.76,74.31 L500.00,149.98 L0.00,149.98 Z"
-              style="stroke: none; fill: #08f;"
+              style={({ stroke: "none" }, { fill: "#08f" })}
             ></path>
           </svg>
         </div>
       </header>
+      <SearchBar />
+      <ProductCards />
     </div>
   );
 }
-
+// Linea de prueba
 export default App;

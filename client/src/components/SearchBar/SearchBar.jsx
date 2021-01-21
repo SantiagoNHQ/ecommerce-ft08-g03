@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./SearchBar.css";
+// import "./SearchBar.css";
 import axios from 'axios';
 
-
+//  *** S7 : Crear Componente Search Bar ***
 export default function SearchBar(props) {
     const [input, setInput] = useState ("")
 
@@ -22,12 +22,12 @@ export default function SearchBar(props) {
         .then(response => {
             console.log(response)
         })
-
         .catch(err => {
             console.log("esto es un error" , err)
         })
     }
 
+    
     return (
         <div>
             <input onKeyPress={ submitEnter } onChange={ buscador }/>
