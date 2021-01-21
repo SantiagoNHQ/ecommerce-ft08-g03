@@ -10,11 +10,11 @@ function App() {
     <div>
       <header>
         <nav>
-          <a href="#">Inicio</a>
-          <a href="#">Acerca de</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Servicios</a>
-          <a href="#">Contacto</a>
+          <a href="#a">Inicio</a>
+          <a href="#b">Acerca de</a>
+          <a href="#c">Portfolio</a>
+          <a href="#d">Servicios</a>
+          <a href="#e">Contacto</a>
         </nav>
         <section className="textos-header">
           <h1>Winergy</h1>
