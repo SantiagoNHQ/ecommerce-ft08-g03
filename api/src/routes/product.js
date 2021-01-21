@@ -3,8 +3,17 @@ const { Product } = require("../db");
 
 //  *** S25 : Crear ruta para crear/agregar Producto ***
 server.post("/", (req, res, next) => {
-  const { tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock } = req.body;
-  console.log("servidorrrrrr", req.body)
+  const {
+    tipo,
+    edad,
+    nombre,
+    origen,
+    elaboracion,
+    descripcion,
+    precio,
+    stock,
+  } = req.body;
+  console.log("servidorrrrrr", req.body);
   Product.create({
     tipo,
     edad,
@@ -13,7 +22,7 @@ server.post("/", (req, res, next) => {
     elaboracion,
     descripcion,
     precio,
-    stock
+    stock,
   })
     .then((data) => {
       res.status(200).send(data);
@@ -48,16 +57,48 @@ server.get("/:products", (req, res) => {
 });
 
 server.delete("/", (req, res) => {
-  console.log("BODY: ", req.body)
+  console.log("BODY: ", req.body);
   Product.destroy({
     where: { nombre: req.body.nombre },
   })
     .then((response) => {
-      res.send("Producto eliminado correctamente")
+      res.send("Producto eliminado correctamente");
     })
     .catch((err) => {
       console.log(err);
       res.status(404).json(err);
+    });
+});
+server.put("/", (req, res, next) => {
+  const {
+    id,
+    nombre,
+    descripcion,
+    stock,
+    precio,
+    tipo,
+    edad,
+    elaboracion,
+    origen,
+  } = req.body;
+  console.log("Editado: ", req.body);
+  Product.findOne({
+    where: { id },
+  })
+    .then((response) => {
+      Product.update(
+        { nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+    })
+    .then((r) => res.send("Producto modificado correctamente"))
+    .catch((err) => {
+      console.log("Soy error: ", err);
+      res.json(err);
     });
 });
 
