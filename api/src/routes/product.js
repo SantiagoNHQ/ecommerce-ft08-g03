@@ -3,14 +3,17 @@ const { Product } = require("../db");
 
 //  *** S25 : Crear ruta para crear/agregar Producto ***
 server.post("/", (req, res, next) => {
-  const { tipo, edad, nombre, origen, elaboracion } = req.body;
-
+  const { tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock } = req.body;
+  console.log("servidorrrrrr", req.body)
   Product.create({
     tipo,
     edad,
     nombre,
     origen,
     elaboracion,
+    descripcion,
+    precio,
+    stock
   })
     .then((data) => {
       res.status(200).send(data);

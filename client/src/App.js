@@ -3,6 +3,7 @@ import "./App.css";
 // import Product from "./components/Product/product";
 import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
+import FormProduct from "./components/FormProduct/FormProduct.jsx";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       </header>
       <SearchBar />
       <ProductCards />
+      <FormProduct />
     </div>
   );
 }
