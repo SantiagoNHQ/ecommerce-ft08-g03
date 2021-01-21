@@ -60,7 +60,7 @@ export default class ProductCards extends React.Component {
         <div>
             { this.state.cards.map(p => 
             <div key={p.id}>
-                <ProductCard nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} />
+                <ProductCard key ={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} />
             </div>
             )}
         </div>
