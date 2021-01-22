@@ -4,6 +4,7 @@ import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
 import FormProduct from "./components/FormProduct/FormProduct.jsx";
+import FormCategory from "./components/FormCategory/FormCategory";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <SearchBar />
       <ProductCards />
       <FormProduct />
+      <FormCategory />
     </div>
   );
 }
