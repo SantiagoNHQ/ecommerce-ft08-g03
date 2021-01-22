@@ -17,6 +17,7 @@ module.exports = (sequelize) => {
     },
     nombre: {
       type: DataTypes.STRING,
+      unique: true,
     },
     origen: {
       type: DataTypes.STRING,

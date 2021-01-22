@@ -1,6 +1,6 @@
 const server = require("express").Router();
 const { Product } = require("../db");
-
+const { Sequelize } = require("sequelize");
 //  *** S25 : Crear ruta para crear/agregar Producto ***
 server.post("/", (req, res, next) => {
   const {
@@ -44,11 +44,17 @@ server.get("/", (req, res, next) => {
 //llamado a la api con nombre de producto para el searchBar.
 //get//www. algo.com/product/vinito
 server.get("/:products", (req, res) => {
+  const string = req.params.products;
   Product.findAll({
-    where: { nombre: req.params.products },
+    // where: { nombre: req.params.products },
+    where: {
+      descripcion: {
+        [Sequelize.Op.like]: `${string}`,
+      },
+    },
   })
     .then((response) => {
-      res.json(response);
+      res.json(response.data);
     })
     .catch((err) => {
       console.log(err);
@@ -99,6 +105,39 @@ server.put("/", (req, res, next) => {
     .catch((err) => {
       console.log("Soy error: ", err);
       res.json(err);
+    });
+});
+
+server.get("/products/:id", (req, res) => {
+  const { id } = req.params;
+  Product.findOne({
+    where: {
+      id: id,
+    },
+    include: {
+      model: Category,
+    },
+  })
+    .then((response) => {
+      console.log("Response: ", response);
+      console.log("ID: ", id);
+      res.json(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+server.get("/categoria/:nombreCat", (req, res) => {
+  Category.findOne({
+    where: { nombre: req.params.nombreCat },
+    include: { model: Product },
+  })
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      console.log("Error ", err);
     });
 });
 
