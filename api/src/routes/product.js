@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Product } = require("../db");
+const { Product, Category } = require("../db");
 const Sequelize = require("sequelize");
 //  *** S25 : Crear ruta para crear/agregar Producto ***
 server.post("/", (req, res, next) => {
@@ -45,23 +45,23 @@ server.get("/", (req, res, next) => {
 //get//www. algo.com/product/vinito
 server.get("/:products", (req, res) => {
   var string = req.params.products;
-  string = string.toLowerCase().trim()
+  string = string.toLowerCase().trim();
   //console.log ("este es el STRING" ,string)
 
   Product.findAll({
-      where: {
-        [Sequelize.Op.or]: [
-            Sequelize.where(
-                Sequelize.fn('LOWER', Sequelize.col('nombre')), {[Sequelize.Op.like]: `%${string}%`}
-            ),
-            Sequelize.where(
-                Sequelize.fn('LOWER', Sequelize.col('descripcion')), {[Sequelize.Op.like]: `%${string}%`}
-            )
-        ]
-    }
-    })
+    where: {
+      [Sequelize.Op.or]: [
+        Sequelize.where(Sequelize.fn("LOWER", Sequelize.col("nombre")), {
+          [Sequelize.Op.like]: `%${string}%`,
+        }),
+        Sequelize.where(Sequelize.fn("LOWER", Sequelize.col("descripcion")), {
+          [Sequelize.Op.like]: `%${string}%`,
+        }),
+      ],
+    },
+  })
     .then((response) => {
-      console.log("RESPUESTA: ", response)
+      console.log("RESPUESTA: ", response);
       res.json(response);
     })
     .catch((err) => {
@@ -146,6 +146,55 @@ server.get("/categoria/:nombreCat", (req, res) => {
     })
     .catch((err) => {
       console.log("Error ", err);
+    });
+});
+
+//  *** S20 : Crear ruta para Modificar Categoría ***
+
+server.put("/category/:id", (req, res) => {
+  const id = req.params.id;
+  const { nombre, descripcion } = req.body;
+  Category.findOne({
+    where: { id },
+  })
+    .then((response) => {
+      Category.update(
+        { nombre: nombre, descripcion: descripcion },
+        { where: { id } }
+      );
+    })
+    .then((r) => res.send("Category modificada correctamente"))
+    .catch((err) => {
+      console.log("Soy error: ", err);
+      res.json(err);
+    });
+});
+
+//  *** S17 : Crear ruta para agregar o sacar categorías de un producto. ***
+// POST /products/:idProducto/category/:idCategoria
+// server.post();
+server.post("/:idProducto/categoria/:idCategoria", (req, res) => {
+  var idP = req.params.idProducto;
+  var idC = req.params.idCategoria;
+  Product.findOne({
+    where: {
+      id: idP,
+    },
+  })
+    .then((r) => {
+      r.addCategory(idC)
+        .then((r) => {
+          console.log("Bien: ", r);
+          res.send("Correcto amigaso");
+        })
+        .catch((e) => {
+          console.log("Errorcito: ", e);
+          res.status(400).send("Estamos mal!");
+          errorcito = true;
+        });
+    })
+    .catch((e) => {
+      console.log("Error linea 187: ", e);
     });
 });
 
