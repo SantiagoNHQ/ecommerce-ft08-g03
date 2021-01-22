@@ -1,11 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FormProduct.css";
 import axios from 'axios';
 
 export default function FormProduct(props) {
  
     const [state, setState] = useState({})
-
+    useEffect(() => {
+        function category () {
+        axios.get("http://localhost:3001/category/")
+        .then(res => 
+            {
+                console.log(res.data)
+            setState((estado) => ({...estado, categoria: res.data}))
+            }
+            )}
+            
+        category()
+    }, [])
+//     useEffect(() => {
+//     const fetchBusinesses = () => {
+//        return fetch("theURL", {method: "GET"}
+//     )
+//       .then(res => normalizeResponseErrors(res))
+//       .then(res => {
+//         return res.json();
+//       })
+//       .then(rcvdBusinesses => {
+//         // some stuff
+//       })
+//       .catch(err => {
+//         // some error handling
+//       });
+//   };
+//   fetchBusinesses();
+// }, []);
     // AGREGAR
    function submit(e) {
         console.log()
@@ -86,7 +114,7 @@ export default function FormProduct(props) {
             console.log("mal", err)
         })
     }
-    //=====================
+
 
     return (
         <div>
@@ -99,18 +127,25 @@ export default function FormProduct(props) {
                 <input key="precio" type="number" onChange={cambios} placeholder="precio" style={{width: 30}} name="precio"/> 
                 <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 30}} name="origen"/> 
                 <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 30}} name="descripcion"/> 
+
+                {state.categoria && state.categoria.map((pos) => <label title={pos.descripcion}><input title={pos.descripcion} type="checkbox"></input>{pos.nombre}</label>)}
+
                 <input type="submit" key="boton" />
             </form>
+
             <h3>Eliminar</h3>
+
             <form onSubmit={ submitEliminar }>
                 <input key="nombre" type="text" onChange={CambiosEliminar} placeholder="nombre" name="nombre"/>
                 <input type="submit" key="boton" />
             </form>
+
             <h3>Buscar para editar</h3>
             <form onSubmit={ submitBuscar }>
                 <input key="nombre" type="text" onChange={CambiosBuscar} placeholder="Busca por el nombre del producto" name="nombre"/>
                 <input type="submit" key="boton" />
             </form>
+
             <h3>Editar</h3>
             {state.foundProduct && 
             <form onSubmit={ submitEditar }>

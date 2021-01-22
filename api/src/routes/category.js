@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Category } = require("../db");
+const { Category, Product } = require("../db");
 
 //  *** S18 : Crear ruta para crear/agregar Categoría ***
 server.post("/add", (req, res, next) => {
@@ -35,7 +35,7 @@ server.delete("/delete", (req, res, next) => {
 });
 
 server.get("/", (req, res, next) => {
-  Product.findAll()
+  Category.findAll()
     .then((products) => {
       res.send(products);
     })
