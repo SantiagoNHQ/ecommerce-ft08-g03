@@ -20,7 +20,7 @@ export default function SearchBar(props) {
         //pasar e.target.value por params
         axios.get("http://localhost:3001/product/" + input)
         .then(response => {
-            console.log(response)
+            console.log("RESPUESTA: ", response.data)
         })
         .catch(err => {
             console.log("esto es un error" , err)
