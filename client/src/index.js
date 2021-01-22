@@ -3,10 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {BrowserRouter, Route } from "react-router-dom";
+import SearchBar from "./components/SearchBar/SearchBar";
+import ProductCards from './components/ProductCards/ProductCards';
+import FormProduct from './components/FormProduct/FormProduct';
+import FormCategory from './components/FormCategory/FormCategory';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+       <React.Fragment>
+           <Route path="/" component={SearchBar} />
+           <Route exact path="/" component={App}  />
+            <Route exact path="/products" component={ProductCards} />
+            <Route exact path="/formProduct" component={FormProduct} />
+            <Route exact path="/formCategory" component={FormCategory} />
+        </React.Fragment>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

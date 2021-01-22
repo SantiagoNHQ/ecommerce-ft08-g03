@@ -1,21 +1,20 @@
 import React from "react";
 import "./App.css";
 // import Product from "./components/Product/product";
-import SearchBar from "./components/SearchBar/SearchBar.jsx";
+// import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
-import FormProduct from "./components/FormProduct/FormProduct.jsx";
-import FormCategory from "./components/FormCategory/FormCategory";
+// import FormProduct from "./components/FormProduct/FormProduct.jsx";
+// import FormCategory from "./components/FormCategory/FormCategory";
+import {Link} from "react-router-dom";
 
 function App() {
   return (
     <div>
       <header>
         <nav>
-          <a href="#a">Inicio</a>
-          <a href="#b">Acerca de</a>
-          <a href="#c">Portfolio</a>
-          <a href="#d">Servicios</a>
-          <a href="#e">Contacto</a>
+          <Link to="/products">Catalogo</Link>
+          <Link to="/formProduct">Añadir Producto</Link>
+          <Link to="/formCategory">Añadir Categoria</Link>
         </nav>
         <section className="textos-header">
           <h1>Winergy</h1>
@@ -34,10 +33,8 @@ function App() {
           </svg>
         </div>
       </header>
-      <SearchBar />
       <ProductCards />
-      <FormProduct />
-      <FormCategory />
+
     </div>
   );
 }
