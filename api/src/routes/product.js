@@ -1,6 +1,7 @@
 const server = require("express").Router();
-const { Product, Category } = require("../db");
+const { Product, Category, ProductAndCategory } = require("../db");
 const Sequelize = require("sequelize");
+
 //  *** S25 : Crear ruta para crear/agregar Producto ***
 server.post("/", (req, res, next) => {
   const {
@@ -136,8 +137,9 @@ server.get("/products/:id", (req, res) => {
     });
 });
 
+//  *** S22 : Crear Ruta que devuelva los productos de X categoría ***
 server.get("/categoria/:nombreCat", (req, res) => {
-  Category.findOne({
+  Category.findAll({
     where: { nombre: req.params.nombreCat },
     include: { model: Product },
   })
@@ -150,7 +152,6 @@ server.get("/categoria/:nombreCat", (req, res) => {
 });
 
 //  *** S20 : Crear ruta para Modificar Categoría ***
-
 server.put("/category/:id", (req, res) => {
   const id = req.params.id;
   const { nombre, descripcion } = req.body;
@@ -170,9 +171,8 @@ server.put("/category/:id", (req, res) => {
     });
 });
 
-//  *** S17 : Crear ruta para agregar o sacar categorías de un producto. ***
+//  *** S17 : Crear ruta para agregar. ***
 // POST /products/:idProducto/category/:idCategoria
-// server.post();
 server.post("/:idProducto/categoria/:idCategoria", (req, res) => {
   var idP = req.params.idProducto;
   var idC = req.params.idCategoria;
@@ -195,6 +195,28 @@ server.post("/:idProducto/categoria/:idCategoria", (req, res) => {
     })
     .catch((e) => {
       console.log("Error linea 187: ", e);
+    });
+});
+
+//  *** S17 : Crear ruta para agregar. ***
+// DELETE /products/:idProducto/category/:idCategoria
+server.delete("/:idProducto/categoria/:idCategoria", (req, res) => {
+  var idP = req.params.idProducto;
+  var idC = req.params.idCategoria;
+  ProductAndCategory.destroy({
+    where: {
+      productId: idP,
+      categoryId: idC,
+    },
+  })
+    .then((e) => {
+      console.log("Bien: ", e);
+      res.send("Correcto amigaso");
+    })
+    .catch((e) => {
+      console.log("Errorcito: ", e);
+      res.status(400).send("Estamos mal!");
+      errorcito = true;
     });
 });
 
