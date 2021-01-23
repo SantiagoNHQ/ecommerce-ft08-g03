@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './product.css'
 
 
 //  *** S6 : Crear Componente Producto ***

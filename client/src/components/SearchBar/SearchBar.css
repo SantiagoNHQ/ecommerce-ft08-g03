@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+    padding: 0%
+}
+
+.div-navbar {
+    display: flex;
+    align-items: flex-start;
+    background-color: black
+}
+
+.links {
+    margin-right: 170px
+}
+
+.div-navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px
+}
+
+.buscador {
+    background-color: white;
+    padding: 0px;
+}
