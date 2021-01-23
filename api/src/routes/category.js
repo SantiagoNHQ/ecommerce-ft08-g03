@@ -37,8 +37,8 @@ server.delete("/delete", (req, res, next) => {
 //  *** Este modelo devuelve todas las categorias creadas ***
 server.get("/", (req, res, next) => {
   Category.findAll()
-    .then((products) => {
-      res.send(products);
+    .then((category) => {
+      res.send(category);
     })
     .catch(next);
 });
