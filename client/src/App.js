@@ -5,17 +5,12 @@ import "./App.css";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
 // import FormProduct from "./components/FormProduct/FormProduct.jsx";
 // import FormCategory from "./components/FormCategory/FormCategory";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 
 function App() {
   return (
     <div>
       <header>
-        <nav>
-          <Link to="/products">Catalogo</Link>
-          <Link to="/formProduct">Añadir Producto</Link>
-          <Link to="/formCategory">Añadir Categoria</Link>
-        </nav>
         <section className="textos-header">
           <h1>Winergy</h1>
           <h2>Vinos Nacionales e Internacionales</h2>
