@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 //  *** S7 : Crear Componente Search Bar ***
 export default function SearchBar(props) {
@@ -28,6 +29,12 @@ export default function SearchBar(props) {
     }
     return (
         <div>
+         <nav>
+         <Link to="/">Inicio</Link>
+          <Link to="/products">Catalogo</Link>
+          <Link to="/formProduct">Añadir Producto</Link>
+          <Link to="/formCategory">Añadir Categoria</Link>
+        </nav>
             <input onKeyPress={ submitEnter } onChange={ buscador }/>
             <button onClick={ submit } > Buscar!! </button>
         </div>
