@@ -1,18 +1,3 @@
-.productImg {
-  height: 150px;
-}
-
-.rutini {
-  width: 250px;
-  border: solid 5px rgb(57, 190, 184);
-  height: 300px;
-  border-radius: 8px;
-  margin: 20px;
-}
-
 .name {
-  background-color: rgb(57, 190, 184);
-  margin-top: 0px;
-  color: white;
-  padding-bottom: 6px;
+  background-color: black;
 }
