@@ -8,11 +8,13 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import ProductCards from "./components/ProductCards/ProductCards";
 import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
+import product from "./components/Product/product";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <React.Fragment>
+        <Route path="/products/:id" component={product} />
         <Route path="/" component={SearchBar} />
         <Route exact path="/" component={App} />
         <Route exact path="/products" component={ProductCards} />

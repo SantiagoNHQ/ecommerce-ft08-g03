@@ -16,7 +16,8 @@ export default function ProductCards() {
     obtenerData() */
 
     axios.get(`http://localhost:3001/product`)
-    .then(r => setCards(r.data)).catch(e => console.log("ERROR: ", e))
+    .then(r => setCards(r.data))
+    .catch(e => console.log("ERROR: ", e))
   }, [])
 
   return  (

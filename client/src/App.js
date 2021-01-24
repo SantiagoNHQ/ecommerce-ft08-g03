@@ -5,7 +5,7 @@ import "./App.css";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
 // import FormProduct from "./components/FormProduct/FormProduct.jsx";
 // import FormCategory from "./components/FormCategory/FormCategory";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function App() {
   return (
@@ -34,7 +34,6 @@ function App() {
         </div>
       </header>
       <ProductCards />
-
     </div>
   );
 }
