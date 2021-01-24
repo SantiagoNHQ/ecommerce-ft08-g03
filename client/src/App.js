@@ -6,6 +6,7 @@ import ProductCards from "./components/ProductCards/ProductCards.jsx";
 // import FormProduct from "./components/FormProduct/FormProduct.jsx";
 // import FormCategory from "./components/FormCategory/FormCategory";
 // import {Link} from "react-router-dom";
+ import axios from "axios";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           </svg>
         </div>
       </header>
-      <ProductCards />
+      <ProductCards data={axios.get(`http://localhost:3001/product`)}/>
 
     </div>
   );

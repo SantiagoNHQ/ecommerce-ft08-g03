@@ -95,7 +95,7 @@ server.get("/categoria/:nombreCat", (req, res) => {
 });
 
 //  *** S23 : Crear ruta que retorne productos según el keyword de búsqueda ***
-server.get("/:products", (req, res) => {
+server.get("/busqueda/:products", (req, res) => {
   var string = req.params.products;
   string = string.toLowerCase().trim();
   Product.findAll({
@@ -121,7 +121,7 @@ server.get("/:products", (req, res) => {
 });
 
 //  *** S24 : Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles ***
-server.get("/products/:id", (req, res) => {
+server.get("/:id", (req, res) => {
   const { id } = req.params;
   Product.findOne({
     where: {
@@ -129,7 +129,7 @@ server.get("/products/:id", (req, res) => {
     },
     include: {
       model: Category,
-    },
+    }
   })
     .then((response) => {
       console.log("Response: ", response);
