@@ -1,14 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {Card, Container, Row, Col} from 'react-bootstrap'
 
 
 //  *** S6 : Crear Componente Producto ***
 
 export default function Product(props) {
+    const [product, setProduct] = useState(null)
+    var id2 = props.match.params.id
+
+    useEffect((id = id2) => {
+        axios.get("http://localhost:3001/product/"+id).then(r => {
+        setProduct(r.data)
+        console.log("Respondió: ", r.data)
+        }).catch(e => console.log("Error: ", e))
+      }, [id2])
+
     return (
         <div>
-            <h3 className='name'>{props.nombre}</h3>
-            <p>{props.precio}</p>
-            <img className='productImg' src={props.img} alt="img" />
+            {product && <div>
+                <h3 className='name'>{props.nombre}</h3>
+                <p>{props.precio}</p>
+                <img className='productImg' src={props.img} alt="img" />
+                {/*ACA ESTABA JUGANDO CON BOOTSTRAP*/}
+                <Card style={{width: "100%", height: "400px"}}>
+                    <Container fluid>
+                        <Row className="justify-content-center" style={{backgroundColor: "green"}}>
+                        <Col variant="warning" className="justify-content-center">test</Col>
+                        </Row>
+                    </Container>
+                </Card>
+            </div>}
+
+            {!product && <div>
+                <h3>CARGANDO...</h3>
+            </div>}
         </div>
     )
 }
