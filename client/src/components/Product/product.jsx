@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-import React, {useState, useEffect} from "react";
-import axios from 'axios';
-=======
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {Card, Container, Row, Col} from 'react-bootstrap'
 
->>>>>>> 02f9c41fffbb314b556a57f444b71dece0af441e
 
 //  *** S6 : Crear Componente Producto ***
 // El Componente Producto es un componente presentacional y debe 
@@ -15,31 +10,6 @@ import {Card, Container, Row, Col} from 'react-bootstrap'
 // const Product = ({ titulo, descripcion, precio, cantidad}) => { }
 
 export default function Product(props) {
-<<<<<<< HEAD
-
-    // https://stackoverflow.com/questions/44318631/how-get-the-value-of-match-params-id-on-react-router#:~:text=Just%20create%20constructor%20i.e%20constructor,hope%20it%20solves%20your%20problem.
-    let prodId = parseInt(props.match.params.id);
-
-    const [prod, setProd] = useState([])
-
-    useEffect(() => {
-        axios.get(`http://localhost:3001/products/${prodId}`)
-            .then(res => {
-                console.log(res.data)
-                setProd([res.data])
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    },)
-
-
-    return (
-        <div>
-            <h3 className='name'>{prod.nombre}</h3>
-            <p>{prod.precio}</p>
-            <img  src={props.img} alt="img" />
-=======
     const [product, setProduct] = useState(null)
     var id2 = props.match.params.id
 
@@ -69,7 +39,6 @@ export default function Product(props) {
             {!product && <div>
                 <h3>CARGANDO...</h3>
             </div>}
->>>>>>> 02f9c41fffbb314b556a57f444b71dece0af441e
         </div>
     )
 }

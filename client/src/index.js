@@ -8,28 +8,30 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import ProductCards from "./components/ProductCards/ProductCards";
 import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
-<<<<<<< HEAD
-import product from "./components/Product/product";
-=======
 import Product from "./components/Product/product";
-import axios from 'axios'
+import axios from "axios";
 //import 'bootstrap/dist/css/bootstrap.min.css';
->>>>>>> 02f9c41fffbb314b556a57f444b71dece0af441e
 
 ReactDOM.render(
   <React.StrictMode>
     <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-    crossOrigin="anonymous"
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossOrigin="anonymous"
     />
     <BrowserRouter>
       <React.Fragment>
-        <Route path="/products/:id" component={product} />
+        <Route path="/products/:id" component={Product} />
         <Route path="/" component={SearchBar} />
         <Route exact path="/" component={App} />
-        <Route exact path="/products" component={() => <ProductCards data={axios.get(`http://localhost:3001/product`)}/>} />
+        <Route
+          exact
+          path="/products"
+          component={() => (
+            <ProductCards data={axios.get(`http://localhost:3001/product`)} />
+          )}
+        />
         <Route exact path="/formProduct" component={FormProduct} />
         <Route exact path="/formCategory" component={FormCategory} />
         <Route path="/product/:id" component={Product} />

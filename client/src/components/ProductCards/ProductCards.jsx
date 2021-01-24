@@ -21,14 +21,8 @@ export default function ProductCards(props) {
     obtenerData() /
 
     axios.get(`http://localhost:3001/product`)
-<<<<<<< HEAD
-    .then(r => setCards(r.data))
-    .catch(e => console.log("ERROR: ", e))
-  }, [])
-=======
     .then(r => setCards(r.data)).catch(e => console.log("ERROR: ", e))
   }, []) */
->>>>>>> 02f9c41fffbb314b556a57f444b71dece0af441e
 
   return  (
     <div>

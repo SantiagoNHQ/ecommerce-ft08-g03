@@ -5,12 +5,8 @@ import "./App.css";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
 // import FormProduct from "./components/FormProduct/FormProduct.jsx";
 // import FormCategory from "./components/FormCategory/FormCategory";
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-=======
 // import {Link} from "react-router-dom";
- import axios from "axios";
->>>>>>> 02f9c41fffbb314b556a57f444b71dece0af441e
+import axios from "axios";
 
 function App() {
   return (
@@ -33,12 +29,7 @@ function App() {
           </svg>
         </div>
       </header>
-<<<<<<< HEAD
-      <ProductCards />
-=======
-      <ProductCards data={axios.get(`http://localhost:3001/product`)}/>
-
->>>>>>> 02f9c41fffbb314b556a57f444b71dece0af441e
+      <ProductCards data={axios.get(`http://localhost:3001/product`)} />
     </div>
   );
 }
