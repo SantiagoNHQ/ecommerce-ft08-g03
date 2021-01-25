@@ -53,17 +53,18 @@ export default function FormProduct(props) {
 
 
     return (
-        <div>
-            
-            <form onSubmit={ submit }>
+
+        <div clasName = 'formularios'>
+            <form className = 'agregarProducto' onSubmit={ submit }>
+                <h3>Agregar Producto</h3>
                 <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>
                 <input key="tipo" type="text" onChange={cambios} placeholder="tipo" name="tipo"/>
-                <input key="edad" type="number" onChange={cambios} placeholder="edad" style={{width: 30}} name="edad"/> 
+                <input key="edad" type="number" onChange={cambios} placeholder="edad" style={{width: 60}} name="edad"/> 
                 <input key="elaboracion" type="number" onChange={cambios} placeholder="elaboracion" name="elaboracion"/>
                 <input key="stock" type="number" onChange={cambios} placeholder="stock" name="stock"/>
-                <input key="precio" type="number" onChange={cambios} placeholder="precio" style={{width: 30}} name="precio"/> 
-                <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 30}} name="origen"/> 
-                <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 30}} name="descripcion"/> 
+                <input key="precio" type="number" onChange={cambios} placeholder="precio" style={{width: 60}} name="precio"/> 
+                <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 60}} name="origen"/> 
+                <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 60}} name="descripcion"/> 
 
                 {state.categoria && state.categoria.map((pos) => <label title={pos.descripcion}><input 
                 onChange={e => checkBox(e)}
@@ -71,6 +72,7 @@ export default function FormProduct(props) {
 
                 <input type="submit" key="boton" />
             </form>
+
 
         </div>
     )

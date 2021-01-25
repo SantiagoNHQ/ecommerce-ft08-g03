@@ -26,7 +26,7 @@ export default function Product(props) {
                 <h3 className='name'>{product.nombre}</h3>
                 <p>{product.precio}</p>
                 <img className='productImg' src={product.img} alt="img" />
-                {/*ACA ESTABA JUGANDO CON BOOTSTRAP*/}
+
                 <Card style={{width: "100%", height: "400px"}}>
                     <Container fluid>
                         <Row className="justify-content-center" style={{backgroundColor: "green"}}>
