@@ -129,7 +129,7 @@ server.get("/:id", (req, res) => {
     },
     include: {
       model: Category,
-    }
+    },
   })
     .then((response) => {
       console.log("Response: ", response);
@@ -152,6 +152,7 @@ server.post("/", (req, res, next) => {
     descripcion,
     precio,
     stock,
+    img,
   } = req.body;
   console.log("servidorrrrrr", req.body);
   Product.create({
@@ -163,6 +164,7 @@ server.post("/", (req, res, next) => {
     descripcion,
     precio,
     stock,
+    img,
   })
     .then((data) => {
       res.status(200).send(data);
@@ -192,7 +194,17 @@ server.put("/", (req, res, next) => {
   })
     .then((response) => {
       Product.update(
-        { nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen },
+        {
+          nombre,
+          descripcion,
+          stock,
+          precio,
+          tipo,
+          edad,
+          elaboracion,
+          origen,
+          img,
+        },
         {
           where: {
             id,
