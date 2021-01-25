@@ -28,15 +28,17 @@ export default function SearchBar(props) {
         })
     }
     return (
-        <div>
-         <nav>
-         <Link to="/">Inicio</Link>
-          <Link to="/products">Catalogo</Link>
-          <Link to="/formProduct">Añadir Producto</Link>
-          <Link to="/formCategory">Añadir Categoria</Link>
-        </nav>
-            <input onKeyPress={ submitEnter } onChange={ buscador }/>
-            <button onClick={ submit } > Buscar!! </button>
+        <div className='div-navbar'>
+            <nav className='links'>
+            <Link to="/">Inicio</Link>
+            <Link to="/products">Catalogo</Link>
+            <Link to="/formProduct">Añadir Producto</Link>
+            <Link to="/formCategory">Añadir Categoria</Link>
+            </nav>
+            <div className='buscador'>
+            <input className='input' onKeyPress={ submitEnter } onChange={ buscador }/>
+            <button className='boton' onClick={ submit }></button>
+            </div>
         </div>
     )
 }
