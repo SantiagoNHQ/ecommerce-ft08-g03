@@ -32,7 +32,7 @@ export default function ProductCards(props) {
             return false
           })
           console.log("R filtrado por categoria: ", r)
-          setCards(r) // Listo vieja!! Ya filtra a la perfección :D
+          setCards(r)
         }).catch(err => console.log("Axios err: ", err))
         
       }
