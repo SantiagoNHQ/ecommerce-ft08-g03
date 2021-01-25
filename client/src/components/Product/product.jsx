@@ -23,9 +23,9 @@ export default function Product(props) {
     return (
         <div>
             {product && <div>
-                <h3 className='name'>{props.nombre}</h3>
-                <p>{props.precio}</p>
-                <img className='productImg' src={props.img} alt="img" />
+                <h3 className='name'>{product.nombre}</h3>
+                <p>{product.precio}</p>
+                <img className='productImg' src={product.img} alt="img" />
                 {/*ACA ESTABA JUGANDO CON BOOTSTRAP*/}
                 <Card style={{width: "100%", height: "400px"}}>
                     <Container fluid>
