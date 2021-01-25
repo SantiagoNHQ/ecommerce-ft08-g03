@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function FormProduct(props) {
  
-    const [state, setState] = useState({})
+    const [state, setState] = useState({arrayCheckBox: [], formulario: {categories: []}})
     useEffect(() => {
         function category () {
         axios.get("http://localhost:3001/category/")
@@ -17,23 +17,22 @@ export default function FormProduct(props) {
             
         category()
     }, [])
-//     useEffect(() => {
-//     const fetchBusinesses = () => {
-//        return fetch("theURL", {method: "GET"}
-//     )
-//       .then(res => normalizeResponseErrors(res))
-//       .then(res => {
-//         return res.json();
-//       })
-//       .then(rcvdBusinesses => {
-//         // some stuff
-//       })
-//       .catch(err => {
-//         // some error handling
-//       });
-//   };
-//   fetchBusinesses();
-// }, []);
+    
+// Ahora armense de paciencia hasta que me abra el server de nuevo :V
+// Estan todos?? Ah bueno jajaja, no aguantaron la toma
+    // CHECKBOX
+    function checkBox(e) {
+        console.log("Checkbox name: ", e.target.checked)
+        console.log("Texto: ", e.target.name) // AHORA SI!
+        //console.log("Texto: ", e.target.innerText)
+        if (e.target.checked) {
+            setState({...state, arrayCheckBox: [...state.arrayCheckBox, e.target.name] , formulario: {...state.formulario, categories: [...state.arrayCheckBox, e.target.name]}})
+        } else {
+            //arrayCheckBox = arrayCheckBox.filter(v => v == e.target.name)
+            setState({...state, arrayCheckBox: state.arrayCheckBox.filter(v => !(v === e.target.name)), formulario: {...state.formulario, categories: state.arrayCheckBox.filter(v => !(v === e.target.name))}})
+        }
+    }
+
     // AGREGAR
    function submit(e) {
         console.log()
@@ -128,7 +127,9 @@ export default function FormProduct(props) {
                 <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 30}} name="origen"/> 
                 <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 30}} name="descripcion"/> 
 
-                {state.categoria && state.categoria.map((pos) => <label title={pos.descripcion}><input title={pos.descripcion} type="checkbox"></input>{pos.nombre}</label>)}
+                {state.categoria && state.categoria.map((pos) => <label title={pos.descripcion}><input 
+                onChange={e => checkBox(e)}
+                title={pos.descripcion} name={pos.nombre} type="checkbox"></input>{pos.nombre}</label>)}
 
                 <input type="submit" key="boton" />
             </form>

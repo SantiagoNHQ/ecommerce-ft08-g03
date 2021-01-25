@@ -25,13 +25,7 @@ ReactDOM.render(
         <Route path="/products/:id" component={Product} />
         <Route path="/" component={SearchBar} />
         <Route exact path="/" component={App} />
-        <Route
-          exact
-          path="/products"
-          component={() => (
-            <ProductCards data={axios.get(`http://localhost:3001/product`)} />
-          )}
-        />
+        <Route exact path="/products" component={() => <ProductCards /* categoria={"Vinos"} */ data={axios.get(`http://localhost:3001/product`)}/>} />
         <Route exact path="/formProduct" component={FormProduct} />
         <Route exact path="/formCategory" component={FormCategory} />
         <Route path="/product/:id" component={Product} />
