@@ -10,6 +10,7 @@ import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
 import Product from "./components/Product/product";
 import axios from "axios";
+import EditarProducto from "./components/EditarProduct/EditarProduct";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
@@ -39,6 +40,8 @@ ReactDOM.render(
         <Route exact path="/formProduct" component={FormProduct} />
         <Route exact path="/formCategory" component={FormCategory} />
         <Route path="/product/:id" component={Product} />
+        <Route path="/product/editar" component={EditarProducto} />
+        <Route path="/products/editar" component={EditarProducto} />
       </React.Fragment>
     </BrowserRouter>
   </React.StrictMode>,
