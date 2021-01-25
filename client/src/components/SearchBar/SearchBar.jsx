@@ -28,8 +28,8 @@ export default function SearchBar(props) {
         })
     }
     return (
-        <div clasName = 'div-nbavbar'>
-         <nav className = 'links'>
+        <div>
+         <nav>
          <Link to="/">Inicio</Link>
           <Link to="/products">Catalogo</Link>
           <Link to="/formProduct">Añadir Producto</Link>

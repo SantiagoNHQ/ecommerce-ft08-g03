@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function FormProduct(props) {
  
-    const [state, setState] = useState({})
+    const [state, setState] = useState({arrayCheckBox: [], formulario: {categories: []}})
     useEffect(() => {
         function category () {
         axios.get("http://localhost:3001/category/")
@@ -17,23 +17,22 @@ export default function FormProduct(props) {
             
         category()
     }, [])
-//     useEffect(() => {
-//     const fetchBusinesses = () => {
-//        return fetch("theURL", {method: "GET"}
-//     )
-//       .then(res => normalizeResponseErrors(res))
-//       .then(res => {
-//         return res.json();
-//       })
-//       .then(rcvdBusinesses => {
-//         // some stuff
-//       })
-//       .catch(err => {
-//         // some error handling
-//       });
-//   };
-//   fetchBusinesses();
-// }, []);
+    
+// Ahora armense de paciencia hasta que me abra el server de nuevo :V
+// Estan todos?? Ah bueno jajaja, no aguantaron la toma
+    // CHECKBOX
+    function checkBox(e) {
+        console.log("Checkbox name: ", e.target.checked)
+        console.log("Texto: ", e.target.name) // AHORA SI!
+        //console.log("Texto: ", e.target.innerText)
+        if (e.target.checked) {
+            setState({...state, arrayCheckBox: [...state.arrayCheckBox, e.target.name] , formulario: {...state.formulario, categories: [...state.arrayCheckBox, e.target.name]}})
+        } else {
+            //arrayCheckBox = arrayCheckBox.filter(v => v == e.target.name)
+            setState({...state, arrayCheckBox: state.arrayCheckBox.filter(v => !(v === e.target.name)), formulario: {...state.formulario, categories: state.arrayCheckBox.filter(v => !(v === e.target.name))}})
+        }
+    }
+
     // AGREGAR
    function submit(e) {
         console.log()
@@ -117,22 +116,26 @@ export default function FormProduct(props) {
 
 
     return (
-        <div className ='formularios'>
+        <div clasName = 'formularios'>
             <form className = 'agregarProducto' onSubmit={ submit }>
                 <h3>Agregar Producto</h3>
                 <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>
                 <input key="tipo" type="text" onChange={cambios} placeholder="tipo" name="tipo"/>
-                <input key="edad" type="number" onChange={cambios} placeholder="edad" style={{width: 30}} name="edad"/> 
+                <input key="edad" type="number" onChange={cambios} placeholder="edad" style={{width: 60}} name="edad"/> 
                 <input key="elaboracion" type="number" onChange={cambios} placeholder="elaboracion" name="elaboracion"/>
                 <input key="stock" type="number" onChange={cambios} placeholder="stock" name="stock"/>
-                <input key="precio" type="number" onChange={cambios} placeholder="precio" style={{width: 30}} name="precio"/> 
-                <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 30}} name="origen"/> 
-                <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 30}} name="descripcion"/> 
+                <input key="precio" type="number" onChange={cambios} placeholder="precio" style={{width: 60}} name="precio"/> 
+                <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 60}} name="origen"/> 
+                <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 60}} name="descripcion"/> 
 
-                {state.categoria && state.categoria.map((pos) => <label title={pos.descripcion}><input title={pos.descripcion} type="checkbox"></input>{pos.nombre}</label>)}
+                {state.categoria && state.categoria.map((pos) => <label title={pos.descripcion}><input 
+                onChange={e => checkBox(e)}
+                title={pos.descripcion} name={pos.nombre} type="checkbox"></input>{pos.nombre}</label>)}
 
                 <input type="submit" key="boton" />
             </form>
+
+            
 
             <form  className = 'eliminarProducto' onSubmit={ submitEliminar }>
                 <h3>Eliminar</h3>
@@ -147,9 +150,10 @@ export default function FormProduct(props) {
                 <input type="submit" key="boton" />
             </form>
 
-            <h3>Editar</h3>
+            
             {state.foundProduct && 
             <form className = 'editarProducto' onSubmit={ submitEditar }>
+                <h3>Editar</h3>
                 <input key="nombre" type="text" onChange={CambiosEditar} value={state.editProduct.nombre} placeholder="nombre" name="nombre"/>
                 <input key="tipo" type="text" onChange={CambiosEditar} value={state.editProduct.tipo} placeholder="tipo" name="tipo"/>
                 <input key="edad" type="number" onChange={CambiosEditar} value={state.editProduct.edad} placeholder="edad" style={{width: 30}} name="edad"/> 
