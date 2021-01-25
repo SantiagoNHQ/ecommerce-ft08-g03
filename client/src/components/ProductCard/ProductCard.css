@@ -53,8 +53,8 @@
 .div-boton {
   display: flex;
   align-items: flex-end;
-  margin-left: 6px;
-  margin-top: 58px;
+  margin-left: 3px;
+  /* background-color: black; */
 }
 
 /* IMAGEN */
@@ -64,6 +64,7 @@
   flex-direction: column;
   align-items: center;
   background-color: rgba(158, 22, 22, 0.733);
+  height: 280px;
 }
 
 .card img {
@@ -84,12 +85,35 @@
 .div-img-dada {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: rgba(158, 22, 22, 0.733);
-  width: 100%;
-  height: 450px;
+  width: 200%;
+  height: 600px;
 }
 
 .div-img-dada img {
   border-radius: 15px;
+  margin-left: 150px;
+}
+
+.div-texto-dada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 200px;
+  color: white;
+  font-family: "Noto Serif", serif;
+}
+
+.div-texto-dada p {
+  margin-bottom: 80px;
+  font-size: 2em;
+  font-family: "Lobster", cursive;
+}
+
+.div-texto-dada h1 {
+  margin-bottom: 80px;
+  font-size: 4em;
+  font-family: "Lobster", cursive;
 }

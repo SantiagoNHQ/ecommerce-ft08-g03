@@ -11,11 +11,11 @@ export default function ProductCard (props) {
             <img src={props.img}></img>
             </div>
             <p>{props.descripcion}</p> 
-            <h5>{props.stock}</h5> 
-            <h4>{props.precio}</h4> 
             <div className='div-boton'>
             <button className='boton-editar'></button>
             </div>
+            <h5>{props.stock}</h5> 
+            <h4>{props.precio}</h4> 
         </div>
     )
 }
