@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-
+import './EditarProduct.css'
 
 export default function EditarProducto(props) {
  
@@ -50,7 +50,7 @@ export default function EditarProducto(props) {
 
 
     return (
-        <div>
+        <div className = 'editarProducto'>
             { cards.productos && cards.productos.map(p => 
                 <div key={p.id} > 
                     <h5>NOMBRE</h5>
