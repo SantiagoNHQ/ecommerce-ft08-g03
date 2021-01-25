@@ -73,7 +73,9 @@ server.put("/category/:id", (req, res) => {
 
 //  *** S21 : Crear ruta que devuelva todos los productos ***
 server.get("/", (req, res, next) => {
-  Product.findAll()
+  Product.findAll({
+    include: Category
+  })
     .then((products) => {
       res.send(products);
     })
@@ -143,6 +145,9 @@ server.get("/:id", (req, res) => {
 
 //  *** S25 : Crear ruta para crear/agregar Producto ***
 server.post("/", (req, res, next) => {
+  // Ahora tengo las categorias aca!
+  // categories. ahora debo hacer el addCategory aca!
+
   const {
     tipo,
     edad,
@@ -152,8 +157,10 @@ server.post("/", (req, res, next) => {
     descripcion,
     precio,
     stock,
+    img,
+    categories
   } = req.body;
-  console.log("servidorrrrrr", req.body);
+  console.log("Las categorias que llegan: ", categories);
   Product.create({
     tipo,
     edad,
@@ -163,8 +170,21 @@ server.post("/", (req, res, next) => {
     descripcion,
     precio,
     stock,
+    img
   })
     .then((data) => {
+      // Pero primero debo saber los ids de las categorias...
+      // data.addCategory(idCategoria)
+      Category.findAll()
+        .then((category) => {
+          let categoriasAgregadas = category.filter(v => categories.includes(v.dataValues.nombre))
+          categoriasAgregadas.forEach(v => {
+            console.log("Agrego la categoría NOMBRE: " + v.dataValues.nombre +  "ID: " + v.dataValues.id)
+            data.addCategory(v.dataValues.id)
+          })
+        })
+        .catch("");
+
       res.status(200).send(data);
     })
     .catch((err) => {
