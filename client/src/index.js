@@ -40,7 +40,6 @@ ReactDOM.render(
         <Route exact path="/formProduct" component={FormProduct} />
         <Route exact path="/formCategory" component={FormCategory} />
         <Route path="/product/:id" component={Product} />
-        <Route path="/product/editar" component={EditarProducto} />
         <Route path="/products/editar" component={EditarProducto} />
       </React.Fragment>
     </BrowserRouter>
