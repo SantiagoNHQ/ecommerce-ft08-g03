@@ -20,18 +20,19 @@ body {
 
 .links {
   margin-right: 170px;
+  font-family: "Noto Serif", serif;
 }
 
 .div-navbar a {
+  font-size: 1em;
   color: white;
   text-decoration: none;
-  margin-right: 30px;
+  margin-right: 35px;
 }
 
 .div-navbar a:hover {
-  color: rgba(255, 255, 255, 0.767);
+  color: rgba(255, 255, 255, 0.63);
   text-decoration: none;
-  margin-right: 30px;
 }
 
 .boton {

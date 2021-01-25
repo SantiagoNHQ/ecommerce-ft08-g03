@@ -146,7 +146,7 @@ export default function FormProduct(props) {
                 <input type="submit" key="boton" />
             </form>
 
-            <h3>Editar</h3>
+            {/* <h3>Editar</h3>
             {state.foundProduct && 
             <form onSubmit={ submitEditar }>
                 <input key="nombre" type="text" onChange={CambiosEditar} value={state.editProduct.nombre} placeholder="nombre" name="nombre"/>
@@ -158,7 +158,7 @@ export default function FormProduct(props) {
                 <input key="origen" type="text" onChange={CambiosEditar} value={state.editProduct.origen} placeholder="origen" style={{width: 30}} name="origen"/> 
                 <input key="descripcion" type="text" onChange={CambiosEditar} value={state.editProduct.descripcion} placeholder="descripcion" style={{width: 30}} name="descripcion"/> 
                 <input type="submit" key="boton" />
-            </form>}
+            </form>} */}
         </div>
     )
 }

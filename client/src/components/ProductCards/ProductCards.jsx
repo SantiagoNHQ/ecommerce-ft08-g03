@@ -42,10 +42,15 @@ export default function ProductCards(props) {
   }, [props.data, props.categoria])
 
   return  (
-    <div>
+    <div className='div-producto'>
         { cards && cards.map(p => 
           <ProductCard key ={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
-        )}
+          )}
+          <div className='nuevo-div'>
+            <div className='div-img-dada'>
+              <img src="https://lh3.googleusercontent.com/proxy/9RQZK6buVg98yHwVq2eDf82bjjzcziVP4im3F-CJAfHdYeWuI1r_Gjo1-fxI_NqXL81lZqt-WbFsvxuJ3ch9pXvi2Ru4GEJv5yo" />
+            </div>
+          </div>
     </div>
   )
 }
