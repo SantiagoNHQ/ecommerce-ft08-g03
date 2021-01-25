@@ -19,7 +19,6 @@ export default function FormProduct(props) {
     }, [])
     
 // Ahora armense de paciencia hasta que me abra el server de nuevo :V
-// Estan todos?? Ah bueno jajaja, no aguantaron la toma
     // CHECKBOX
     function checkBox(e) {
         console.log("Checkbox name: ", e.target.checked)
