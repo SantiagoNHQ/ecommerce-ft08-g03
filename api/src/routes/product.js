@@ -95,7 +95,7 @@ server.get("/categoria/:nombreCat", (req, res) => {
 });
 
 //  *** S23 : Crear ruta que retorne productos según el keyword de búsqueda ***
-server.get("/:products", (req, res) => {
+server.get("/busqueda/:products", (req, res) => {
   var string = req.params.products;
   string = string.toLowerCase().trim();
   Product.findAll({
@@ -121,7 +121,7 @@ server.get("/:products", (req, res) => {
 });
 
 //  *** S24 : Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles ***
-server.get("/products/:id", (req, res) => {
+server.get("/:id", (req, res) => {
   const { id } = req.params;
   Product.findOne({
     where: {
@@ -143,26 +143,10 @@ server.get("/products/:id", (req, res) => {
 
 //  *** S25 : Crear ruta para crear/agregar Producto ***
 server.post("/", (req, res, next) => {
-  const {
-    tipo,
-    edad,
-    nombre,
-    origen,
-    elaboracion,
-    descripcion,
-    precio,
-    stock,
+  const { tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
   } = req.body;
   console.log("servidorrrrrr", req.body);
-  Product.create({
-    tipo,
-    edad,
-    nombre,
-    origen,
-    elaboracion,
-    descripcion,
-    precio,
-    stock,
+  Product.create({ tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
   })
     .then((data) => {
       res.status(200).send(data);
@@ -175,16 +159,7 @@ server.post("/", (req, res, next) => {
 
 //  *** S26 : Crear ruta para Modificar Producto ***
 server.put("/", (req, res, next) => {
-  const {
-    id,
-    nombre,
-    descripcion,
-    stock,
-    precio,
-    tipo,
-    edad,
-    elaboracion,
-    origen,
+  const { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen
   } = req.body;
   console.log("Editado: ", req.body);
   Product.findOne({
@@ -192,7 +167,7 @@ server.put("/", (req, res, next) => {
   })
     .then((response) => {
       Product.update(
-        { nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen },
+        { tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img },
         {
           where: {
             id,

@@ -6,6 +6,7 @@ import ProductCards from "./components/ProductCards/ProductCards.jsx";
 // import FormProduct from "./components/FormProduct/FormProduct.jsx";
 // import FormCategory from "./components/FormCategory/FormCategory";
 // import {Link} from "react-router-dom";
+import axios from "axios";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <h1>Winergy</h1>
           <h2>Vinos Nacionales e Internacionales</h2>
         </section>
-        <div style={({ height: "150px" }, { overflow: "hidden" })}>
+        {/* <div style={({ height: "150px" }, { overflow: "hidden" })}>
           <svg
             viewBox="0 0 500 150"
             preserveAspectRatio="none"
@@ -26,10 +27,9 @@ function App() {
               style={({ stroke: "none" }, { fill: "#08f" })}
             ></path>
           </svg>
-        </div>
+        </div> */}
       </header>
-      <ProductCards />
-
+      <ProductCards data={axios.get(`http://localhost:3001/product`)} />
     </div>
   );
 }

@@ -1,0 +1,26 @@
+.div-producto {
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+}
+
+.div-product {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 220px;
+  height: 280px;
+  border: 5px solid red;
+  margin: 15px;
+}
+
+.div-product h3 {
+  color: red;
+  padding: 0px;
+  margin-left: 35%;
+}
+
+.div-product p {
+  margin-left: 35%;
+  color: red;
+}
