@@ -205,6 +205,7 @@ server.put("/", (req, res, next) => {
     edad,
     elaboracion,
     origen,
+    img
   } = req.body;
   console.log("Editado: ", req.body);
   Product.findOne({

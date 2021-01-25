@@ -34,6 +34,7 @@ export default function SearchBar(props) {
             <Link to="/products">Catalogo</Link>
             <Link to="/formProduct">Añadir Producto</Link>
             <Link to="/formCategory">Añadir Categoria</Link>
+            <Link to="/products/editar">Editar Producto</Link>
             </nav>
             <div className='buscador'>
             <input className='input' onKeyPress={ submitEnter } onChange={ buscador }/>
