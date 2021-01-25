@@ -27,7 +27,7 @@ export default function ProductCards(props) {
 
           r = r.data.filter(v => {
             for (var i = 0; i < v.categories.length; i++) {
-              if (v.categories[i].id == data) return true
+              if (v.categories[i].id === data) return true
             }
             return false
           })
