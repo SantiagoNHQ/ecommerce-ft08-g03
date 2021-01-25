@@ -131,7 +131,7 @@ server.get("/:id", (req, res) => {
     },
     include: {
       model: Category,
-    }
+    },
   })
     .then((response) => {
       console.log("Response: ", response);
@@ -212,7 +212,17 @@ server.put("/", (req, res, next) => {
   })
     .then((response) => {
       Product.update(
-        { nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen },
+        {
+          nombre,
+          descripcion,
+          stock,
+          precio,
+          tipo,
+          edad,
+          elaboracion,
+          origen,
+          img,
+        },
         {
           where: {
             id,

@@ -44,7 +44,7 @@ export default function ProductCards(props) {
   return  (
     <div>
         { cards && cards.map(p => 
-          <ProductCard key ={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} />
+          <ProductCard key ={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
         )}
     </div>
   )
