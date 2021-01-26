@@ -11,6 +11,7 @@ import EditarProducto from "./components/EditarProduct/EditarProduct";
 import Home from "./components/Home/Home";
 import Admin from "./components/Admin/Admin";
 import NavAdmin from "./components/NavAdmin/NavAdmin"
+import OrdersTable from "./components/OrdersTable/OrdersTable"
 
 function App(location) {
 
@@ -23,6 +24,8 @@ function App(location) {
         <Route exact path="/" component={Home} />
         <Route path="/admin" component={NavAdmin} />
         <Route exact path="/admin" component={Admin} />
+        <Route exact path="/admin/ordenes" component={OrdersTable} />
+        <Route path="/admin/ordenes/:status" component={OrdersTable} />
         <Route
           exact
           path="/user/products"
