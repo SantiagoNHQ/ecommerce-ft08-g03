@@ -9,27 +9,32 @@ import FormCategory from "./components/FormCategory/FormCategory";
 import Product from "./components/Product/product";
 import EditarProducto from "./components/EditarProduct/EditarProduct";
 import Home from "./components/Home/Home";
+import Admin from "./components/Admin/Admin";
+import NavAdmin from "./components/NavAdmin/NavAdmin"
 
-function App() {
+function App(location) {
 
   return (
     <BrowserRouter>
       <React.Fragment>
         <Route path="/products/:id" component={Product} />
-        <Route path="/" component={SearchBar} />
+        <Route path= "/user" component={SearchBar} />
+        <Route exact path= "/" component={SearchBar} />
         <Route exact path="/" component={Home} />
+        <Route path="/admin" component={NavAdmin} />
+        <Route exact path="/admin" component={Admin} />
         <Route
           exact
-          path="/products"
+          path="/user/products"
           component={() => (
             <ProductCards
               /* categoria={"Vinos"} *//>
           )}
         />
-        <Route exact path="/formProduct" component={FormProduct} />
-        <Route exact path="/formCategory" component={FormCategory} />
-        <Route path="/product/:id" component={Product} />
-        <Route path="/products/editar" component={EditarProducto} />
+        <Route exact path="/admin/formProduct" component={FormProduct} />
+        <Route exact path="/admin/formCategory" component={FormCategory} />
+        <Route path="/user/product/:id" component={Product} />
+        <Route path="/admin/products/editar" component={EditarProducto} />
       </React.Fragment>
 
       {/* <div>
