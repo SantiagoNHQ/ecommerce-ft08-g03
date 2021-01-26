@@ -7,7 +7,7 @@ export default function ProductCard (props) {
     
     useEffect(() => {
         if(props.stock <= 0){
-                setStock ( {...stock, stock: "No disponible"})
+                setStock ( {...stock, stock: "Sin disponibilidad"})
             }
             else{
                 setStock ({...stock, stock: props.stock})
@@ -32,8 +32,8 @@ export default function ProductCard (props) {
             <div className='div-boton'>
                  <button className='boton-editar'></button>
             </div>
-            <h3> {stock.stock}</h3> 
-            <h4>{props.precio}</h4>
+            <h3>Stock: {stock.stock}</h3> 
+            <h4>$ {props.precio}</h4>
         </div>
     )
 }
