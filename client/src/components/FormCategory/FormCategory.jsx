@@ -4,7 +4,7 @@ import "./FormCategory.css";
 
 export default function FormCategory(props) {
 
-    const [state, setState] = useState({nombre:"", descripcion:""})
+    const [state, setState] = useState({/* nombre:"", descripcion:"" */})
 
     function submit(e) {
         axios.post("http://localhost:3001/category/add", state)
@@ -23,7 +23,7 @@ export default function FormCategory(props) {
     }
 
     return (
-        <div>
+        <div className = 'agregarCategoria'>
             <h1>AGREGAR CATEGORIA</h1>
             <form onSubmit={ submit }>
                 <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>

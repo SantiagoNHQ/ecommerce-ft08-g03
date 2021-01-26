@@ -148,29 +148,10 @@ server.post("/", (req, res, next) => {
   // Ahora tengo las categorias aca!
   // categories. ahora debo hacer el addCategory aca!
 
-  const {
-    tipo,
-    edad,
-    nombre,
-    origen,
-    elaboracion,
-    descripcion,
-    precio,
-    stock,
-    img,
-    categories
+  const { tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img, categories
   } = req.body;
   console.log("Las categorias que llegan: ", categories);
-  Product.create({
-    tipo,
-    edad,
-    nombre,
-    origen,
-    elaboracion,
-    descripcion,
-    precio,
-    stock,
-    img
+  Product.create({ tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
   })
     .then((data) => {
       // Pero primero debo saber los ids de las categorias...
@@ -195,16 +176,7 @@ server.post("/", (req, res, next) => {
 
 //  *** S26 : Crear ruta para Modificar Producto ***
 server.put("/", (req, res, next) => {
-  const {
-    id,
-    nombre,
-    descripcion,
-    stock,
-    precio,
-    tipo,
-    edad,
-    elaboracion,
-    origen,
+  const { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img
   } = req.body;
   console.log("Editado: ", req.body);
   Product.findOne({
@@ -212,17 +184,7 @@ server.put("/", (req, res, next) => {
   })
     .then((response) => {
       Product.update(
-        {
-          nombre,
-          descripcion,
-          stock,
-          precio,
-          tipo,
-          edad,
-          elaboracion,
-          origen,
-          img,
-        },
+        { nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img },
         {
           where: {
             id,
