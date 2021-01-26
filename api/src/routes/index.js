@@ -4,7 +4,6 @@ const { Router } = require("express");
 const productRouter = require("./product");
 const categoryRouter = require("./category");
 const userRouter = require("./user");
-const carritoRouter = require("./carrito");
 
 const router = Router();
 
@@ -25,6 +24,5 @@ router.use(function (req, res, next) {
 router.use("/product", productRouter);
 router.use("/category", categoryRouter);
 router.use("/user", userRouter);
-router.use("/carrito", carritoRouter);
 
 module.exports = router;
