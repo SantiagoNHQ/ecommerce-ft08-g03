@@ -52,11 +52,11 @@ server.put("/:id", (req, res) => {
 
 // S40 : Crear Ruta para vaciar el carrito
 /*  DELETE /users/:idUser/cart/ */
-server.delete('/:idUser/cart', (req, res) => {
-  const idUser = req.params.idUser;
+server.delete('/cart/:userId', (req, res) => {
+  const userId = req.params.userId;
   console.log("Carrito: ", req.body);
   Orden.destroy({
-    where: { id: idUser }
+    where: { userId }
   })
     .then((response) => {
       res.send("Carrito vacio correctamente");
@@ -69,18 +69,13 @@ server.delete('/:idUser/cart', (req, res) => {
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put('/:idUser/cart'), (req, res) => {
-  const idUser = req.params.idUser;
+server.put('/cart/:userId'), (req, res) => {
+  const userId = req.params.userId;
   const { cantidad } = req.body;
-  Orden.findOne({
-    where: {id: idUser}
-  })
-  .then(response => {
-    Orden.update(
-      { cantidad: cantidad },
-      { where: {idUser} }
-    );
-  })
+    Ordenline.update(
+    { cantidad: cantidad },
+    { where: {userId} }
+    )
   .then(r => {
     res.sed("Cantidad modificada correctamente")
   })
@@ -92,11 +87,11 @@ server.put('/:idUser/cart'), (req, res) => {
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
 /*  GET /users/:idUser/cart */
-server.get('/:idUser/cart', (req, res) => {
-  const idUser = req.params.idUser;
-  Orden.findAll({
-    where: { id: idUser},
-    includ: { model: carrito }
+server.get('/cart/:ordenId', (req, res) => {
+  const ordenId = req.params.ordenId;
+  Ordenline.findAll({
+    where: { ordenId},
+    include: { model: Orden }
   })
   .then((response => {
     console.log("Respuesta: ", response);
@@ -106,6 +101,6 @@ server.get('/:idUser/cart', (req, res) => {
     console.log("Soy un err: ", err);
     res.status(400).send(err)
   })
-})
+});
 
 module.exports = server;
