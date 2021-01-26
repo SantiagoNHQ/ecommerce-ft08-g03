@@ -1,0 +1,33 @@
+.textos-header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 25px;
+  }
+  
+  .textos-header h1 {
+    color: white;
+  }
+  .textos-header h2 {
+    color: white;
+  }
+  
+  .textos-header span {
+    color: #c41919;
+  }
+  /* HEADER */
+  header {
+    height: 240px;
+    margin-top: -25px;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    background-image: linear-gradient(
+        to right,
+        hsla(0, 71%, 21%, 0.37),
+        hsla(0, 1%, 61%, 0.335)
+      ),
+      url("https://www.sabordegrecia.com/wp-content/uploads/2018/10/Uvas-Grecia.jpg");
+  }
+  

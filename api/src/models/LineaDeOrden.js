@@ -6,15 +6,18 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("orden", {
-    /* lineaDeOrden: {
+  sequelize.define("lineadeorden", {
+    productId: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }, */
-    estado: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "carrito" // (carrito, creada, procesando, cancelada, completa)
-    }
+    },
+    cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    precio: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    } // Precio total = precio * cantidad
   })
 };

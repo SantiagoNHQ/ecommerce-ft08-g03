@@ -9,12 +9,14 @@ export default function ProductCards(props) {
   const [cards , setCards] = useState([])
   console.log("TEST: ", props)
 
-  useEffect((promesita = props.data, categoria = props.categoria) => {
+  useEffect((categoria = props.categoria) => {
 
     /* axios.get(`http://localhost:3001/product`)
     .then(r => setCards(r.data)).catch(e => console.log("ERROR: ", e)) */
 
-    promesita.then(r => {
+    axios.get(
+      `http://localhost:3001/product`
+    ).then(r => {
       // Iterar sobre r y filtrar por categoría
 
       if (categoria) {
@@ -39,7 +41,7 @@ export default function ProductCards(props) {
 
       setCards(r.data)
     }).catch(e => console.log("NO RESOLVIÓ: ", e))
-  }, [props.data, props.categoria])
+  }, [props.categoria])
 
   return  (
     <div className='div-producto'>
@@ -48,7 +50,7 @@ export default function ProductCards(props) {
           )}
           <div className='nuevo-div'>
             <div className='div-img-dada'>
-              <img src="https://lh3.googleusercontent.com/proxy/gF8o3j-XeAZlEaPfJbi1K979kn24ztdCnzlygnS6KCrmj4iE5vLR8C7k5iDQGumCWx8J2wAoTfqx9I0Cui_-1743ZcQeoAJjDJ0" />
+              <img alt="What is this?" src="https://infonegocios.com.py/uploads/dada-fincalasmoras1.jpg" />
               <div className='div-texto-dada'>
               <h1>Linea Dada</h1>
               <p>Consegui todos los Dada aqui</p>
