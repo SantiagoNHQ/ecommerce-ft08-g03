@@ -50,6 +50,7 @@ Orderline.belongsTo(Orden); // Orderline = productId, cantidad, precio, userId
 Product.hasOne(Orderline) */
 Orden.belongsToMany(Product, { through: Orderline }); // Estos dos
 Orden.belongsTo(User); // Es lo mismo que los 4 comentarios de arriba
+Orderline.belongsTo(User)
 
 /*
 *** TICKET *** = ORDEN

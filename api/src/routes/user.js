@@ -103,6 +103,7 @@ server.get('/cart/:ordenId', (req, res) => {
   })
 });
 
+// S44 : Crear ruta que retorne todas las ordenes
 server.get('/orders', (req, res) => {
   Orden.findAll({})
   .then((response => {
@@ -115,10 +116,47 @@ server.get('/orders', (req, res) => {
   })
 });
 
+// S44: Esta ruta puede recibir el query string status y deberá devolver sólo las ordenes con ese status.
 server.get('/orders/:status', (req, res) => {
   const estado = req.params.status
   Orden.findAll({
     where: {estado}
+  })
+  .then((response => {
+    console.log("Respuesta: ", response);
+    res.status(200).json(response)
+  }))
+  .catch(err => {
+    console.log("Soy un err: ", err);
+    res.status(400).send(err)
+  })
+});
+
+// S46 : Crear Ruta que retorne una orden en particular.
+server.get('/order/:id', (req, res) => {
+  const id = req.params.id
+  Orden.findAll({
+    where: {
+      id
+    }
+  })
+  .then((response => {
+    console.log("Respuesta: ", response);
+    res.status(200).json(response)
+  }))
+  .catch(err => {
+    console.log("Soy un err: ", err);
+    res.status(400).send(err)
+  })
+});
+
+// S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
+server.get('/:id/orders', (req, res) => {
+  const id = req.params.id
+  Orderlist.findAll({
+    where: {
+      userId: id
+    }
   })
   .then((response => {
     console.log("Respuesta: ", response);
