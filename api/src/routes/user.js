@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Product, Category, ProductAndCategory, User } = require("../db");
+const { Product, Category, ProductAndCategory, User, Orden, Orderline } = require("../db");
 const Sequelize = require("sequelize");
 const { Model } = require("sequelize");
 
@@ -72,7 +72,7 @@ server.delete('/cart/:userId', (req, res) => {
 server.put('/cart/:userId'), (req, res) => {
   const userId = req.params.userId;
   const { cantidad } = req.body;
-    Ordenline.update(
+    Orderline.update(
     { cantidad: cantidad },
     { where: {userId} }
     )
@@ -89,13 +89,40 @@ server.put('/cart/:userId'), (req, res) => {
 /*  GET /users/:idUser/cart */
 server.get('/cart/:ordenId', (req, res) => {
   const ordenId = req.params.ordenId;
-  Ordenline.findAll({
-    where: { ordenId},
+  Orderline.findAll({
+    where: { ordenId },
     include: { model: Orden }
   })
   .then((response => {
     console.log("Respuesta: ", response);
     res.json(response)
+  }))
+  .catch(err => {
+    console.log("Soy un err: ", err);
+    res.status(400).send(err)
+  })
+});
+
+server.get('/orders', (req, res) => {
+  Orden.findAll({})
+  .then((response => {
+    console.log("Respuesta: ", response);
+    res.status(200).json(response)
+  }))
+  .catch(err => {
+    console.log("Soy un err: ", err);
+    res.status(400).send(err)
+  })
+});
+
+server.get('/orders/:status', (req, res) => {
+  const estado = req.params.status
+  Orden.findAll({
+    where: {estado}
+  })
+  .then((response => {
+    console.log("Respuesta: ", response);
+    res.status(200).json(response)
   }))
   .catch(err => {
     console.log("Soy un err: ", err);

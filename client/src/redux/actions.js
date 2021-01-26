@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, CATEGORIES_LOAD, PRODUCTS_LOAD } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD } from './constants';
 
 export const formChange = (form) => {
     return {
@@ -25,5 +25,12 @@ export const productsLoad = (products) => {
     return {
         type: PRODUCTS_LOAD,
         products
+    }
+}
+
+export const ordersLoad = (orders) => {
+    return {
+        type: ORDERS_LOAD,
+        orders
     }
 }

@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, CATEGORIES_LOAD, PRODUCTS_LOAD } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD } from './constants';
 
 const initialState = {
   arrayCheckBox: [],
@@ -23,6 +23,9 @@ var variable = (state = initialState, action) => {
     }
     case PRODUCTS_LOAD: {
       return state = {...state, products: action.products}
+    }
+    case ORDERS_LOAD: {
+      return state = {...state, orders: action.orders}
     }
     default: return state;
   }
