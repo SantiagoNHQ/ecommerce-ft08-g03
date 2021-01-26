@@ -8,7 +8,7 @@ export default function ProductCard (props) {
         <div className='card'>
             <h1>{props.nombre}</h1> 
             <div className='div-imagen'>
-            <img src={props.img}></img>
+            <img alt={props.nombre} src={props.img}></img>
             </div>
             <p>{props.descripcion}</p> 
             <div className='div-boton'>

@@ -4,7 +4,7 @@ import "./FormCategory.css";
 
 export default function FormCategory(props) {
 
-    const [state, setState] = useState({nombre:"", descripcion:""})
+    const [state, setState] = useState({/* nombre:"", descripcion:"" */})
 
     function submit(e) {
         axios.post("http://localhost:3001/category/add", state)

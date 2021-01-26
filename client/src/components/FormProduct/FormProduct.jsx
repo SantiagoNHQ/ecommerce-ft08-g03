@@ -1,41 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { /* useState, */ useEffect } from "react";
 import "./FormProduct.css";
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { formChange, categoriesLoad } from "../../redux/actions";
 
-export default function FormProduct(props) {
- 
-    const [state, setState] = useState({arrayCheckBox: [], formulario: {categories: []}})
+const mapStateToProps = (state) => {
+    return {
+        formulario: state.formulario,
+        categoria: state.categoria
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFormChange: (form) => {
+            dispatch(formChange(form))
+        },
+        onCategoriesLoad: (cats) => {
+            dispatch(categoriesLoad(cats))
+        }
+    }
+}
+
+function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
     useEffect(() => {
-        function category () {
         axios.get("http://localhost:3001/category/")
-        .then(res => 
-            {
-                console.log(res.data)
-            setState((estado) => ({...estado, categoria: res.data}))
-            }
-            )}
-            
-        category()
+        .then(res => {
+            console.log("Categorias: ", res.data)
+            onCategoriesLoad(res.data)
+        }).catch(e => console.log("Error: ", e))
     }, [])
     
-// Ahora armense de paciencia hasta que me abra el server de nuevo :V
     // CHECKBOX
     function checkBox(e) {
         console.log("Checkbox name: ", e.target.checked)
-        console.log("Texto: ", e.target.name) // AHORA SI!
-        //console.log("Texto: ", e.target.innerText)
+        console.log("Texto: ", e.target.name)
         if (e.target.checked) {
-            setState({...state, arrayCheckBox: [...state.arrayCheckBox, e.target.name] , formulario: {...state.formulario, categories: [...state.arrayCheckBox, e.target.name]}})
+            onFormChange({...formulario, categories: [...formulario.categories, e.target.name]})
         } else {
-            //arrayCheckBox = arrayCheckBox.filter(v => v == e.target.name)
-            setState({...state, arrayCheckBox: state.arrayCheckBox.filter(v => !(v === e.target.name)), formulario: {...state.formulario, categories: state.arrayCheckBox.filter(v => !(v === e.target.name))}})
+            onFormChange({...formulario, categories: formulario.categories.filter(v => !(v === e.target.name))})
         }
     }
 
     // AGREGAR
    function submit(e) {
-        console.log()
-        axios.post("http://localhost:3001/product/", state.formulario)
+        axios.post("http://localhost:3001/product/", formulario)
         .then(res => {
             console.log ("bien", res)
         })
@@ -46,15 +55,13 @@ export default function FormProduct(props) {
 
    function cambios (e){
         e.preventDefault()
-        console.log("ACA ESTOY" ,e)
-        setState({...state, formulario: {...state.formulario, [e.target.name]: e.target.value}})
-        
+        onFormChange({...formulario, [e.target.name]: e.target.value})
     }
 
 
     return (
 
-        <div clasName = 'formularios'>
+        <div className = 'formularios'>
             <form className = 'agregarProducto' onSubmit={ submit }>
                 <h3>Agregar Producto</h3>
                 <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>
@@ -66,7 +73,7 @@ export default function FormProduct(props) {
                 <input key="origen" type="text" onChange={cambios} placeholder="origen" style={{width: 60}} name="origen"/> 
                 <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" style={{width: 60}} name="descripcion"/> 
 
-                {state.categoria && state.categoria.map((pos) => <label title={pos.descripcion}><input 
+                {categoria && categoria.map((pos) => <label title={pos.descripcion}><input 
                 onChange={e => checkBox(e)}
                 title={pos.descripcion} name={pos.nombre} type="checkbox"></input>{pos.nombre}</label>)}
 
@@ -78,3 +85,4 @@ export default function FormProduct(props) {
     )
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(FormProduct)
