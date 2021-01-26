@@ -13,7 +13,9 @@ function App() {
     <div>
       <header>
         <section className="textos-header">
-          <h1>WeAreWine</h1>
+          <h1>
+            We<span>Are</span>Wine
+          </h1>
           <h2>Vinos Nacionales e Internacionales</h2>
         </section>
         {/* <div style={({ height: "150px" }, { overflow: "hidden" })}>

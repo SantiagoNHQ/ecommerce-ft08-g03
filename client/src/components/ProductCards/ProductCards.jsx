@@ -48,7 +48,7 @@ export default function ProductCards(props) {
           )}
           <div className='nuevo-div'>
             <div className='div-img-dada'>
-              <img src="https://lh3.googleusercontent.com/proxy/9RQZK6buVg98yHwVq2eDf82bjjzcziVP4im3F-CJAfHdYeWuI1r_Gjo1-fxI_NqXL81lZqt-WbFsvxuJ3ch9pXvi2Ru4GEJv5yo" />
+              <img src="https://lh3.googleusercontent.com/proxy/gF8o3j-XeAZlEaPfJbi1K979kn24ztdCnzlygnS6KCrmj4iE5vLR8C7k5iDQGumCWx8J2wAoTfqx9I0Cui_-1743ZcQeoAJjDJ0" />
               <div className='div-texto-dada'>
               <h1>Linea Dada</h1>
               <p>Consegui todos los Dada aqui</p>
