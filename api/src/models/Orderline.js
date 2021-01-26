@@ -6,11 +6,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("lineadeorden", {
-    productId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
+  sequelize.define("orderline", {
     cantidad: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -18,6 +14,6 @@ module.exports = (sequelize) => {
     precio: {
         type: DataTypes.INTEGER,
         allowNull: false
-    } // Precio total = precio * cantidad
+    }, // Precio total = precio * cantidad
   })
 };
