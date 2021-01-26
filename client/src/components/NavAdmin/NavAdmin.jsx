@@ -14,6 +14,7 @@ export default function NavAdmin(props) {
             <Link to="/admin/formProduct">Añadir Producto</Link>
             <Link to="/admin/formCategory">Añadir Categoria</Link>
             <Link to="/admin/products/editar">Editar Producto</Link>
+            <Link to="/admin/ordenes">Ver ordenes</Link>
             </nav>
             
         </div>
