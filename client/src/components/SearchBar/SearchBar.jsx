@@ -4,6 +4,7 @@ import "./SearchBar.css";
 import { connect } from 'react-redux'
 import { searchChange, searchClick } from "../../redux/actions";
 
+
 const mapStateToProps = (state) => {
     return {
         search: state.search
