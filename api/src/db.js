@@ -44,12 +44,14 @@ const { Product, Category, Orden, Orderline, User } = sequelize.models;
 // Product.hasMany(Reviews);
 Product.belongsToMany(Category, { through: "ProductAndCategory" });
 Category.belongsToMany(Product, { through: "ProductAndCategory" });
-/* Orden.belongsTo(User); // ORDEN = Estado: carrito, completado, cancelado, etc
+
+ Orden.belongsTo(User); // ORDEN = Estado: carrito, completado, cancelado, etc
 Orden.hasMany(Orderline)
 Orderline.belongsTo(Orden); // Orderline = productId, cantidad, precio, userId
-Product.hasOne(Orderline) */
-Orden.belongsToMany(Product, { through: Orderline }); // Estos dos
-Orden.belongsTo(User); // Es lo mismo que los 4 comentarios de arriba
+// Product.hasOne(Orderline, {as: "product"})
+Orderline.belongsTo(Product, {primaryKey: true})
+// Orden.belongsToMany(Product, { through: Orderline }); // Estos dos
+// Orden.belongsTo(User); // Es lo mismo que los 4 comentarios de arriba
 Orderline.belongsTo(User)
 
 /*
