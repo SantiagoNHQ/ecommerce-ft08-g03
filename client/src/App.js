@@ -1,7 +1,7 @@
-import React/* , {useEffect} */ from "react";
+import React /* , {useEffect} */ from "react";
 import "./App.css";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
-import axios from "axios";
+// import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import SearchBar from "./components/SearchBar/SearchBar";
 import FormProduct from "./components/FormProduct/FormProduct";
@@ -10,17 +10,16 @@ import Product from "./components/Product/product";
 import EditarProducto from "./components/EditarProduct/EditarProduct";
 import Home from "./components/Home/Home";
 import Admin from "./components/Admin/Admin";
-import NavAdmin from "./components/NavAdmin/NavAdmin"
-import OrdersTable from "./components/OrdersTable/OrdersTable"
+import NavAdmin from "./components/NavAdmin/NavAdmin";
+import OrdersTable from "./components/OrdersTable/OrdersTable";
 
 function App(location) {
-
   return (
     <BrowserRouter>
       <React.Fragment>
         <Route path="/products/:id" component={Product} />
-        <Route path= "/user" component={SearchBar} />
-        <Route exact path= "/" component={SearchBar} />
+        <Route path="/user" component={SearchBar} />
+        <Route exact path="/" component={SearchBar} />
         <Route exact path="/" component={Home} />
         <Route path="/admin" component={NavAdmin} />
         <Route exact path="/admin" component={Admin} />
@@ -31,7 +30,8 @@ function App(location) {
           path="/user/products"
           component={() => (
             <ProductCards
-              /* categoria={"Vinos"} *//>
+            /* categoria={"Vinos"} */
+            />
           )}
         />
         <Route exact path="/admin/formProduct" component={FormProduct} />

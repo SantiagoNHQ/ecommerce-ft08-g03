@@ -20,7 +20,7 @@ export default function EditarProducto(props) {
     }, [])
     function submitEliminar(p) {
         console.log(" ELIMINAR: ", p)
-        var obj = {nombre: p}
+        // var obj = {nombre: p}
         axios.delete("http://localhost:3001/product/", {data: {nombre: p}}
         )
         .then(res => {
