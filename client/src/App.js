@@ -10,8 +10,9 @@ import Product from "./components/Product/product";
 import EditarProducto from "./components/EditarProduct/EditarProduct";
 import Home from "./components/Home/Home";
 import Admin from "./components/Admin/Admin";
-import NavAdmin from "./components/NavAdmin/NavAdmin"
-import OrdersTable from "./components/OrdersTable/OrdersTable"
+import NavAdmin from "./components/NavAdmin/NavAdmin";
+import OrdersTable from "./components/OrdersTable/OrdersTable";
+import NuevoUsuario from "./components/NuevoUsuario/NuevoUsuario"
 
 function App(location) {
 
@@ -34,6 +35,7 @@ function App(location) {
               /* categoria={"Vinos"} *//>
           )}
         />
+        <Route exact path="/user" component={NuevoUsuario}/>
         <Route exact path="/admin/formProduct" component={FormProduct} />
         <Route exact path="/admin/formCategory" component={FormCategory} />
         <Route path="/user/product/:id" component={Product} />
