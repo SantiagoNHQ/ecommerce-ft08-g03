@@ -1,8 +1,9 @@
 import React/* , { useState } */ from "react";
-import axios from 'axios';
+import SearchBar from '../SearchBar/SearchBar'
+//import axios from 'axios';
 import {Link} from "react-router-dom";
-import { connect } from 'react-redux'
-import { searchChange } from "../../redux/actions";
+//import { connect } from 'react-redux'
+//import { searchChange } from "../../redux/actions";
 
 export default function NavAdmin(props) {
 
@@ -16,7 +17,7 @@ export default function NavAdmin(props) {
             <Link to="/admin/products/editar">Editar Producto</Link>
             <Link to="/admin/ordenes">Ver ordenes</Link>
             </nav>
-            
+            <SearchBar history={props.history}/>
         </div>
     )
 }

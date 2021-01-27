@@ -10,31 +10,6 @@ body {
 
 /* NAVBAR */
 
-.div-navbar {
-  display: flex;
-  align-items: center;
-  background-color: #c41919;
-  justify-content: space-around;
-  height: 50px;
-}
-
-.links {
-  margin-right: 170px;
-  font-family: "Noto Serif", serif;
-}
-
-.div-navbar a {
-  font-size: 1em;
-  color: white;
-  text-decoration: none;
-  margin-right: 35px;
-}
-
-.div-navbar a:hover {
-  color: rgba(255, 255, 255, 0.63);
-  text-decoration: none;
-}
-
 .boton {
   margin-top: -5px;
   color: black;
@@ -63,4 +38,39 @@ body {
   outline: none;
   color: white;
   font-size: 18px;
+}
+
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 100%;
+  z-index: 10;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
 }

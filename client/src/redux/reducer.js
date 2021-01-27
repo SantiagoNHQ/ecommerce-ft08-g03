@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD } from './constants';
 
 const initialState = {
   arrayCheckBox: [],
@@ -12,9 +12,13 @@ var variable = (state = initialState, action) => {
       console.log("State form: ", state.formulario)
       return state = {...state, formulario: action.form}
     }
-    case SEARCH_CHANGE: { // Done
+    case SEARCH_CHANGE: { // Done (Texto escrito en el search)
         //state.search = action.search // state = {...state, search: action.search}
         return state = {...state, search: action.search}
+    }
+    case SEARCH_CLICK: { // Done (Clickeó en buscar, entonces filtraremos por searchFilter)
+        //state.search = action.search // state = {...state, search: action.search}
+        return state = {...state, searchFilter: action.search}
     }
     case CATEGORIES_LOAD: {
       //state.categoria = action.categories
@@ -22,6 +26,7 @@ var variable = (state = initialState, action) => {
       return state = {...state, categoria: action.categories}
     }
     case PRODUCTS_LOAD: {
+      console.log("Me usan??")
       return state = {...state, products: action.products}
     }
     case ORDERS_LOAD: {
