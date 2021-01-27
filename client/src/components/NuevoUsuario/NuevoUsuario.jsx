@@ -1,3 +1,5 @@
+//S52 : Crear Formulario de Creación de Cuenta/Usuario
+
 import React, { useState } from "react";
 import axios from 'axios';
 import "./NuevoUsuario.css";
@@ -23,9 +25,10 @@ export default function NuevoUsuario(props) {
     }
 
     return (
-        <div className = 'nuevoUsuario'>
-            <h1>Crear Cuenta</h1>
-            <form onSubmit={ submit }>
+        <div className = 'formulario'>
+           
+            <form className = 'nuevoUsuario' onSubmit={ submit }>
+                <h1>Crear Cuenta</h1>
                 <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>
                 <input key="apellido" type="text" onChange={cambios} placeholder="apellido" name="apillido"/> 
                 <input key="nombreDeUsuario" type="text" onChange={cambios} placeholder="nombreDeUsuario" name="nombreDeUsuario" />
