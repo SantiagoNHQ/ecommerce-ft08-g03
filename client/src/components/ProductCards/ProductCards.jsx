@@ -44,19 +44,21 @@ export default function ProductCards(props) {
   }, [props.categoria])
 
   return  (
-    <div className='div-producto'>
+    <div>
+      <div className='div-producto'>
         { cards && cards.map(p => 
           <ProductCard key ={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
           )}
           <div className='nuevo-div'>
-            <div className='div-img-dada'>
-              <img alt="What is this?" src="https://infonegocios.com.py/uploads/dada-fincalasmoras1.jpg" />
-              <div className='div-texto-dada'>
-              <h1>Linea Dada</h1>
-              <p>Consegui todos los Dada aqui</p>
-              </div>
-            </div>
           </div>
+      </div>
+         <div className='div-img-dada'>
+          <img alt="What is this?" src="https://infonegocios.com.py/uploads/dada-fincalasmoras1.jpg" />
+          <div className='div-texto-dada'>
+          <h1>Linea Dada</h1>
+          <p>Consegui todos los Dada aqui</p>
+          </div>
+        </div>
     </div>
   )
 }
