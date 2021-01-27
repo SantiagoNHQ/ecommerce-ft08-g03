@@ -7,8 +7,8 @@ export default function Home() {
         <div>
             <header>
                 <section className="textos-header">
-                    <h1>WeAreWine</h1>
-                    <h2>Vinos Nacionales e Internacionales</h2>
+                    <h1>We<span>Are</span>Wine</h1>
+                    <h2>Vinos <span>Nacionales</span> e <span>Internacionales</span></h2>
                 </section>
             {/* <div style={({ height: "150px" }, { overflow: "hidden" })}>
                 <svg

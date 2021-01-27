@@ -66,6 +66,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
 
   return  (
     <div>
+
       {
         (categoria || search) && <div>Filtrando por: <br/>
         - Busqueda: {search} <br/>
