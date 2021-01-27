@@ -1,21 +1,40 @@
 // import React, { useEffect, useState } from "react";
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import "./ProductCards.css";
 //import axios from 'axios';
 import ProductCard from "../ProductCard/ProductCard.jsx"
 import axios from "axios";
+import { connect } from 'react-redux'
+import { productsLoad } from "../../redux/actions";
 
-export default function ProductCards(props) {
-  const [cards , setCards] = useState([])
-  console.log("TEST: ", props)
+const mapStateToProps = (state) => {
+  return {
+      search: state.searchFilter,
+      products: state.products
+  }
+}
 
-  useEffect((categoria = props.categoria) => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onProductsLoad: (products) => {
+          dispatch(productsLoad(products))
+      }
+  }
+}
+
+function ProductCards({search, products, categoria, onProductsLoad}) {
+  //const [cards , setCards] = useState([]) ahora es products
+  //console.log("TEST: ", props)
+
+  useEffect(() => {
 
     /* axios.get(`http://localhost:3001/product`)
     .then(r => setCards(r.data)).catch(e => console.log("ERROR: ", e)) */
+    let ruta = ""
+    if (search) ruta = "http://localhost:3001/product/busqueda/"+search
+    else ruta = "http://localhost:3001/product"
 
-    axios.get(
-      `http://localhost:3001/product`
+    axios.get(ruta /* + !search ? `` : `/busqueda/${search}` */
     ).then(r => {
       // Iterar sobre r y filtrar por categoría
 
@@ -34,31 +53,43 @@ export default function ProductCards(props) {
             return false
           })
           console.log("R filtrado por categoria: ", r)
-          setCards(r)
+          //setCards(r)
+          onProductsLoad(r)
         }).catch(err => console.log("Axios err: ", err))
         
       }
 
-      setCards(r.data)
+      //setCards(r.data)
+      onProductsLoad(r.data)
     }).catch(e => console.log("NO RESOLVIÓ: ", e))
-  }, [props.categoria])
+  }, [categoria, search, onProductsLoad])
 
   return  (
     <div>
-      <div className='div-producto'>
-        { cards && cards.map(p => 
-          <ProductCard key ={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
-          )}
-          <div className='nuevo-div'>
+
+      {
+        (categoria || search) && <div>Filtrando por: <br/>
+        - Busqueda: {search} <br/>
+        - Categoria: {categoria} </div>
+      }
+      {
+        products && products.map(p => 
+          <div key={p.id} className='div-producto'>
+            <ProductCard nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
           </div>
-      </div>
-         <div className='div-img-dada'>
+        )
+      }
+      <div className='nuevo-div'>
+        <div className='div-img-dada'>
           <img alt="What is this?" src="https://infonegocios.com.py/uploads/dada-fincalasmoras1.jpg" />
           <div className='div-texto-dada'>
-          <h1>Linea Dada</h1>
-          <p>Consegui todos los Dada aqui</p>
+            <h1>Linea Dada</h1>
+            <p>Consegui todos los Dada aqui</p>
           </div>
         </div>
+      </div>
     </div>
   )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCards)

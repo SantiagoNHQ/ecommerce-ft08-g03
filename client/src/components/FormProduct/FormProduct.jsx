@@ -23,13 +23,14 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
+
     useEffect(() => {
         axios.get("http://localhost:3001/category/")
         .then(res => {
             console.log("Categorias: ", res.data)
             onCategoriesLoad(res.data)
         }).catch(e => console.log("Error: ", e))
-    }, [])
+    }, [onCategoriesLoad])
     
     // CHECKBOX
     function checkBox(e) {

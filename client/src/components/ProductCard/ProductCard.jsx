@@ -9,12 +9,12 @@ export function ProductCard (props) {
     
     useEffect(() => {
         if(props.stock <= 0){
-                setStock ( {...stock, stock: "Sin disponibilidad"})
+                setStock ((state) => ({...state, stock: "Sin disponibilidad"}))
             }
             else{
-                setStock ({...stock, stock: props.stock})
+                setStock ((state) => ({...state, stock: props.stock}))
             }
-    }, [])
+    }, [props.stock])
     // function stocks(props){
         // if(props.stock >= 0){
         //     setStock = {...stock, stock: "No disponible"}
