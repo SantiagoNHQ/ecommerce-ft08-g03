@@ -1,5 +1,12 @@
 const server = require("express").Router();
-const { Product, Category, ProductAndCategory, User, Orden, Orderline } = require("../db");
+const {
+  Product,
+  Category,
+  ProductAndCategory,
+  User,
+  Orden,
+  Orderline,
+} = require("../db");
 const Sequelize = require("sequelize");
 const { Model } = require("sequelize");
 
@@ -52,11 +59,11 @@ server.put("/:id", (req, res) => {
 
 // S40 : Crear Ruta para vaciar el carrito
 /*  DELETE /users/:idUser/cart/ */
-server.delete('/cart/:userId', (req, res) => {
+server.delete("/cart/:userId", (req, res) => {
   const userId = req.params.userId;
   console.log("Carrito: ", req.body);
   Orden.destroy({
-    where: { userId }
+    where: { userId },
   })
     .then((response) => {
       res.send("Carrito vacio correctamente");
@@ -69,103 +76,128 @@ server.delete('/cart/:userId', (req, res) => {
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put('/cart/:userId'), (req, res) => {
-  const userId = req.params.userId;
-  const { cantidad } = req.body;
-    Orderline.update(
-    { cantidad: cantidad },
-    { where: {userId} }
-    )
-  .then(r => {
-    res.sed("Cantidad modificada correctamente")
-  })
-  .catch(err => {
-    console.log("Soy err: ", err);
-    res.status(400).json(err)
-  })
-};
+server.put("/cart/:userId"),
+  (req, res) => {
+    const userId = req.params.userId;
+    const { cantidad } = req.body;
+    Orderline.update({ cantidad: cantidad }, { where: { userId } })
+      .then((r) => {
+        res.sed("Cantidad modificada correctamente");
+      })
+      .catch((err) => {
+        console.log("Soy err: ", err);
+        res.status(400).json(err);
+      });
+  };
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
 /*  GET /users/:idUser/cart */
-server.get('/cart/:ordenId', (req, res) => {
+server.get("/cart/:ordenId", (req, res) => {
   const ordenId = req.params.ordenId;
   Orderline.findAll({
     where: { ordenId },
-    include: { model: Orden }
+    include: { model: Orden },
   })
-  .then((response => {
-    console.log("Respuesta: ", response);
-    res.json(response)
-  }))
-  .catch(err => {
-    console.log("Soy un err: ", err);
-    res.status(400).send(err)
-  })
+    .then((response) => {
+      console.log("Respuesta: ", response);
+      res.json(response);
+    })
+    .catch((err) => {
+      console.log("Soy un err: ", err);
+      res.status(400).send(err);
+    });
 });
 
 // S44 : Crear ruta que retorne todas las ordenes
-server.get('/orders', (req, res) => {
+server.get("/orders", (req, res) => {
   Orden.findAll({})
-  .then((response => {
-    console.log("Respuesta: ", response);
-    res.status(200).json(response)
-  }))
-  .catch(err => {
-    console.log("Soy un err: ", err);
-    res.status(400).send(err)
-  })
+    .then((response) => {
+      console.log("Respuesta: ", response);
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      console.log("Soy un err: ", err);
+      res.status(400).send(err);
+    });
 });
 
 // S44: Esta ruta puede recibir el query string status y deberá devolver sólo las ordenes con ese status.
-server.get('/orders/:status', (req, res) => {
-  const estado = req.params.status
+server.get("/orders/:status", (req, res) => {
+  const estado = req.params.status;
   Orden.findAll({
-    where: {estado}
+    where: { estado },
   })
-  .then((response => {
-    console.log("Respuesta: ", response);
-    res.status(200).json(response)
-  }))
-  .catch(err => {
-    console.log("Soy un err: ", err);
-    res.status(400).send(err)
-  })
+    .then((response) => {
+      console.log("Respuesta: ", response);
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      console.log("Soy un err: ", err);
+      res.status(400).send(err);
+    });
 });
 
 // S46 : Crear Ruta que retorne una orden en particular.
-server.get('/order/:id', (req, res) => {
-  const id = req.params.id
+server.get("/order/:id", (req, res) => {
+  const id = req.params.id;
   Orden.findAll({
     where: {
-      id
-    }
+      id,
+    },
   })
-  .then((response => {
-    console.log("Respuesta: ", response);
-    res.status(200).json(response)
-  }))
-  .catch(err => {
-    console.log("Soy un err: ", err);
-    res.status(400).send(err)
-  })
+    .then((response) => {
+      console.log("Respuesta: ", response);
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      console.log("Soy un err: ", err);
+      res.status(400).send(err);
+    });
 });
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-server.get('/:id/orders', (req, res) => {
-  const id = req.params.id
-  Orderlist.findAll({
+server.get("/:id/orders", (req, res) => {
+  const id = req.params.id;
+  Orderline.findAll({
     where: {
-      userId: id
+      userId: id,
+    },
+  })
+    .then((response) => {
+      console.log("Respuesta: ", response);
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      console.log("Soy un err: ", err);
+      res.status(400).send(err);
+    });
+});
+
+// S38 : Crear Ruta para agregar Item al Carrito
+// POST /users/:idUser/cart
+server.post("/:idUser/cart", (req, res) => {
+  //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
+  //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
+  //  PARA ESTE CLIENTE...
+  Orden.findOrCreate({
+    where: { state: "carrito", userId: req.params.id },
+  }).then((orden) => {
+    if (created) {
+      //  Si la orden existe, se agrega el producto al Orderline:
+      Product.findByPk(req.body.productId).then((product) => {
+        //  Busca el producto en el modelo Producto.
+        Orderline.create({
+          //Crea el Orderline con el producto, userId y orderId.
+          cantidad: 1, // Seteamos a 1 para correr la ruta.
+          precio: product.price,
+          productId: product.id,
+          ordenId: orden.id,
+          userId: req.params.id, //DUDA....Debe ir aquí?
+        }).then((orderline) => res.send(orderline));
+      });
+    } else {
     }
-  })
-  .then((response => {
-    console.log("Respuesta: ", response);
-    res.status(200).json(response)
-  }))
-  .catch(err => {
-    console.log("Soy un err: ", err);
-    res.status(400).send(err)
-  })
+  });
 });
 
 module.exports = server;

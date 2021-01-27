@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import { connect } from 'react-redux'
 import { searchChange } from "../../redux/actions";
 
+
 const mapStateToProps = (state) => {
     return {
         search: state.search
@@ -49,6 +50,7 @@ function SearchBar({search, onSearchChange}) { // search = state.search && dispa
             <nav className='links'>
             <Link to="/">Inicio</Link>
             <Link to="/user/products">Catalogo</Link>
+            <Link to="/user">Nuevo Usuario</Link>
             <Link to="/admin">SER ADMIN</Link>
 
             </nav>
