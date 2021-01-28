@@ -12,14 +12,15 @@ import NavAdmin from "./components/NavAdmin/NavAdmin";
 import OrdersTable from "./components/OrdersTable/OrdersTable";
 import NuevoUsuario from "./components/NuevoUsuario/NuevoUsuario";
 import Carrito from "./components/Carrito/Carrito";
+import NavBar from "./components/NavBar/NavBar";
 
 function App(location) {
   return (
     <BrowserRouter>
       <React.Fragment>
         <Route path="/products/:id" component={Product} />
-        <Route path= "/user" component={NavBar} />
-        <Route exact path= "/" component={NavBar} />
+        <Route path="/user" component={NavBar} />
+        <Route exact path="/" component={NavBar} />
         <Route exact path="/" component={Home} />
         <Route path="/admin" component={NavAdmin} />
         <Route exact path="/admin" component={Admin} />

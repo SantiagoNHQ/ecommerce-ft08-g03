@@ -1,67 +1,66 @@
 * {
-    box-sizing: border-box;
-    padding: 0%;
-  }
-  
-  body {
-    background-color: #c4c4c4;
-  }
-  /* DIV-APP GENERAL */
-  
-  /* NAVBAR */
-  
-  .div-navbar {
-    display: flex;
-    align-items: center;
-    background-color: #c41919;
-    justify-content: space-around;
-    height: 50px;
-  }
-  
-  .links {
-    margin-right: 170px;
-    font-family: "Noto Serif", serif;
-  }
-  
-  .div-navbar a {
-    font-size: 1em;
-    color: white;
-    text-decoration: none;
-    margin-right: 35px;
-  }
-  
-  .div-navbar a:hover {
-    color: rgba(255, 255, 255, 0.63);
-    text-decoration: none;
-  }
-  
-  .boton {
-    margin-top: -5px;
-    color: black;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: white;
-  }
-  
-  /* SEARCHBAR */
-  
-  .buscador {
-    display: flex;
-    align-items: center;
-    background-color: rgba(158, 22, 22, 0.801);
-    height: 40px;
-    border-radius: 40px;
-    padding: 10px;
-    display: flex;
-  }
-  
-  .input {
-    margin-left: 10px;
-    border: none;
-    background: none;
-    outline: none;
-    color: white;
-    font-size: 18px;
-  }
-  
+  box-sizing: border-box;
+  padding: 0%;
+}
+
+body {
+  background-color: #c4c4c4;
+}
+/* DIV-APP GENERAL */
+
+/* NAVBAR */
+
+.div-navbar {
+  display: flex;
+  align-items: center;
+  background-color: #c41919;
+  justify-content: space-around;
+  height: 50px;
+}
+
+.links {
+  margin-right: 170px;
+  font-family: "Noto Serif", serif;
+}
+
+.div-navbar a {
+  font-size: 1em;
+  color: white;
+  text-decoration: none;
+  margin-right: 35px;
+}
+
+.div-navbar a:hover {
+  color: rgba(255, 255, 255, 0.63);
+  text-decoration: none;
+}
+
+.boton {
+  margin-top: -5px;
+  color: black;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+/* SEARCHBAR */
+
+.buscador {
+  display: flex;
+  align-items: center;
+  background-color: rgba(158, 22, 22, 0.801);
+  height: 40px;
+  border-radius: 40px;
+  padding: 10px;
+  display: flex;
+}
+
+.input {
+  margin-left: 10px;
+  border: none;
+  background: none;
+  outline: none;
+  color: white;
+  font-size: 18px;
+}

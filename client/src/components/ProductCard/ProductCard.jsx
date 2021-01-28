@@ -32,8 +32,8 @@ export function ProductCard (props) {
             nombre: props.nombre,
             precio: props.precio,         
         }
-        // el ${} lo recibo en el back desde params, y el obj seria mi producto a agregar, lo agarro en req.body
-        axios.post(`http://localhost:3001/user/${props.user.id}/cart`, productId )
+        // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
+        axios.post(`http://localhost:3001/user/${props.user.userId}/cart`, {data: productId} )
         .then(res => {
             console.log('Todo Okey: ', res)
 
@@ -61,7 +61,7 @@ export function ProductCard (props) {
 
 const mapStateToProps = (state) => {
     return {
-        search: state.search
+        user: state.user
     }
 }
 
