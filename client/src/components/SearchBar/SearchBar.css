@@ -21,16 +21,6 @@ body {
 
 /* SEARCHBAR */
 
-.buscador {
-  display: flex;
-  align-items: center;
-  background-color: rgba(158, 22, 22, 0.801);
-  height: 40px;
-  border-radius: 40px;
-  padding: 10px;
-  display: flex;
-}
-
 .input {
   margin-left: 10px;
   border: none;
