@@ -5,16 +5,23 @@ import {connect} from 'react-redux'
 
 //  *** S10 : Crear Componente ProductCard ***
 export function ProductCard (props) {
-    const [stock, setStock] = useState({stock: ""})
+    const [stock, setStock] = useState({stock: "", img: props.img})
     
     useEffect(() => {
         if(props.stock <= 0){
-                setStock ((state) => ({...state, stock: "Sin disponibilidad"}))
-            }
-            else{
-                setStock ((state) => ({...state, stock: props.stock}))
-            }
+            setStock ((state) => ({...state, stock: "Sin disponibilidad"}))
+        }
+        else{
+            setStock ((state) => ({...state, stock: props.stock}))
+        }
+        
+        if (!(props.img.includes("http") || props.img.includes("www"))) {
+            //props.img = ""
+            //console.log("Dir: ", __dirname)
+            setStock ((state) => ({...state, img: "http://localhost:3001/upload/" + props.img}))
+        }
     }, [props.stock])
+
     // function stocks(props){
         // if(props.stock >= 0){
         //     setStock = {...stock, stock: "No disponible"}
@@ -46,7 +53,7 @@ export function ProductCard (props) {
         <div className='card'>
             <h1>{props.nombre}</h1> 
             <div className='div-imagen'>
-                <img alt={props.nombre} src={props.img}></img>
+                <img alt={props.nombre} src={stock.img}></img>
             </div>
             <p>{props.descripcion}</p> 
             <div className='div-boton'>

@@ -45,9 +45,29 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
 
     // AGREGAR
    function submit(e) {
+        e.preventDefault()
+        console.log("Click!")
+        // Agregar el producto
         axios.post("http://localhost:3001/product/", formulario)
         .then(res => {
-            console.log ("bien", res)
+            console.log ("Producto agregado")
+            // Subir la imagen
+            if (formulario.file) {
+                var extension = formulario.file.name.split(".")
+                console.log("Extension: ", extension[extension.length-1])
+                //var help = formulario.file.name = formulario.nombre + "." + extension
+                var formData = new FormData();
+                formData.append('file', formulario.file, formulario.nombre + "." + extension[extension.length-1])//new File([formulario.file], formulario.nombre + ".jpg"))
+                //formData.append('name', "file")
+                const config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                //return  post(url, formData,config)
+
+                axios.post("http://localhost:3001/upload", formData, config).then(r => console.log("Se subió: ", r)).catch(e => console.log("No se subió: ", e))
+            }
         })
         .catch (err => {
             console.log("mal", err)
@@ -56,27 +76,48 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
 
    function cambios (e){
         e.preventDefault()
-        onFormChange({...formulario, [e.target.name]: e.target.value})
+        console.log("Form: ", formulario)
+        if (e.target.name === "file") {
+            if (e.target.files[0]) {
+                let extension = e.target.files[0].name.split(".")
+                extension = extension[extension.length-1]
+                onFormChange({...formulario, [e.target.name]: e.target.files[0], fileShow: URL.createObjectURL(e.target.files[0]),
+                img: formulario.nombre + "." + extension})
+                document.getElementById("imagen").style.display = "none"
+            }
+            else {
+                onFormChange({...formulario, [e.target.name]: null, fileShow: null})
+                document.getElementById("imagen").style.display = "initial"
+            }
+        }
+        else onFormChange({...formulario, [e.target.name]: e.target.value})
     }
 
 
     return (
 
         <div className = 'formularios'>
-            <form className = 'agregarProducto' onSubmit={ submit }>
+            <form className = 'agregarProducto' onSubmit={ submit } encType="multipart/form-data">
                 <h3>Agregar Producto</h3>
-                <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>
-                <input key="tipo" type="text" onChange={cambios} placeholder="tipo" name="tipo"/>
-                <input key="edad" type="number" onChange={cambios} placeholder="edad"  name="edad"/> 
-                <input key="elaboracion" type="number" onChange={cambios} placeholder="elaboracion" name="elaboracion"/>
-                <input key="stock" type="number" onChange={cambios} placeholder="stock" name="stock"/>
-                <input key="precio" type="number" onChange={cambios} placeholder="precio"  name="precio"/> 
-                <input key="origen" type="text" onChange={cambios} placeholder="origen"  name="origen"/> 
-                <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion"  name="descripcion"/> 
+                <input key="nombre" type="text" onChange={cambios} placeholder="Nombre del producto" name="nombre"/>
+                <input key="descripcion" type="text" onChange={cambios} placeholder="Descripción"  name="descripcion"/>
+                <input key="origen" type="text" onChange={cambios} placeholder="Lugar de origen"  name="origen"/>
+                <input key="tipo" type="text" onChange={cambios} placeholder="Tipo" name="tipo"/>
+                <input key="elaboracion" type="number" onChange={cambios} placeholder="Fecha de elaboración" name="elaboracion"/>
+                <input key="edad" type="number" onChange={cambios} placeholder="Edad de maduración"  name="edad"/>
+                <input key="stock" type="number" onChange={cambios} placeholder="Stock" name="stock"/>
+                <input key="precio" type="number" onChange={cambios} placeholder="Precio"  name="precio"/>
+                <input key="img" type="text" onChange={cambios} placeholder="Link a una imagen o..." id="imagen" name="img"/>
+                <input key="file" type="file" onChange={cambios} name="file"/>
 
                 {categoria && categoria.map((pos) => <label title={pos.descripcion}><input 
                 onChange={e => checkBox(e)}
                 title={pos.descripcion} name={pos.nombre} type="checkbox"></input>{pos.nombre}</label>)}
+                
+                {(formulario.img && !formulario.file) && <img src={formulario.img} style={{width: "200px", height:"200px", marginBottom:"10px"}}/>
+                ||
+                (formulario.file) && <img src={formulario.fileShow} style={{width: "200px", height:"200px", marginBottom:"10px"}}/>}
+                {/* <img src={formulario.file} style={{width: "200px", height:"200px", marginBottom:"10px"}}/> */}
 
                 <input type="submit" key="boton" />
             </form>
