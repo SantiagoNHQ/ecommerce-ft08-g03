@@ -2,6 +2,7 @@ import React /* , {useEffect} */ from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
+// import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
@@ -20,8 +21,8 @@ function App(location) {
     <BrowserRouter>
       <React.Fragment>
         <Route path="/products/:id" component={Product} />
-        <Route path= "/user" component={NavBar} />
-        <Route exact path= "/" component={NavBar} />
+        <Route path="/user" component={NavBar} />
+        <Route exact path="/" component={NavBar} />
         <Route exact path="/" component={Home} />
         <Route path="/admin" component={NavAdmin} />
         <Route exact path="/admin" component={Admin} />

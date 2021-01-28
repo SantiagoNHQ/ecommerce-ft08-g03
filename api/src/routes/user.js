@@ -16,18 +16,20 @@ server.post("/", (req, res) => {
   console.log("Body: ", req.body);
 
   User.create({ nombre, nombreDeUsuario, email, clave, apellido })
-  .then(response => {
-      Orden.create({userId: response.dataValues.id
-      }).then((response) => {
+    .then((response) => {
+      Orden.create({ userId: response.dataValues.id })
+        .then((response) => {
           res.status(200).send("Usuario creado correctamente.");
-      }).catch((err) => {
-        console.log("Error linea 24: ", err)
-        res.status(404).send("No se pudo crear el usuario.");
-      });
-  }).catch((err) => {
-    console.log("Error linea 28: ", err)
-    res.status(404).send("No se pudo crear el usuario.");
-  });
+        })
+        .catch((err) => {
+          console.log("Error linea 24: ", err);
+          res.status(404).send("No se pudo crear el usuario.");
+        });
+    })
+    .catch((err) => {
+      console.log("Error linea 28: ", err);
+      res.status(404).send("No se pudo crear el usuario.");
+    });
 });
 
 // S36 : Crear Ruta que retorne todos los Usuarios
@@ -46,20 +48,28 @@ server.put("/:id", (req, res) => {
   const id = req.params.id;
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
 
-  User.update({
-      nombre, apellido, nombreDeUsuario, email, clave
-    }, {
+  User.update(
+    {
+      nombre,
+      apellido,
+      nombreDeUsuario,
+      email,
+      clave,
+    },
+    {
       where: {
-      id
+        id,
+      },
     }
-  }).then(r => {
-    console.log("Usuario modificado correctamente: ", r)
-    res.status(200).send("Usuario modificado correctamente");
-  })
-  .catch((err) => {
-    console.log("Error linea 60: ", err)
-    res.status(404).json(err);
-  });
+  )
+    .then((r) => {
+      console.log("Usuario modificado correctamente: ", r);
+      res.status(200).send("Usuario modificado correctamente");
+    })
+    .catch((err) => {
+      console.log("Error linea 60: ", err);
+      res.status(404).json(err);
+    });
 });
 
 // S40 : Crear Ruta para vaciar el carrito
@@ -69,45 +79,50 @@ server.delete("/cart/:userId", (req, res) => {
   Orden.findOne({
     where: {
       userId,
-      estado: "carrito"
-    }
-  }).then(r => {
-    console.log("Respuesta findOne line 76: ", r)
-    let ordenId = r.dataValues.id
-    Orderline.destroy({
-      where: { ordenId },
-    })
-      .then((response) => {
-        res.send("Carrito vaciado correctamente");
+      estado: "carrito",
+    },
+  })
+    .then((r) => {
+      console.log("Respuesta findOne line 76: ", r);
+      let ordenId = r.dataValues.id;
+      Orderline.destroy({
+        where: { ordenId },
       })
-      .catch((err) => {
-        console.log(err);
-        res.status(404).json(err);
-      });
-  }).catch(e => console.log("Error linea 88: ", e))
+        .then((response) => {
+          res.send("Carrito vaciado correctamente");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(404).json(err);
+        });
+    })
+    .catch((e) => console.log("Error linea 88: ", e));
 });
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put("/cart/:userId"), (req, res) => {
+server.put("/cart/:userId"),
+  (req, res) => {
     const userId = req.params.userId;
     const { productId, cantidad } = req.body.data;
 
     Orden.findOne({
       where: {
         userId,
-        estado: "carrito"
-      }
-    }).then(r => {
-      Orderline.update({ cantidad }, { where: { userId, productId } })
-      .then((respuesta) => {
-        res.status(200).send("Cantidad modificada correctamente");
+        estado: "carrito",
+      },
+    })
+      .then((r) => {
+        Orderline.update({ cantidad }, { where: { userId, productId } })
+          .then((respuesta) => {
+            res.status(200).send("Cantidad modificada correctamente");
+          })
+          .catch((err) => {
+            console.log("Soy err: ", err);
+            res.status(400).json(err);
+          });
       })
-      .catch((err) => {
-        console.log("Soy err: ", err);
-        res.status(400).json(err);
-      });
-    }).catch(e => console.log("Error linea 110: ", e))
+      .catch((e) => console.log("Error linea 110: ", e));
   };
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
@@ -118,22 +133,24 @@ server.get("/cart/:userId", (req, res) => {
   Orden.findOne({
     where: {
       userId,
-      estado: "carrito"
-    }
-  }).then(r => {
-    let ordenId = r.dataValues.id
-    Orderline.findAll({
-      where: { ordenId }
-    })
-      .then((response) => {
-        console.log("Respuesta: ", response);
-        res.json(response);
+      estado: "carrito",
+    },
+  })
+    .then((r) => {
+      let ordenId = r.dataValues.id;
+      Orderline.findAll({
+        where: { ordenId },
       })
-      .catch((err) => {
-        console.log("Soy un err: ", err);
-        res.status(400).send(err);
-      });
-  }).catch(e => console.log("Error linea 130: ", e))
+        .then((response) => {
+          console.log("Respuesta: ", response);
+          res.json(response);
+        })
+        .catch((err) => {
+          console.log("Soy un err: ", err);
+          res.status(400).send(err);
+        });
+    })
+    .catch((e) => console.log("Error linea 130: ", e));
 });
 
 // S44 : Crear ruta que retorne todas las ordenes
@@ -188,8 +205,8 @@ server.get("/:id/orders", (req, res) => {
   const userId = req.params.id;
   Orden.findAll({
     where: {
-      userId
-    }
+      userId,
+    },
   })
     .then((response) => {
       console.log("Respuesta: ", response);
@@ -198,6 +215,72 @@ server.get("/:id/orders", (req, res) => {
     .catch((err) => {
       console.log("Soy un err: ", err);
       res.status(400).send(err);
+    });
+});
+
+// S38 : Crear Ruta para agregar Item al Carrito
+// POST /users/:idUser/cart
+server.post("/:userId/cart", (req, res) => {
+  //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
+  //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
+  //  PARA ESTE CLIENTE...
+  var ordenA;
+  var creado;
+  // var orden;
+  Orden.findOrCreate({
+    where: { estado: "carrito", userId: req.params.userId },
+  })
+    .then((r) => {
+      // r = array ultima pos created
+      const [orden, created] = r;
+      console.log("Created: ", created);
+      ordenA = r[0].dataValues.id;
+      creado = created;
+    })
+    .then((orden) => {
+      if (creado) {
+        // Product.findByPk(req.body.productId).then((product) => {
+        //  Busca el producto en el modelo Producto.
+        Orderline.create({
+          //Crea el Orderline con el producto, userId y orderId.
+          cantidad: 1, // Seteamos a 1 para correr la ruta.
+          precio: req.body.precio, //product.precio,
+          productId: req.body.productId, //product.id,
+          ordenId: ordenA,
+          userId: req.params.userId,
+        }).then((orderline) => res.send(orderline));
+        // });
+      } else {
+        // Product.findByPk(req.body.productId).then((product) => {
+        Orderline.findOne({
+          where: { productId: req.body.productId, ordenId: ordenA },
+        }).then((orderline) => {
+          if (!orderline) {
+            Orderline.create({
+              precio: req.body.precio, //product.precio,
+              cantidad: 1,
+              productId: req.body.productId, //product.id,
+              ordenId: ordenA,
+              userId: req.params.userId,
+            })
+              .then((res1) => {
+                res.json(res1);
+              })
+              .catch((err) => {
+                res.send("error", err);
+              });
+          } else {
+            orderline
+              .update({ cantidad: Number(orderline.cantidad) + 1 })
+              .then((res1) => {
+                res.json(res1);
+              })
+              .catch((err) => {
+                res.send("error", err);
+              });
+          }
+        });
+      }
     });
 });
 
