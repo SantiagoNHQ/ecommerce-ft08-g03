@@ -218,4 +218,70 @@ server.get("/:id/orders", (req, res) => {
     });
 });
 
+// S38 : Crear Ruta para agregar Item al Carrito
+// POST /users/:idUser/cart
+server.post("/:userId/cart", (req, res) => {
+  //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
+  //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
+  //  PARA ESTE CLIENTE...
+  var ordenA;
+  var creado;
+  // var orden;
+  Orden.findOrCreate({
+    where: { estado: "carrito", userId: req.params.userId },
+  })
+    .then((r) => {
+      // r = array ultima pos created
+      const [orden, created] = r;
+      console.log("Created: ", created);
+      ordenA = r[0].dataValues.id;
+      creado = created;
+    })
+    .then((orden) => {
+      if (creado) {
+        // Product.findByPk(req.body.productId).then((product) => {
+        //  Busca el producto en el modelo Producto.
+        Orderline.create({
+          //Crea el Orderline con el producto, userId y orderId.
+          cantidad: 1, // Seteamos a 1 para correr la ruta.
+          precio: req.body.precio, //product.precio,
+          productId: req.body.productId, //product.id,
+          ordenId: ordenA,
+          userId: req.params.userId,
+        }).then((orderline) => res.send(orderline));
+        // });
+      } else {
+        // Product.findByPk(req.body.productId).then((product) => {
+        Orderline.findOne({
+          where: { productId: req.body.productId, ordenId: ordenA },
+        }).then((orderline) => {
+          if (!orderline) {
+            Orderline.create({
+              precio: req.body.precio, //product.precio,
+              cantidad: 1,
+              productId: req.body.productId, //product.id,
+              ordenId: ordenA,
+              userId: req.params.userId,
+            })
+              .then((res1) => {
+                res.json(res1);
+              })
+              .catch((err) => {
+                res.send("error", err);
+              });
+          } else {
+            orderline
+              .update({ cantidad: Number(orderline.cantidad) + 1 })
+              .then((res1) => {
+                res.json(res1);
+              })
+              .catch((err) => {
+                res.send("error", err);
+              });
+          }
+        });
+      }
+    });
+});
+
 module.exports = server;
