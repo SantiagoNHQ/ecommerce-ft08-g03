@@ -14,7 +14,6 @@ import NavAdmin from "./components/NavAdmin/NavAdmin";
 import OrdersTable from "./components/OrdersTable/OrdersTable";
 import NuevoUsuario from "./components/NuevoUsuario/NuevoUsuario";
 import Carrito from "./components/Carrito/Carrito";
-import NavBar from "./components/NavBar/NavBar";
 
 function App(location) {
   return (
