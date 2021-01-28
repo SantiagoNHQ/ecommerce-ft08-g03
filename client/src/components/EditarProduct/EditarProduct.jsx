@@ -8,16 +8,17 @@ export default function EditarProducto(props) {
 
     useEffect(() => {
         function product () {
-        axios.get("http://localhost:3001/product/")
-        .then(res => 
-            {
-                console.log(res.data)
-            setCards({...cards, productos: res.data})
-            }
-            )}
+            axios.get("http://localhost:3001/product/")
+            .then(res => {
+                console.log("Data de respuesta: ", res.data)
+                //setCards({...cards, productos: res.data})
+                setCards((state) => ({productos: res.data}))
+            })
+        }
             
         product()
     }, [])
+
     function submitEliminar(p) {
         console.log(" ELIMINAR: ", p)
         // var obj = {nombre: p}

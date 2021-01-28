@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD } from './constants';
 
 export const formChange = (form) => {
     return {
@@ -10,6 +10,13 @@ export const formChange = (form) => {
 export const searchChange = (search) => {
     return {
         type: SEARCH_CHANGE,
+        search
+    }
+};
+
+export const searchClick = (search) => {
+    return {
+        type: SEARCH_CLICK,
         search
     }
 };

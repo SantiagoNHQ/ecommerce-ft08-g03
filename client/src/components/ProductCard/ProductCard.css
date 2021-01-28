@@ -2,7 +2,7 @@
 .div-producto {
   width: 100%;
   max-width: 1200px;
-  height: 430px;
+  height: 600px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

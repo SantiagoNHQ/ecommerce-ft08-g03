@@ -24,7 +24,7 @@ function OrdersTable(props) {
         axios.get("http://localhost:3001/user/orders" + !estado ? "" : `/${estado}`).then(r => {
             onOrdersLoad(r.data)
         }).catch(e => console.log("Error: ", e))
-    }, [])
+    }, [estado, onOrdersLoad])
 
     return (
         <div>
