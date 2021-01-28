@@ -1,6 +1,8 @@
 import React /* , {useEffect} */ from "react";
 import "./App.css";
+import NavBar from "./components/NavBar/NavBar";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
+// import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
@@ -36,7 +38,7 @@ function App(location) {
             />
           )}
         />
-        <Route exact path="/user" component={NuevoUsuario} />
+        <Route exact path="/user/nuevo" component={NuevoUsuario} />
         <Route exact path="/admin/formProduct" component={FormProduct} />
         <Route exact path="/admin/formCategory" component={FormCategory} />
         <Route path="/user/product/:id" component={Product} />

@@ -10,7 +10,6 @@ var variable = (state = initialState, action) => {
   switch (action.type) {
     case FORM_CHANGE: {
       //state.formulario = action.form
-      console.log("State form: ", state.formulario);
       return (state = { ...state, formulario: action.form });
     }
     case SEARCH_CHANGE: { // Done (Texto escrito en el search)
@@ -23,7 +22,6 @@ var variable = (state = initialState, action) => {
     }
     case CATEGORIES_LOAD: {
       //state.categoria = action.categories
-      console.log("State categoria: ", action.categories);
       return (state = { ...state, categoria: action.categories });
     }
     case PRODUCTS_LOAD: {

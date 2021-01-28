@@ -12,14 +12,23 @@ const { Model } = require("sequelize");
 
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
-  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body;
+  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+  console.log("Body: ", req.body);
 
   User.create({ nombre, nombreDeUsuario, email, clave, apellido })
     .then((response) => {
-      res.status(200).send("Usuario creado correctamente.");
+      Orden.create({ userId: response.dataValues.id })
+        .then((response) => {
+          res.status(200).send("Usuario creado correctamente.");
+        })
+        .catch((err) => {
+          console.log("Error linea 24: ", err);
+          res.status(404).send("No se pudo crear el usuario.");
+        });
     })
     .catch((err) => {
-      res.status(404).send({ "No se pudo crear el usuario.": err });
+      console.log("Error linea 28: ", err);
+      res.status(404).send("No se pudo crear el usuario.");
     });
 });
 
@@ -30,29 +39,35 @@ server.get("/", (req, res) => {
       res.status(200).json(response);
     })
     .catch((response) => {
-      res.send("no se pudo crear ell usuario", response);
+      res.send("No se pudieron obtener todos los usuarios, error: ", response);
     });
 });
 
 // S35 : Crear Ruta para modificar Usuario
 server.put("/:id", (req, res) => {
   const id = req.params.id;
-  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body;
-  User.findOne({
-    where: {
-      id: id,
+  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+
+  User.update(
+    {
+      nombre,
+      apellido,
+      nombreDeUsuario,
+      email,
+      clave,
     },
-  })
-    .then((user) => {
-      console.log("User: ", user);
-      // user.nombre = nombre;
-      // user.apellido = apellido;
-      user.nombreDeUsuario = nombreDeUsuario;
-      // user.email = email;
-      user.clave = clave;
-      res.status(200).json(user);
+    {
+      where: {
+        id,
+      },
+    }
+  )
+    .then((r) => {
+      console.log("Usuario modificado correctamente: ", r);
+      res.status(200).send("Usuario modificado correctamente");
     })
     .catch((err) => {
+      console.log("Error linea 60: ", err);
       res.status(404).json(err);
     });
 });
@@ -61,17 +76,27 @@ server.put("/:id", (req, res) => {
 /*  DELETE /users/:idUser/cart/ */
 server.delete("/cart/:userId", (req, res) => {
   const userId = req.params.userId;
-  console.log("Carrito: ", req.body);
-  Orden.destroy({
-    where: { userId },
+  Orden.findOne({
+    where: {
+      userId,
+      estado: "carrito",
+    },
   })
-    .then((response) => {
-      res.send("Carrito vacio correctamente");
+    .then((r) => {
+      console.log("Respuesta findOne line 76: ", r);
+      let ordenId = r.dataValues.id;
+      Orderline.destroy({
+        where: { ordenId },
+      })
+        .then((response) => {
+          res.send("Carrito vaciado correctamente");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(404).json(err);
+        });
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(404).json(err);
-    });
+    .catch((e) => console.log("Error linea 88: ", e));
 });
 
 // S41 : Crear Ruta para editar las cantidades del carrito
@@ -79,33 +104,53 @@ server.delete("/cart/:userId", (req, res) => {
 server.put("/cart/:userId"),
   (req, res) => {
     const userId = req.params.userId;
-    const { cantidad } = req.body;
-    Orderline.update({ cantidad: cantidad }, { where: { userId } })
+    const { productId, cantidad } = req.body.data;
+
+    Orden.findOne({
+      where: {
+        userId,
+        estado: "carrito",
+      },
+    })
       .then((r) => {
-        res.sed("Cantidad modificada correctamente");
+        Orderline.update({ cantidad }, { where: { userId, productId } })
+          .then((respuesta) => {
+            res.status(200).send("Cantidad modificada correctamente");
+          })
+          .catch((err) => {
+            console.log("Soy err: ", err);
+            res.status(400).json(err);
+          });
       })
-      .catch((err) => {
-        console.log("Soy err: ", err);
-        res.status(400).json(err);
-      });
+      .catch((e) => console.log("Error linea 110: ", e));
   };
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
 /*  GET /users/:idUser/cart */
-server.get("/cart/:ordenId", (req, res) => {
-  const ordenId = req.params.ordenId;
-  Orderline.findAll({
-    where: { ordenId },
-    include: { model: Orden },
+server.get("/cart/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  Orden.findOne({
+    where: {
+      userId,
+      estado: "carrito",
+    },
   })
-    .then((response) => {
-      console.log("Respuesta: ", response);
-      res.json(response);
+    .then((r) => {
+      let ordenId = r.dataValues.id;
+      Orderline.findAll({
+        where: { ordenId },
+      })
+        .then((response) => {
+          console.log("Respuesta: ", response);
+          res.json(response);
+        })
+        .catch((err) => {
+          console.log("Soy un err: ", err);
+          res.status(400).send(err);
+        });
     })
-    .catch((err) => {
-      console.log("Soy un err: ", err);
-      res.status(400).send(err);
-    });
+    .catch((e) => console.log("Error linea 130: ", e));
 });
 
 // S44 : Crear ruta que retorne todas las ordenes
@@ -157,10 +202,10 @@ server.get("/order/:id", (req, res) => {
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
 server.get("/:id/orders", (req, res) => {
-  const id = req.params.id;
-  Orderlist.findAll({
+  const userId = req.params.id;
+  Orden.findAll({
     where: {
-      userId: id,
+      userId,
     },
   })
     .then((response) => {
@@ -173,6 +218,72 @@ server.get("/:id/orders", (req, res) => {
     });
 });
 
-// S47 : Crear Ruta para modificar una Orden
+
+// S38 : Crear Ruta para agregar Item al Carrito
+// POST /users/:idUser/cart
+server.post("/:userId/cart", (req, res) => {
+  //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
+  //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
+  //  PARA ESTE CLIENTE...
+  var ordenA;
+  var creado;
+  // var orden;
+  Orden.findOrCreate({
+    where: { estado: "carrito", userId: req.params.userId },
+  })
+    .then((r) => {
+      // r = array ultima pos created
+      const [orden, created] = r;
+      console.log("Created: ", created);
+      ordenA = r[0].dataValues.id;
+      creado = created;
+    })
+    .then((orden) => {
+      if (creado) {
+        // Product.findByPk(req.body.productId).then((product) => {
+        //  Busca el producto en el modelo Producto.
+        Orderline.create({
+          //Crea el Orderline con el producto, userId y orderId.
+          cantidad: 1, // Seteamos a 1 para correr la ruta.
+          precio: req.body.precio, //product.precio,
+          productId: req.body.productId, //product.id,
+          ordenId: ordenA,
+          userId: req.params.userId,
+        }).then((orderline) => res.send(orderline));
+        // });
+      } else {
+        // Product.findByPk(req.body.productId).then((product) => {
+        Orderline.findOne({
+          where: { productId: req.body.productId, ordenId: ordenA },
+        }).then((orderline) => {
+          if (!orderline) {
+            Orderline.create({
+              precio: req.body.precio, //product.precio,
+              cantidad: 1,
+              productId: req.body.productId, //product.id,
+              ordenId: ordenA,
+              userId: req.params.userId,
+            })
+              .then((res1) => {
+                res.json(res1);
+              })
+              .catch((err) => {
+                res.send("error", err);
+              });
+          } else {
+            orderline
+              .update({ cantidad: Number(orderline.cantidad) + 1 })
+              .then((res1) => {
+                res.json(res1);
+              })
+              .catch((err) => {
+                res.send("error", err);
+              });
+          }
+        });
+      }
+    });
+});
+
 
 module.exports = server;
