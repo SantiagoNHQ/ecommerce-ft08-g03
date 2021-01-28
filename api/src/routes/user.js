@@ -12,15 +12,22 @@ const { Model } = require("sequelize");
 
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
-  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body;
+  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+  console.log("Body: ", req.body);
 
   User.create({ nombre, nombreDeUsuario, email, clave, apellido })
-    .then((response) => {
-      res.status(200).send("Usuario creado correctamente.");
-    })
-    .catch((err) => {
-      res.status(404).send({ "No se pudo crear el usuario.": err });
-    });
+  .then(response => {
+      Orden.create({userId: response.dataValues.id
+      }).then((response) => {
+          res.status(200).send("Usuario creado correctamente.");
+      }).catch((err) => {
+        console.log("Error linea 24: ", err)
+        res.status(404).send("No se pudo crear el usuario.");
+      });
+  }).catch((err) => {
+    console.log("Error linea 28: ", err)
+    res.status(404).send("No se pudo crear el usuario.");
+  });
 });
 
 // S36 : Crear Ruta que retorne todos los Usuarios
@@ -30,82 +37,103 @@ server.get("/", (req, res) => {
       res.status(200).json(response);
     })
     .catch((response) => {
-      res.send("no se pudo crear ell usuario", response);
+      res.send("No se pudieron obtener todos los usuarios, error: ", response);
     });
 });
 
 // S35 : Crear Ruta para modificar Usuario
 server.put("/:id", (req, res) => {
   const id = req.params.id;
-  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body;
-  User.findOne({
-    where: {
-      id: id,
-    },
+  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+
+  User.update({
+      nombre, apellido, nombreDeUsuario, email, clave
+    }, {
+      where: {
+      id
+    }
+  }).then(r => {
+    console.log("Usuario modificado correctamente: ", r)
+    res.status(200).send("Usuario modificado correctamente");
   })
-    .then((user) => {
-      console.log("User: ", user);
-      // user.nombre = nombre;
-      // user.apellido = apellido;
-      user.nombreDeUsuario = nombreDeUsuario;
-      // user.email = email;
-      user.clave = clave;
-      res.status(200).json(user);
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  .catch((err) => {
+    console.log("Error linea 60: ", err)
+    res.status(404).json(err);
+  });
 });
 
 // S40 : Crear Ruta para vaciar el carrito
 /*  DELETE /users/:idUser/cart/ */
 server.delete("/cart/:userId", (req, res) => {
   const userId = req.params.userId;
-  console.log("Carrito: ", req.body);
-  Orden.destroy({
-    where: { userId },
-  })
-    .then((response) => {
-      res.send("Carrito vacio correctamente");
+  Orden.findOne({
+    where: {
+      userId,
+      estado: "carrito"
+    }
+  }).then(r => {
+    console.log("Respuesta findOne line 76: ", r)
+    let ordenId = r.dataValues.id
+    Orderline.destroy({
+      where: { ordenId },
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(404).json(err);
-    });
+      .then((response) => {
+        res.send("Carrito vaciado correctamente");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(404).json(err);
+      });
+  }).catch(e => console.log("Error linea 88: ", e))
 });
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put("/cart/:userId"),
-  (req, res) => {
+server.put("/cart/:userId"), (req, res) => {
     const userId = req.params.userId;
-    const { cantidad } = req.body;
-    Orderline.update({ cantidad: cantidad }, { where: { userId } })
-      .then((r) => {
-        res.sed("Cantidad modificada correctamente");
+    const { productId, cantidad } = req.body.data;
+
+    Orden.findOne({
+      where: {
+        userId,
+        estado: "carrito"
+      }
+    }).then(r => {
+      Orderline.update({ cantidad }, { where: { userId, productId } })
+      .then((respuesta) => {
+        res.status(200).send("Cantidad modificada correctamente");
       })
       .catch((err) => {
         console.log("Soy err: ", err);
         res.status(400).json(err);
       });
+    }).catch(e => console.log("Error linea 110: ", e))
   };
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
 /*  GET /users/:idUser/cart */
-server.get("/cart/:ordenId", (req, res) => {
-  const ordenId = req.params.ordenId;
-  Orderline.findAll({
-    where: { ordenId },
-    include: { model: Orden },
-  })
-    .then((response) => {
-      console.log("Respuesta: ", response);
-      res.json(response);
+server.get("/cart/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  Orden.findOne({
+    where: {
+      userId,
+      estado: "carrito"
+    }
+  }).then(r => {
+    let ordenId = r.dataValues.id
+    Orderline.findAll({
+      where: { ordenId }
     })
-    .catch((err) => {
-      console.log("Soy un err: ", err);
-      res.status(400).send(err);
-    });
+      .then((response) => {
+        console.log("Respuesta: ", response);
+        res.json(response);
+      })
+      .catch((err) => {
+        console.log("Soy un err: ", err);
+        res.status(400).send(err);
+      });
+  }).catch(e => console.log("Error linea 130: ", e))
 });
 
 // S44 : Crear ruta que retorne todas las ordenes
@@ -157,11 +185,11 @@ server.get("/order/:id", (req, res) => {
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
 server.get("/:id/orders", (req, res) => {
-  const id = req.params.id;
-  Orderlist.findAll({
+  const userId = req.params.id;
+  Orden.findAll({
     where: {
-      userId: id,
-    },
+      userId
+    }
   })
     .then((response) => {
       console.log("Respuesta: ", response);
