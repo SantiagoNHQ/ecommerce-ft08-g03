@@ -8,6 +8,7 @@ export default function NavBar(props) {
             <nav className='links'>
             <Link to="/">Inicio</Link>
             <Link to="/user/products">Catalogo</Link>
+            <Link to="/user/nuevo">Nuevo Usuario</Link>
             <Link to="/admin">SER ADMIN</Link>
 
             </nav>
