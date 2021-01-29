@@ -65,7 +65,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
   }, [categoria, search, onProductsLoad])
 
   return  (
-    <div>
+    <div className='div-general-app'>
 
       {
         (categoria || search) && <div>Filtrando por: <br/>
@@ -74,7 +74,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
       }
       {
         products && products.map(p => 
-          <div key={p.id} className='div-producto'>
+          <div key={p.id} className='div-productos'>
             <ProductCard id={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
           </div>
         )
