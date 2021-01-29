@@ -20,15 +20,18 @@ import { connect } from "react-redux";
 import { addCarrito } from "./redux/actions";
 
 function App(props) {
+  
   useEffect(() => {
+    if (props.logged !== true) return
+    
     axios
-      .get(`http://localhost:3001/user/cart/${props.user.userId}`)
+    .get(`http://localhost:3001/user/cart/${props.user.userId}`)
       .then((response) => {
-        props.onAddCarrito(response.data);
-      })
-      .catch((response) => {
-        console.log("ERROR", response);
-      });
+      props.onAddCarrito(response.data);
+    })
+    .catch((response) => {
+      console.log("ERROR", response);
+    });
   }, [props.user.userId, props.onAddCarrito]);
 
   return (
