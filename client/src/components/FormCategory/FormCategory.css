@@ -4,8 +4,8 @@
 }
 
 .formulario {
-    background-image: url(../img/Fondo.jpg);
-    height: 1080px;
+    background-image: url(../img/Fondo-opB01.jpg);
+    height: 745px;
     display: flex;
     flex-direction: row;
     padding-left: 15px;
@@ -16,13 +16,13 @@
 
 .agregarCategoria {
     width: 75%;
-    height: 50%;
+    height: 75%;
     background-color: rgba(158, 22, 22, 0.733);
     display: flex;
     flex-direction: column;
     padding: 5px;
     border-color: solid black 10px;
-    border-radius: 10px;
+    border-radius: 25px 50px;
     margin-right: 15px;
     padding: 10px;
     align-items: center;
@@ -46,9 +46,13 @@
     width: 75%; 
 }
 
-.agregarCategoria button {
-    width: 50%;
-    border-radius: 5px;
-    margin: 20px;
-    padding: 1px;
+.agregarCategoria input[type=submit] {
+    width: 35%;
+    border-bottom: 8px solid black;
+    border-right: 7px solid black;
+    border-radius: 12px;
+    font-size: 25px;
+    background-color: brown;
+    color: white;
+    font-weight: bolder;
 }
