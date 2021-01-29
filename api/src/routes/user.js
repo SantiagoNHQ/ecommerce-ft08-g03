@@ -155,7 +155,9 @@ server.get("/cart/:userId", (req, res) => {
 
 // S44 : Crear ruta que retorne todas las ordenes
 server.get("/orders", (req, res) => {
-  Orden.findAll({})
+  Orden.findAll({
+    include: {model: User}
+  })
     .then((response) => {
       console.log("Respuesta: ", response);
       res.status(200).json(response);

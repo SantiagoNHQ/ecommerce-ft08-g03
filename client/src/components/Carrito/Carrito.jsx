@@ -54,6 +54,7 @@ export function Carrito ({carrito, user, onAddCarrito}) {
             console.log("ESTO ES UN ERROR", err)
         })
     }
+    
 
     return(
         <div className='div-carrito'>

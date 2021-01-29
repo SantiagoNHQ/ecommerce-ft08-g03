@@ -45,13 +45,10 @@ function SearchBar({search, onSearchChange}) { // search = state.search && dispa
         })
     }
     return (
-        <div className='div-navbar'>
-           
             <div className='buscador'>
             <input className='input' onKeyPress={ submitEnter } onChange={ buscador }/>
             <button className='boton' onClick={ submit }></button>
             </div>
-        </div>
     )
 }
 
