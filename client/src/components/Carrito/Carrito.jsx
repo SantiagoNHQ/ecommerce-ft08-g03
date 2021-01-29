@@ -55,6 +55,7 @@ export function Carrito ({carrito, user, onAddCarrito}) {
         })
     }
 
+
     return(
         <div className='div-carrito'>
 

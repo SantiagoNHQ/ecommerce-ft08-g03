@@ -1,4 +1,3 @@
-
 const server = require("express").Router();
 const {
   Product,
@@ -102,6 +101,7 @@ server.delete("/cart/:userId", (req, res) => {
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
+
 server.put("/cart/:userId", (req, res) => {
   const userId = req.params.userId;
   const { productId, cantidad } = req.body;
@@ -159,7 +159,9 @@ server.get("/cart/:userId", (req, res) => {
 
 // S44 : Crear ruta que retorne todas las ordenes
 server.get("/orders", (req, res) => {
-  Orden.findAll({})
+  Orden.findAll({
+    include: {model: User}
+  })
     .then((response) => {
       console.log("Respuesta: ", response);
       res.status(200).json(response);
@@ -228,8 +230,6 @@ server.post("/:userId/cart", (req, res) => {
   //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
   //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
   //  PARA ESTE CLIENTE...
-  console.log("bbbbbbbbbbbbbbbbbbbb", req.body.data.nombre);
-  console.log("ESTO ES REQ.BODY.DATA", req.body.data.productId);
   var ordenA;
   var creado;
   // var orden;
@@ -292,6 +292,24 @@ server.post("/:userId/cart", (req, res) => {
     });
 });
 
+server.delete("/delete/:productId/:userId", (req, res) => {
+     const {productId, userId} = req.params;
+    
+     console.log("AAAAAAAAAA", productId)
+     console.log("bbbbbbbbbbbbbb", userId)
+      Orderline.destroy({
+        where: {productId, userId }
+      })
+      .then((response) => {
+         console.log("Objeto a eliminar: ", response);
+         res.json(response)
+      })
+      .catch((err) => {
+         console.log("Error al intentar eliminar: ", err);
+         res.send(err)
+      });
+ });
+
 //  *** S47 : Crear Ruta para modificar una Orden ***
 // PUT /orders/:id
 server.put("/orders/:id", (req, res) => {
@@ -310,5 +328,4 @@ server.put("/orders/:id", (req, res) => {
 });
 
 module.exports = server;
-// const id = req.params.id;
-//   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+
