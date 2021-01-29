@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO } from './constants';
 const initialState = {
   arrayCheckBox: [],
   formulario: { categories: [] },
@@ -8,6 +8,10 @@ const initialState = {
 
 var variable = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_CARRITO: {
+      //state.formulario = action.form
+      return (state = { ...state, carrito: action.carrito });
+    }
     case FORM_CHANGE: {
       //state.formulario = action.form
       return (state = { ...state, formulario: action.form });

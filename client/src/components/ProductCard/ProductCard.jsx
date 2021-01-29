@@ -2,6 +2,7 @@ import axios from "axios";
 import React, {useState, useEffect} from "react";
 import "./ProductCard.css"
 import {connect} from 'react-redux'
+import { addCarrito } from "../../redux/actions";
 
 //  *** S10 : Crear Componente ProductCard ***
 export function ProductCard (props) {
@@ -22,29 +23,26 @@ export function ProductCard (props) {
         }
     }, [props.stock, props.img])
 
-    // function stocks(props){
-        // if(props.stock >= 0){
-        //     setStock = {...stock, stock: "No disponible"}
-        // }
-        // else{
-        //     setStock ={...stock, stock: props.stock}
-        // }
-    // }
-    // stocks(props)
 
 
     function comprar(e) {
-        const productId = {
-            id : props.id,
+        e.preventDefault()
+        var obj = {
+            productId : props.id,
             nombre: props.nombre,
-            precio: props.precio,         
+            precio: props.precio,       
         }
         // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
-        axios.post(`http://localhost:3001/user/${props.user.userId}/cart`, {data: productId} )
+        axios.post(`http://localhost:3001/user/${props.user.userId}/cart`, {data: obj} )
         .then(res => {
             console.log('Todo Okey: ', res)
-
-        }).catch(err => {
+            return axios.get(`http://localhost:3001/user/cart/${props.user.userId}`)
+        })
+        .then(res =>{
+            console.log("ESTOS SON TODOS LOS ELEMENTOS DEL CARRITO", res.data)
+            props.onAddCarrito(res.data)
+        })
+        .catch(err => {
             if(err) return err;
         })
     }
@@ -58,7 +56,7 @@ export function ProductCard (props) {
             <p>{props.descripcion}</p> 
             <div className='div-boton'>
                  <button className='boton-editar'></button>
-                 <button className='boton-comprar' onClick={comprar}>COMPRAR</button>
+                 <button /*className='boton-comprar'*/ onClick={(e)=> comprar(e)}>AÑADIR A CARRITO</button>
             </div>
             <h3>Stock: {stock.stock}</h3> 
             <h4>$ {props.precio}</h4>
@@ -68,16 +66,17 @@ export function ProductCard (props) {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        carrito: state.carrito
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    // return {
-    //     onSearchChange: (text) => {
-    //     dispatch(searchChange(text))
-    //     }
-    // }
+    return {
+        onAddCarrito: (text) => {
+        dispatch(addCarrito(text))
+        }
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)

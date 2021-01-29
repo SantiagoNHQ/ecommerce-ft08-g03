@@ -1,7 +1,6 @@
 import React/* , { useState } */ from "react";
 import "./SearchBar.css";
 import axios from 'axios';
-// import {Link} from "react-router-dom";
 import { connect } from 'react-redux'
 import { searchChange } from "../../redux/actions";
 

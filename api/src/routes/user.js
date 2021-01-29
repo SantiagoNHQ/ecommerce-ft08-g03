@@ -101,10 +101,9 @@ server.delete("/cart/:userId", (req, res) => {
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put("/cart/:userId"),
-  (req, res) => {
+server.put("/cart/:userId",  (req, res) => {
     const userId = req.params.userId;
-    const { productId, cantidad } = req.body.data;
+    const { productId, cantidad } = req.body;
 
     Orden.findOne({
       where: {
@@ -113,7 +112,7 @@ server.put("/cart/:userId"),
       },
     })
       .then((r) => {
-        Orderline.update({ cantidad }, { where: { userId, productId } })
+        Orderline.update({ cantidad }, { where: { userId, productId, ordenId: r.dataValues.id } })
           .then((respuesta) => {
             res.status(200).send("Cantidad modificada correctamente");
           })
@@ -123,7 +122,7 @@ server.put("/cart/:userId"),
           });
       })
       .catch((e) => console.log("Error linea 110: ", e));
-  };
+  });
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
 /*  GET /users/:idUser/cart */
@@ -140,6 +139,7 @@ server.get("/cart/:userId", (req, res) => {
       let ordenId = r.dataValues.id;
       Orderline.findAll({
         where: { ordenId },
+        order: [["productId", "DESC"]]
       })
         .then((response) => {
           console.log("Respuesta: ", response);
@@ -225,6 +225,8 @@ server.post("/:userId/cart", (req, res) => {
   //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
   //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
   //  PARA ESTE CLIENTE...
+  console.log("bbbbbbbbbbbbbbbbbbbb", req.body.data.nombre)
+  console.log("ESTO ES REQ.BODY.DATA", req.body.data.productId)
   var ordenA;
   var creado;
   // var orden;
@@ -245,24 +247,26 @@ server.post("/:userId/cart", (req, res) => {
         Orderline.create({
           //Crea el Orderline con el producto, userId y orderId.
           cantidad: 1, // Seteamos a 1 para correr la ruta.
-          precio: req.body.precio, //product.precio,
-          productId: req.body.productId, //product.id,
+          precio: req.body.data.precio, //product.precio,
+          productId: req.body.data.productId, //product.id,
           ordenId: ordenA,
           userId: req.params.userId,
+          nombre: req.body.data.nombre
         }).then((orderline) => res.send(orderline));
         // });
       } else {
         // Product.findByPk(req.body.productId).then((product) => {
         Orderline.findOne({
-          where: { productId: req.body.productId, ordenId: ordenA },
+          where: { productId: req.body.data.productId, ordenId: ordenA },
         }).then((orderline) => {
           if (!orderline) {
             Orderline.create({
-              precio: req.body.precio, //product.precio,
+              precio: req.body.data.precio, //product.precio,
               cantidad: 1,
-              productId: req.body.productId, //product.id,
+              productId: req.body.data.productId, //product.id,
               ordenId: ordenA,
               userId: req.params.userId,
+              nombre: req.body.data.nombre
             })
               .then((res1) => {
                 res.json(res1);

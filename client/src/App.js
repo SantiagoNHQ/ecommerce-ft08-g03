@@ -1,4 +1,4 @@
-import React /* , {useEffect} */ from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
@@ -14,14 +14,27 @@ import NavAdmin from "./components/NavAdmin/NavAdmin";
 import OrdersTable from "./components/OrdersTable/OrdersTable";
 import NuevoUsuario from "./components/NuevoUsuario/NuevoUsuario";
 import Carrito from "./components/Carrito/Carrito";
+import axios from "axios";
+import {connect} from "react-redux";
+import { addCarrito } from "./redux/actions";
 
-function App(location) {
+function App(props) {
+    useEffect(()=> {
+        axios.get(`http://localhost:3001/user/cart/${props.user.userId}`)
+      .then (response => {
+        props.onAddCarrito(response.data)
+      })
+      .catch(response => {
+        console.log("ERROR", response)
+      })
+    },[props.user.userId, props.onAddCarrito])
+
   return (
     <BrowserRouter>
       <React.Fragment>
         <Route path="/products/:id" component={Product} />
-        <Route path="/user" component={NavBar} />
         <Route exact path="/" component={NavBar} />
+        <Route path="/user" component={NavBar} />
         <Route exact path="/" component={Home} />
         <Route path="/admin" component={NavAdmin} />
         <Route exact path="/admin" component={Admin} />
@@ -47,4 +60,20 @@ function App(location) {
   );
 }
 // Linea de prueba
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+       user: state.user,
+      carrito: state.carrito
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onAddCarrito: (text) => {
+      dispatch(addCarrito(text))
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

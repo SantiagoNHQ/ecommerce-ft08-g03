@@ -75,7 +75,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
       {
         products && products.map(p => 
           <div key={p.id} className='div-producto'>
-            <ProductCard nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
+            <ProductCard id={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
           </div>
         )
       }
