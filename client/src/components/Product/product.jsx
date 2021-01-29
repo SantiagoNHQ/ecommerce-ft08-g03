@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Card, Container, Row, Col} from 'react-bootstrap'
+
 
 
 //  *** S6 : Crear Componente Producto ***

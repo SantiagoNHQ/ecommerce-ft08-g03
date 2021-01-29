@@ -1,7 +1,6 @@
 import React/* , { useState } */ from "react";
 import "./SearchBar.css";
 import axios from 'axios';
-import {Link} from "react-router-dom";
 import { connect } from 'react-redux'
 import { searchChange } from "../../redux/actions";
 
@@ -47,13 +46,7 @@ function SearchBar({search, onSearchChange}) { // search = state.search && dispa
     }
     return (
         <div className='div-navbar'>
-            <nav className='links'>
-            <Link to="/">Inicio</Link>
-            <Link to="/user/products">Catalogo</Link>
-            <Link to="/user">Nuevo Usuario</Link>
-            <Link to="/admin">SER ADMIN</Link>
-
-            </nav>
+           
             <div className='buscador'>
             <input className='input' onKeyPress={ submitEnter } onChange={ buscador }/>
             <button className='boton' onClick={ submit }></button>
