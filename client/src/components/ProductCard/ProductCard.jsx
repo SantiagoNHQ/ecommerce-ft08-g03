@@ -49,17 +49,20 @@ export function ProductCard (props) {
 
     return (
         <div className='card'>
-            <h1>{props.nombre}</h1> 
+            <div className='titulo-y-precio'>
+            <h1 className='titulo'>{props.nombre}</h1> 
+            <h4 className='precio'>$ {props.precio}</h4>
+            </div>
             <div className='div-imagen'>
                 <img alt={props.nombre} src={stock.img}></img>
             </div>
             <p>{props.descripcion}</p> 
+            <div className='boton-y-stock'>
             <div className='div-boton'>
-                 <button className='boton-editar'></button>
-                 <button /*className='boton-comprar'*/ onClick={(e)=> comprar(e)}>AÑADIR A CARRITO</button>
+                 <button className='boton-comprar' onClick={(e)=> comprar(e)}>Añadir al carrito</button>
             </div>
-            <h3>Stock: {stock.stock}</h3> 
-            <h4>$ {props.precio}</h4>
+            <h3 className='stock'><span>Stock:</span> {stock.stock}</h3> 
+            </div>
         </div>
     )
 }

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
-// import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
