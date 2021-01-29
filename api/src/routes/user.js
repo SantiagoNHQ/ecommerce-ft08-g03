@@ -1,3 +1,4 @@
+
 const server = require("express").Router();
 const {
   Product,
@@ -101,28 +102,31 @@ server.delete("/cart/:userId", (req, res) => {
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put("/cart/:userId",  (req, res) => {
-    const userId = req.params.userId;
-    const { productId, cantidad } = req.body;
+server.put("/cart/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const { productId, cantidad } = req.body;
 
-    Orden.findOne({
-      where: {
-        userId,
-        estado: "carrito",
-      },
+  Orden.findOne({
+    where: {
+      userId,
+      estado: "carrito",
+    },
+  })
+    .then((r) => {
+      Orderline.update(
+        { cantidad },
+        { where: { userId, productId, ordenId: r.dataValues.id } }
+      )
+        .then((respuesta) => {
+          res.status(200).send("Cantidad modificada correctamente");
+        })
+        .catch((err) => {
+          console.log("Soy err: ", err);
+          res.status(400).json(err);
+        });
     })
-      .then((r) => {
-        Orderline.update({ cantidad }, { where: { userId, productId, ordenId: r.dataValues.id } })
-          .then((respuesta) => {
-            res.status(200).send("Cantidad modificada correctamente");
-          })
-          .catch((err) => {
-            console.log("Soy err: ", err);
-            res.status(400).json(err);
-          });
-      })
-      .catch((e) => console.log("Error linea 110: ", e));
-  });
+    .catch((e) => console.log("Error linea 110: ", e));
+});
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
 /*  GET /users/:idUser/cart */
@@ -139,7 +143,7 @@ server.get("/cart/:userId", (req, res) => {
       let ordenId = r.dataValues.id;
       Orderline.findAll({
         where: { ordenId },
-        order: [["productId", "DESC"]]
+        order: [["productId", "DESC"]],
       })
         .then((response) => {
           console.log("Respuesta: ", response);
@@ -218,15 +222,14 @@ server.get("/:id/orders", (req, res) => {
     });
 });
 
-
 // S38 : Crear Ruta para agregar Item al Carrito
 // POST /users/:idUser/cart
 server.post("/:userId/cart", (req, res) => {
   //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
   //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
   //  PARA ESTE CLIENTE...
-  console.log("bbbbbbbbbbbbbbbbbbbb", req.body.data.nombre)
-  console.log("ESTO ES REQ.BODY.DATA", req.body.data.productId)
+  console.log("bbbbbbbbbbbbbbbbbbbb", req.body.data.nombre);
+  console.log("ESTO ES REQ.BODY.DATA", req.body.data.productId);
   var ordenA;
   var creado;
   // var orden;
@@ -251,7 +254,7 @@ server.post("/:userId/cart", (req, res) => {
           productId: req.body.data.productId, //product.id,
           ordenId: ordenA,
           userId: req.params.userId,
-          nombre: req.body.data.nombre
+          nombre: req.body.data.nombre,
         }).then((orderline) => res.send(orderline));
         // });
       } else {
@@ -266,7 +269,7 @@ server.post("/:userId/cart", (req, res) => {
               productId: req.body.data.productId, //product.id,
               ordenId: ordenA,
               userId: req.params.userId,
-              nombre: req.body.data.nombre
+              nombre: req.body.data.nombre,
             })
               .then((res1) => {
                 res.json(res1);
@@ -288,23 +291,24 @@ server.post("/:userId/cart", (req, res) => {
       }
     });
 });
-server.delete("/delete/:productId/:userId", (req, res) => {
-     const {productId, userId} = req.params;
-    
-     console.log("AAAAAAAAAA", productId)
-     console.log("bbbbbbbbbbbbbb", userId)
-      Orderline.destroy({
-        where: {productId, userId }
-      })
-      .then((response) => {
-         console.log("Objeto a eliminar: ", response);
-         res.json(response)
-      })
-      .catch((err) => {
-         console.log("Error al intentar eliminar: ", err);
-         res.send(err)
-      });
- });
 
+//  *** S47 : Crear Ruta para modificar una Orden ***
+// PUT /orders/:id
+server.put("/orders/:id", (req, res) => {
+  console.log(req.params.id);
+  console.log(req.body);
+  const id = req.params.id;
+  const estado = req.body.estado;
+  console.log(estado);
+  Orden.update({ estado }, { where: { id } })
+    .then((r) => {
+      res.status(200).send("Estado modificado correctamente");
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
+});
 
 module.exports = server;
+// const id = req.params.id;
+//   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;

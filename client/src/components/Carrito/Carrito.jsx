@@ -68,8 +68,6 @@ export function Carrito ({carrito, user, onAddCarrito}) {
                     <button onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
                  </div>)}
                 {carrito && <button onClick={vaciarCarrito}> vaciar carrito </button>}
-
-
         </div>
     )
 }
