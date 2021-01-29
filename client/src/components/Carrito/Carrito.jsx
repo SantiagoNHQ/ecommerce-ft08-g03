@@ -6,23 +6,44 @@ import axios from 'axios';
 
 
 
-export function Carrito ({carrito, user, addCarrito, onAddCarrito}) {
-
-    const [boton, setBoton] = useState()
+export function Carrito ({carrito, user, onAddCarrito}) {
 
     console.log("mi carrito", carrito )
 
-    function editar (e){
-        setBoton(e.target.value)
-    }
+    function editar (e, producto){
 
-    function cambiarCantidad(e, producto){
-        console.log("bbbbbbbbb", producto)
         var obj= {
-            cantidad: boton,
+            cantidad: e.target.value,
             productId: producto.productId
         }
         axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+        .then(response => {
+            return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+        })
+        .then(response => {
+            onAddCarrito(response.data)
+        })
+        .catch(err => {
+            console.log("ESTO ES UN ERROR", err)
+        })
+
+    }
+
+    function eliminar(e, producto){
+
+        axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.userId}`)
+        .then(response => {
+            return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+        })
+        .then(response => {
+            onAddCarrito(response.data)
+        })
+        .catch(err => {
+            console.log("ESTO ES UN ERROR", err)
+        })
+    }
+    function vaciarCarrito() {
+        axios.delete(`http://localhost:3001/user/cart/${user.userId}`)
         .then(response => {
             return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
         })
@@ -42,10 +63,11 @@ export function Carrito ({carrito, user, addCarrito, onAddCarrito}) {
                     <h3>Producto: {producto.nombre}</h3>
                     <span>Precio Unidad: {producto.precio}</span>
                     <span>Cantidad: </span>
-                    <input key={producto.id*-1} type="number" onChange={editar} placeholder={producto.cantidad} name="cantidad"/> 
+                    <input key={producto.id*-1} type="number" onChange={(e, product= producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
                     <span>Precio Total: {producto.precio * producto.cantidad}</span>
-                    <input onClick={(e, product= producto) => cambiarCantidad(e, product)} type="submit" key={producto.id} name="productId" />
+                    <button onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
                  </div>)}
+                 <button onClick={vaciarCarrito}> vaciar carrito </button>
 
 
 
