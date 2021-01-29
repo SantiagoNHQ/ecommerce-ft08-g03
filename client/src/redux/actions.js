@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO, CHANGE_USER_STATUS } from './constants';
 
 export const formChange = (form) => {
     return {
@@ -41,9 +41,17 @@ export const ordersLoad = (orders) => {
         orders
     }
 }
+
 export const addCarrito = (carrito) => {
     return {
         type: ADD_CARRITO,
         carrito
+    }
+};
+
+export const changeUserStatus = (logged) => {
+    return {
+        type: CHANGE_USER_STATUS,
+        logged
     }
 };

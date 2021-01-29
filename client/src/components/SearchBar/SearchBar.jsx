@@ -3,6 +3,7 @@ import "./SearchBar.css";
 import axios from 'axios';
 import { connect } from 'react-redux'
 import { searchChange, searchClick } from "../../redux/actions";
+import {useHistory} from 'react-router-dom'
 
 
 const mapStateToProps = (state) => {
@@ -23,8 +24,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 //  *** S7 : Crear Componente Search Bar ***
-function SearchBar({search, onSearchChange, onSearchClick, history}) { // search = state.search && dispatch = setState
+function SearchBar({search, onSearchChange, onSearchClick}) { // search = state.search && dispatch = setState
     const [list, setList] = useState (false)
+    let history = useHistory()
 
     function showCheckboxes() {
         var checkboxes = document.getElementById("checkboxes");
@@ -62,7 +64,7 @@ function SearchBar({search, onSearchChange, onSearchClick, history}) { // search
     }
     return (
         <div className='buscador'>
-        <input className='input' onKeyPress={ submitEnter } onChange={ buscador }/>
+        <input className='input' onKeyPress={ submitEnter } placeholder="Buscar" onChange={ buscador }/>
         <form>
             <div className="multiselect">
                 <div className="selectBox" onClick={showCheckboxes}>

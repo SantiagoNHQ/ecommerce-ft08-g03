@@ -48,6 +48,9 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
         e.preventDefault()
         console.log("Click!")
         // Agregar el producto
+        let boton = document.getElementById("boton")
+        boton.disabled = true
+        console.log("Boton: ", boton)
         axios.post("http://localhost:3001/product/", formulario)
         .then(res => {
             console.log ("Producto agregado")
@@ -68,9 +71,24 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
 
                 axios.post("http://localhost:3001/upload", formData, config).then(r => console.log("Se subió: ", r)).catch(e => console.log("No se subió: ", e))
             }
+            boton.disabled = false
+            onFormChange({formulario: null})
+            document.getElementById("nombre").value = ""
+            document.getElementById("descripcion").value = ""
+            document.getElementById("origen").value = ""
+            document.getElementById("tipo").value = ""
+            document.getElementById("elaboracion").value = ""
+            document.getElementById("edad").value = ""
+            document.getElementById("stock").value = ""
+            document.getElementById("precio").value = ""
+            document.getElementById("imagen").value = ""
+            console.log("FILE: ", document.getElementById("file"))
+            document.getElementById("file").value = []
+            alert("Producto agregado correctamente!")
         })
         .catch (err => {
             console.log("mal", err)
+            boton.disabled = false
         })
     }
 
@@ -99,16 +117,16 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
         <div className = 'formularios'>
             <form className = 'agregarProducto' onSubmit={ submit } encType="multipart/form-data">
                 <h3>Agregar Producto</h3>
-                <input key="nombre" type="text" onChange={cambios} placeholder="Nombre del producto" name="nombre"/>
-                <input key="descripcion" type="text" onChange={cambios} placeholder="Descripción"  name="descripcion"/>
-                <input key="origen" type="text" onChange={cambios} placeholder="Lugar de origen"  name="origen"/>
-                <input key="tipo" type="text" onChange={cambios} placeholder="Tipo" name="tipo"/>
-                <input key="elaboracion" type="number" onChange={cambios} placeholder="Fecha de elaboración" name="elaboracion"/>
-                <input key="edad" type="number" onChange={cambios} placeholder="Edad de maduración"  name="edad"/>
-                <input key="stock" type="number" onChange={cambios} placeholder="Stock" name="stock"/>
-                <input key="precio" type="number" onChange={cambios} placeholder="Precio"  name="precio"/>
+                <input key="nombre" type="text" onChange={cambios} placeholder="Nombre del producto" id="nombre" name="nombre"/>
+                <input key="descripcion" type="text" onChange={cambios} placeholder="Descripción" id="descripcion" name="descripcion"/>
+                <input key="origen" type="text" onChange={cambios} placeholder="Lugar de origen" id="origen" name="origen"/>
+                <input key="tipo" type="text" onChange={cambios} placeholder="Tipo" id="tipo" name="tipo"/>
+                <input key="elaboracion" type="number" onChange={cambios} placeholder="Fecha de elaboración" id="elaboracion" name="elaboracion"/>
+                <input key="edad" type="number" onChange={cambios} placeholder="Edad de maduración" id="edad" name="edad"/>
+                <input key="stock" type="number" onChange={cambios} placeholder="Stock" id="stock" name="stock"/>
+                <input key="precio" type="number" onChange={cambios} placeholder="Precio" id="precio" name="precio"/>
                 <input key="img" type="text" onChange={cambios} placeholder="Link a una imagen o..." id="imagen" name="img"/>
-                <input key="file" type="file" onChange={cambios} name="file"/>
+                <input key="file" type="file" onChange={cambios} id="file" name="file"/>
 
                 {categoria && categoria.map((pos) => <label title={pos.descripcion}><input 
                 onChange={e => checkBox(e)}
@@ -119,7 +137,7 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
                 (formulario.file) && <img src={formulario.fileShow} style={{width: "200px", height:"200px", marginBottom:"10px"}}/>}
                 {/* <img src={formulario.file} style={{width: "200px", height:"200px", marginBottom:"10px"}}/> */}
 
-                <input type="submit" key="boton" />
+                <input type="submit" key="boton" id="boton" />
             </form>
 
 
