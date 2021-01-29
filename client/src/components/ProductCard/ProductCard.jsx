@@ -16,12 +16,12 @@ export function ProductCard (props) {
             setStock ((state) => ({...state, stock: props.stock}))
         }
         
-        if (!(props.img.includes("http") || props.img.includes("www"))) {
+        if (!props.img || !(props.img.includes("http") || props.img.includes("www"))) {
             //props.img = ""
             //console.log("Dir: ", __dirname)
             setStock ((state) => ({...state, img: "http://localhost:3001/upload/" + props.img}))
         }
-    }, [props.stock])
+    }, [props.stock, props.img])
 
 
 
