@@ -288,6 +288,23 @@ server.post("/:userId/cart", (req, res) => {
       }
     });
 });
+server.delete("/delete/:productId/:userId", (req, res) => {
+     const {productId, userId} = req.params;
+    
+     console.log("AAAAAAAAAA", productId)
+     console.log("bbbbbbbbbbbbbb", userId)
+      Orderline.destroy({
+        where: {productId, userId }
+      })
+      .then((response) => {
+         console.log("Objeto a eliminar: ", response);
+         res.json(response)
+      })
+      .catch((err) => {
+         console.log("Error al intentar eliminar: ", err);
+         res.send(err)
+      });
+ });
 
 
 module.exports = server;
