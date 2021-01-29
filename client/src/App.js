@@ -10,9 +10,11 @@ import EditarProducto from "./components/EditarProduct/EditarProduct";
 import Home from "./components/Home/Home";
 import Admin from "./components/Admin/Admin";
 import NavAdmin from "./components/NavAdmin/NavAdmin";
+import NavBarGuest from "./components/NavBarGuest/NavBarGuest";
 import OrdersTable from "./components/OrdersTable/OrdersTable";
 import NuevoUsuario from "./components/NuevoUsuario/NuevoUsuario";
 import Carrito from "./components/Carrito/Carrito";
+import NavSelect from "./components/NavSelect/NavSelect";
 import axios from "axios";
 import { connect } from "react-redux";
 import { addCarrito } from "./redux/actions";
@@ -32,12 +34,19 @@ function App(props) {
   return (
     <BrowserRouter>
       <React.Fragment>
+        <Route path="/" component={() => {
+            if (props.logged === "admin") return <NavAdmin />
+            else if (props.logged) return <NavBar />
+            else if (props.logged === false) return <NavBarGuest />
+            return <NavSelect/>
+        }}/>
+
+        <Route path="/seleccionar" component={NavSelect} />
         <Route path="/products/:id" component={Product} />
-        <Route exact path="/" component={NavBar} />
-        <Route path="/user" component={NavBar} />
+        {/* <Route path="/user" component={NavBar} /> */}
         <Route exact path="/" component={Home} />
-        <Route path="/admin" component={NavAdmin} />
-        <Route exact path="/admin" component={Admin} />
+        {/* <Route path="/admin" component={NavAdmin} /> */}
+        {/* <Route exact path="/admin" component={Admin} /> */}
         <Route exact path="/admin/ordenes" component={OrdersTable} />
         <Route path="/admin/ordenes/:status" component={OrdersTable} />
         <Route exact path="/user/carrito" component={Carrito} />
@@ -63,6 +72,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
+    logged: state.logged,
     user: state.user,
     carrito: state.carrito,
   };

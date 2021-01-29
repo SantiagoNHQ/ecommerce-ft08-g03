@@ -1,9 +1,10 @@
-import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO, CHANGE_USER_STATUS } from './constants';
 const initialState = {
   arrayCheckBox: [],
   formulario: { categories: [] },
-  user: { name: "benja", userId: 1 },
+  user: {/*  name: "benja", userId: 1  */},
   carrito: [],
+  logged: null
 };
 
 var variable = (state = initialState, action) => {
@@ -34,6 +35,38 @@ var variable = (state = initialState, action) => {
     }
     case ORDERS_LOAD: {
       return (state = { ...state, orders: action.orders });
+    }
+    case CHANGE_USER_STATUS: {
+      if (action.logged === "admin") {
+        return (state = { ...state,
+          logged: "admin",
+          user: {
+            userId: 1,
+            nombre: "Gonzalo",
+            apellido: "Rodriguez",
+            nombreDeUsuario: "admin",
+            email: "rodriguezgonzalo97@gmail.com",
+            clave: "test"
+          }
+        });
+      } else if (action.logged) {
+        return (state = { ...state,
+          logged: true,
+          user: {
+            userId: 2,
+            nombre: "Gonzalo",
+            apellido: "Rodriguez",
+            nombreDeUsuario: "usuario",
+            email: "rodriguezgonzalo97@gmail.comm",
+            clave: "test"
+          }
+        });
+      }
+      
+      return (state = { ...state,
+        logged: false,
+        user: {}
+      });
     }
     default:
       return state;
