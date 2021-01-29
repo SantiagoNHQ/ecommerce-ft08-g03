@@ -54,12 +54,12 @@ export function Carrito ({carrito, user, onAddCarrito}) {
             console.log("ESTO ES UN ERROR", err)
         })
     }
-    
+
 
     return(
         <div className='div-carrito'>
 
-                <h1>Carrito de {user.name}</h1>
+                <h1>Carrito de {user.nombre}</h1>
                  {carrito && carrito.map(producto => <div>
                     <h3>Producto: {producto.nombre}</h3>
                     <span>Precio Unidad: {producto.precio}</span>
@@ -68,10 +68,7 @@ export function Carrito ({carrito, user, onAddCarrito}) {
                     <span>Precio Total: {producto.precio * producto.cantidad}</span>
                     <button onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
                  </div>)}
-                 <button onClick={vaciarCarrito}> vaciar carrito </button>
-
-
-
+                {carrito && <button onClick={vaciarCarrito}> vaciar carrito </button>}
         </div>
     )
 }
