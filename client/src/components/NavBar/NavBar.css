@@ -15,24 +15,26 @@ body {
   align-items: center;
   background-color: #c41919;
   justify-content: space-around;
-  height: 50px;
+  height: 47px;
 }
 
 .links {
-  margin-right: 170px;
-  font-family: "Noto Serif", serif;
+  margin-right: 500px;
+  font-family: "Abel", sans-serif;
 }
 
 .div-navbar a {
-  font-size: 1em;
+  font-size: 1.3em;
   color: white;
   text-decoration: none;
   margin-right: 35px;
+  padding-bottom: 5px;
 }
 
 .div-navbar a:hover {
-  color: rgba(255, 255, 255, 0.63);
+  color: rgba(255, 255, 255, 0.692);
   text-decoration: none;
+  border-bottom: 2px solid rgb(255, 255, 255);
 }
 
 .boton {
@@ -41,7 +43,7 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.692);
 }
 
 /* SEARCHBAR */

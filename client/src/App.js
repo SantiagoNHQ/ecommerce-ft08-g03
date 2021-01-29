@@ -1,8 +1,7 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
-// import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
@@ -15,19 +14,20 @@ import OrdersTable from "./components/OrdersTable/OrdersTable";
 import NuevoUsuario from "./components/NuevoUsuario/NuevoUsuario";
 import Carrito from "./components/Carrito/Carrito";
 import axios from "axios";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { addCarrito } from "./redux/actions";
 
 function App(props) {
-    useEffect(()=> {
-        axios.get(`http://localhost:3001/user/cart/${props.user.userId}`)
-      .then (response => {
-        props.onAddCarrito(response.data)
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/user/cart/${props.user.userId}`)
+      .then((response) => {
+        props.onAddCarrito(response.data);
       })
-      .catch(response => {
-        console.log("ERROR", response)
-      })
-    },[props.user.userId, props.onAddCarrito])
+      .catch((response) => {
+        console.log("ERROR", response);
+      });
+  }, [props.user.userId, props.onAddCarrito]);
 
   return (
     <BrowserRouter>
@@ -63,17 +63,17 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-       user: state.user,
-      carrito: state.carrito
-  }
-}
+    user: state.user,
+    carrito: state.carrito,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      onAddCarrito: (text) => {
-      dispatch(addCarrito(text))
-      }
-  }
-}
+    onAddCarrito: (text) => {
+      dispatch(addCarrito(text));
+    },
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);
