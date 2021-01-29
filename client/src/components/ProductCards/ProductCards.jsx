@@ -81,7 +81,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
       }
       <div className='nuevo-div'>
         <div className='div-img-dada'>
-          <img alt="What is this?" src="https://infonegocios.com.py/uploads/dada-fincalasmoras1.jpg" />
+          <img src="https://lh3.googleusercontent.com/proxy/Vkk8iUJudQOkQDYnonYaArEXazcuGN7OXQVG4NKgPrVayyMzGbj76F71TxaG4bTGkdwzVEDIcPR_LFr0wlWSffwaw3gH5KStyhw" />
           <div className='div-texto-dada'>
             <h1>Linea Dada</h1>
             <p>Consegui todos los Dada aqui</p>

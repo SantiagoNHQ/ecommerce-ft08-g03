@@ -7,12 +7,14 @@
 }
 
 .textos-header h1 {
-  margin-top: 30px;
-  color: white;
-  font-size: 6em;
+  margin-top: 110px;
+  color: rgba(255, 255, 255, 0.822);
+  font-size: 8em;
+  font-family: "Great Vibes", cursive;
 }
 .textos-header h2 {
   color: white;
+  font-family: "Poiret One", cursive;
 }
 
 .textos-header span {
@@ -20,7 +22,7 @@
 }
 /* HEADER */
 header {
-  height: 310px;
+  height: 500px;
   margin-top: -25px;
   background-size: cover;
   background-attachment: fixed;

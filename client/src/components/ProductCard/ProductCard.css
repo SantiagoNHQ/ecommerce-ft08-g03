@@ -20,9 +20,9 @@
   transition: all 0.25s;
 }
 
-.div-producto .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 18px #00000044;
+.div-productos .card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 12px #00000044;
 }
 
 /* LETRAS */
@@ -53,7 +53,8 @@
 .precio {
   margin: 0;
   padding: 0;
-  font-size: 0.7em;
+  font-size: 0.9em;
+  color: white;
 }
 
 .titulo-y-precio {
@@ -72,11 +73,14 @@
 }
 
 .boton-comprar {
-  background-color: rgba(167, 32, 32, 0.774);
+  background-color: rgba(185, 30, 30, 0.774);
   color: white;
-  border-radius: 50px;
-  height: 25px;
-  width: 130px;
+  border-radius: 20px;
+  height: 31px;
+  width: 150px;
+  border: none;
+  font-family: "Great Vibes", cursive;
+  font-size: 25px;
 }
 
 .div-boton {
@@ -115,7 +119,6 @@
 .nuevo-div {
   display: flex;
   align-items: center;
-  /* flex-direction: column; */
   width: 100%;
 }
 
@@ -131,6 +134,7 @@
 .div-img-dada img {
   border-radius: 15px;
   margin-left: 150px;
+  height: 280px;
 }
 
 .div-texto-dada {
