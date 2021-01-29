@@ -10,59 +10,26 @@ body {
 
 /* NAVBAR */
 
-.div-navbar {
+.divNavbar {
   display: flex;
   align-items: center;
   background-color: #c41919;
-  justify-content: space-around;
-  height: 47px;
+  justify-content: space-between;
+  height: 50px;
 }
 
-.links {
-  margin-right: 500px;
-  font-family: "Abel", sans-serif;
-}
-
-.div-navbar a {
+.divLinks {
+  display: flex;
+  margin-left: 10px;
   font-size: 1.3em;
-  color: white;
   text-decoration: none;
-  margin-right: 35px;
-  padding-bottom: 5px;
+  /* margin-right: 500px; */
+  /* font-family: "Abel", sans-serif; */
 }
 
-.div-navbar a:hover {
+.divNavbar a:hover {
   color: rgba(255, 255, 255, 0.692);
   text-decoration: none;
   border-bottom: 2px solid rgb(255, 255, 255);
 }
 
-.boton {
-  margin-top: -5px;
-  color: black;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.692);
-}
-
-/* SEARCHBAR */
-
-.buscador {
-  display: flex;
-  align-items: center;
-  background-color: rgba(158, 22, 22, 0.801);
-  height: 40px;
-  border-radius: 40px;
-  padding: 10px;
-  display: flex;
-}
-
-.input {
-  margin-left: 10px;
-  border: none;
-  background: none;
-  outline: none;
-  color: white;
-  font-size: 18px;
-}

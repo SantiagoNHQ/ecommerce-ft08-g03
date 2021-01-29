@@ -20,11 +20,15 @@ body {
 }
 
 /* SEARCHBAR */
+.buscador {
+  display: flex;
+  align-items: center;
+}
 
 .input {
   margin-left: 10px;
   border: none;
-  background: none;
+  background-color: #9e2e2e;
   outline: none;
   color: white;
   font-size: 18px;
