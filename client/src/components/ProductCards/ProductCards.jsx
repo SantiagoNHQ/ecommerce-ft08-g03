@@ -65,7 +65,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
   }, [categoria, search, onProductsLoad])
 
   return  (
-    <div>
+    <div className='div-general-app'>
 
       {
         (categoria || search) && <div>Filtrando por: <br/>
@@ -74,14 +74,14 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
       }
       {
         products && products.map(p => 
-          <div key={p.id} className='div-producto'>
+          <div key={p.id} className='div-productos'>
             <ProductCard id={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
           </div>
         )
       }
       <div className='nuevo-div'>
         <div className='div-img-dada'>
-          <img alt="What is this?" src="https://infonegocios.com.py/uploads/dada-fincalasmoras1.jpg" />
+          <img src="https://lh3.googleusercontent.com/proxy/Vkk8iUJudQOkQDYnonYaArEXazcuGN7OXQVG4NKgPrVayyMzGbj76F71TxaG4bTGkdwzVEDIcPR_LFr0wlWSffwaw3gH5KStyhw" />
           <div className='div-texto-dada'>
             <h1>Linea Dada</h1>
             <p>Consegui todos los Dada aqui</p>
