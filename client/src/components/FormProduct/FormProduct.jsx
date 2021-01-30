@@ -132,9 +132,9 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
                 onChange={e => checkBox(e)}
                 title={pos.descripcion} name={pos.nombre} type="checkbox"></input>{pos.nombre}</label>)}
                 
-                {(formulario.img && !formulario.file) && <img src={formulario.img} style={{width: "200px", height:"200px", marginBottom:"10px"}}/>
+                {(formulario.img && !formulario.file) && <img src={formulario.img} alt="img" style={{width: "200px", height:"200px", marginBottom:"10px"}}/>
                 ||
-                (formulario.file) && <img src={formulario.fileShow} style={{width: "200px", height:"200px", marginBottom:"10px"}}/>}
+                (formulario.file) && <img src={formulario.fileShow} alt="img" style={{width: "200px", height:"200px", marginBottom:"10px"}}/>}
                 {/* <img src={formulario.file} style={{width: "200px", height:"200px", marginBottom:"10px"}}/> */}
 
                 <input type="submit" key="boton" id="boton" />
