@@ -6,27 +6,39 @@ import axios from 'axios';
 
 
 
-export function Carrito ({carrito, user, onAddCarrito}) {
+export function Carrito ({carrito, user, onAddCarrito, products}) {
 
     console.log("mi carrito", carrito )
+    console.log("productso", products )
 
     function editar (e, producto){
-
+        var stock;
+        products.map(pos => {
+            if (pos.id ==producto.productId) {
+                stock = pos.stock
+            }
+        })
         var obj= {
             cantidad: e.target.value,
             productId: producto.productId
         }
-        axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
-        .then(response => {
-            return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
-        })
-        .then(response => {
-            onAddCarrito(response.data)
-        })
-        .catch(err => {
-            console.log("ESTO ES UN ERROR", err)
-        })
-
+        if (e.target.value > 0 && e.target.value <= stock ){
+            axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+            .then(response => {
+                return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+            })
+            .then(response => {
+                onAddCarrito(response.data)
+            })
+            .catch(err => {
+                console.log("ESTO ES UN ERROR", err)
+            })
+        }else if(e.target.value <= stock){
+            e.target.value = 1
+        } else{
+            alert("No hay suficiente stock")
+            e.target.value = stock
+        }
     }
 
     function eliminar(e, producto){
@@ -54,6 +66,7 @@ export function Carrito ({carrito, user, onAddCarrito}) {
             console.log("ESTO ES UN ERROR", err)
         })
     }
+    
 
     return(
         <div className='div-carrito'>
@@ -67,7 +80,7 @@ export function Carrito ({carrito, user, onAddCarrito}) {
                     <span>Precio Total: {producto.precio * producto.cantidad}</span>
                     <button onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
                  </div>)}
-                {carrito && <button onClick={vaciarCarrito}> vaciar carrito </button>}
+                {carrito[0] && <button onClick={vaciarCarrito}> vaciar carrito </button>}
         </div>
     )
 }
@@ -76,7 +89,8 @@ export function Carrito ({carrito, user, onAddCarrito}) {
 const mapStateToProps = (state) => {
     return {
        carrito: state.carrito,
-       user: state.user
+       user: state.user,
+       products: state.products
     }
 }
 
