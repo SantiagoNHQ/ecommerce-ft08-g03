@@ -5,7 +5,7 @@ import axios from 'axios'
 export default function Home() {
     return (
         <div>
-            <header>
+            <header className='header'>
                 <section className="textos-header">
                     <h1>We<span>Are</span>Wine</h1>
                     <h2>Vinos <span>Nacionales</span> e <span>Internacionales</span></h2>

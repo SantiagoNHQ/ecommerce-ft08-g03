@@ -8,7 +8,7 @@ import FormCategory from "./components/FormCategory/FormCategory";
 import Product from "./components/Product/product";
 import EditarProducto from "./components/EditarProduct/EditarProduct";
 import Home from "./components/Home/Home";
-import Admin from "./components/Admin/Admin";
+// import Admin from "./components/Admin/Admin";
 import NavAdmin from "./components/NavAdmin/NavAdmin";
 import NavBarGuest from "./components/NavBarGuest/NavBarGuest";
 import OrdersTable from "./components/OrdersTable/OrdersTable";
@@ -20,29 +20,31 @@ import { connect } from "react-redux";
 import { addCarrito } from "./redux/actions";
 
 function App(props) {
-  
   useEffect(() => {
-    if (props.logged !== true) return
-    
+    if (props.logged !== true) return;
+
     axios
-    .get(`http://localhost:3001/user/cart/${props.user.userId}`)
+      .get(`http://localhost:3001/user/cart/${props.user.userId}`)
       .then((response) => {
-      props.onAddCarrito(response.data);
-    })
-    .catch((response) => {
-      console.log("ERROR", response);
-    });
+        props.onAddCarrito(response.data);
+      })
+      .catch((response) => {
+        console.log("ERROR", response);
+      });
   }, [props.user.userId, props.onAddCarrito]);
 
   return (
     <BrowserRouter>
       <React.Fragment>
-        <Route path="/" component={() => {
-            if (props.logged === "admin") return <NavAdmin />
-            else if (props.logged) return <NavBar />
-            else if (props.logged === false) return <NavBarGuest />
-            return <NavSelect/>
-        }}/>
+        <Route
+          path="/"
+          component={() => {
+            if (props.logged === "admin") return <NavAdmin />;
+            else if (props.logged) return <NavBar />;
+            else if (props.logged === false) return <NavBarGuest />;
+            return <NavSelect />;
+          }}
+        />
 
         <Route path="/seleccionar" component={NavSelect} />
         <Route path="/products/:id" component={Product} />

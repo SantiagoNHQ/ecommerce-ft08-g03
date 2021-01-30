@@ -4,3 +4,9 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+.divcards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
