@@ -6,7 +6,8 @@ import OrderCard from '../OrderCard/OrderCard'
 
 const mapStateToProps = (state) => {
     return {
-        orders: state.orders
+        orders: state.orders,
+        categoria: state.categoria
     }
 }
 
