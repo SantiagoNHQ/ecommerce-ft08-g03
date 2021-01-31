@@ -29,8 +29,9 @@ export default function FormCategory(props) {
                 <h1>AGREGAR CATEGORIA</h1>
                 <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>
                 <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" name="descripcion"/> 
-
+                
                 <input type="submit" key="boton" />
+                
             </form>
         </div>
     )
