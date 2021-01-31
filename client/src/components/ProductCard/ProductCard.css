@@ -11,7 +11,7 @@
 /* COMPONENTE */
 .card {
   width: 300px;
-  height: 400px;
+  height: 800px;
   border-radius: 8px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   /* overflow: hidden; */
@@ -52,13 +52,18 @@
 }
 
 .precio {
+  color: white;
+  font-size: 2.4em;
+  font-family: "Courier New", Courier, monospace;
   margin: 0;
   padding: 0;
-  font-size: 0.9em;
-  color: white;
 }
 
-.titulo-y-precio {
+.precio span {
+  color: rgba(185, 30, 30, 0.774);
+}
+
+.titulo {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -92,7 +97,15 @@
   /* background-color: black; */
 }
 
+.div-precio {
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .boton-y-stock {
+  margin-top: -30px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -106,13 +119,13 @@
   flex-direction: column;
   align-items: center;
   background-color: rgba(158, 22, 22, 0.733);
-  height: 240px;
+  height: 320px;
   width: 100%;
 }
 
 .card img {
-  width: 66%;
-  height: auto;
+  width: 320;
+  height: 100%;
 }
 
 /* SEGUNDA PARTE */
