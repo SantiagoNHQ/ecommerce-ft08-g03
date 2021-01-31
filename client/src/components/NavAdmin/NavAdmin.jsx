@@ -31,12 +31,12 @@ export default function NavAdmin(props) {
         <div className='divNavbar'>
             <div className="divLinks">
                 <nav /* className='links' */>
-                    <Link style={{marginRight: "10px"}} to="/">Inicio</Link>
+                    <Link to="/">Inicio</Link>
                     <Link style={{marginRight: "10px"}} to="/user/products">Catalogo</Link>
                     <Link style={{marginRight: "10px"}} to="/admin/formProduct">Agregar producto</Link>
-                    <Link style={{marginRight: "10px"}} to="/admin/product">Editar/borrar producto</Link>
+                    {/* <Link style={{marginRight: "10px"}} to="/admin/product">Editar/borrar producto</Link> */}
                     <Link style={{marginRight: "10px"}} to="/admin/formCategory">Agregar categoria</Link>
-                    <Link style={{marginRight: "10px"}} to="/admin/categorias">Editar/borrar categoria</Link>
+                    {/* <Link style={{marginRight: "10px"}} to="/admin/categorias">Editar/borrar categoria</Link> */}
                     <Link style={{marginRight: "10px"}} to="/admin/ordenes">Ver ordenes</Link>
 
                 </nav>

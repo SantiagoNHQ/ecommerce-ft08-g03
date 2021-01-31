@@ -10,10 +10,10 @@ body {
 
 /* NAVBAR */
 
-.div-navbar {
+.divNavbar {
   display: flex;
   align-items: center;
-  background-color: #c41919;
+  background-color: rgba(158, 22, 22, 0.733);
   justify-content: center;
   height: 47px;
 }
@@ -23,8 +23,8 @@ body {
 }
 
 .Btn {
-  color: black;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.692);
-  margin-right: 10px;
+  border-radius: 0px;
+  background-color: rgba(158, 22, 22, 0.808);
+  margin-right: 30px;
+  border: none;
 }

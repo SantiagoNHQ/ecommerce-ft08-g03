@@ -7,11 +7,11 @@ export default function NavBarGuest(props) {
         <div className='divNavbar'>
             <div className="divLinks">
                 <nav /* className='links' */>
-                    <Link style={{marginRight: "10px"}} to="/">Inicio</Link>
-                    <Link style={{marginRight: "10px"}} to="/user/products">Catalogo</Link>
-                    <Link style={{marginRight: "10px"}} to="/user/carrito">Carrito</Link>
-                    <Link style={{marginRight: "10px"}} to="/user/nuevo">Registrarse</Link>
-                    <Link style={{marginRight: "10px"}} to="/user/ingresar">Logearse</Link>
+                    <Link to="/">Inicio</Link>
+                    <Link to="/user/products">Catalogo</Link>
+                    <Link to="/user/carrito">Carrito</Link>
+                    <Link to="/user/nuevo">Registrarse</Link>
+                    <Link to="/user/ingresar">Logearse</Link>
 
                 </nav>
             </div>
