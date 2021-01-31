@@ -7,15 +7,15 @@ export default function NavBar(props) {
         <div className='divNavbar'>
             <div className="divLinks">
                 <nav /* className='links' */>
-                    <Link style={{marginRight: "10px"}} to="/">Inicio</Link>
-                    <Link style={{marginRight: "10px"}} to="/user/products">Catalogo</Link>
-                    <Link style={{marginRight: "10px"}} to="/user/carrito">Carrito</Link>
-                    <Link style={{marginRight: "10px"}} to="/">Perfil</Link>
+                    <Link to="/">Inicio</Link>
+                    <Link to="/user/products">Catalogo</Link>
+                    <Link to="/user/carrito">Carrito</Link>
+                    <Link to="/">Perfil</Link>
 
                 </nav>
             </div>
             
-            <div style={{marginRight: "10px"}}>
+            <div>
                 <SearchBar history={props.history} />
             </div> {/* La propiedad history solo la reciben los hijos directos de Route, por eso la paso por param! ;)*/}
         </div>

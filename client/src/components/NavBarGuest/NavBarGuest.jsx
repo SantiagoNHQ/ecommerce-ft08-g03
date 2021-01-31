@@ -6,7 +6,7 @@ export default function NavBarGuest(props) {
     return (
         <div className='divNavbar'>
             <div className="divLinks">
-                <nav /* className='links' */>
+                <nav className='links'>
                     <Link to="/">Inicio</Link>
                     <Link to="/user/products">Catalogo</Link>
                     <Link to="/user/carrito">Carrito</Link>

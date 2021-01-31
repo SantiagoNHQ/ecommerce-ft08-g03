@@ -22,10 +22,11 @@ function NavSelect({onStatusChange}) {
     }
 
     return (
-        <div className='divNavbar'>
-            <button className="Btn" onClick={(e) => click(e, false)}>Invitado</button>
-            <button className="Btn" onClick={(e) => click(e, true)}>Usuario</button>
-            <button className="Btn" onClick={(e) => click(e, "admin")}>Administrador</button>
+        <div className='divNavbar'>          
+            <button className="Boton" onClick={(e) => click(e, false)}>Invitado</button>
+            <button className="Boton" onClick={(e) => click(e, true)}>Usuario</button>
+            <button className="Boton" onClick={(e) => click(e, "admin")}>Administrador</button>
+
         </div>
     )
 }
