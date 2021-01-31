@@ -54,6 +54,7 @@ function App(props) {
         {/* <Route exact path="/admin" component={Admin} /> */}
         <Route exact path="/admin/ordenes" component={OrdersTable} />
         <Route path="/admin/ordenes/:status" component={OrdersTable} />
+        <Route exact path="/admin/product/edit" component={() => <EditarProducto id={props.editProduct} />} />
         <Route exact path="/user/carrito" component={Carrito} />
         <Route
           exact
@@ -80,6 +81,7 @@ const mapStateToProps = (state) => {
     logged: state.logged,
     user: state.user,
     carrito: state.carrito,
+    editProduct: state.editarProducto
   };
 };
 
