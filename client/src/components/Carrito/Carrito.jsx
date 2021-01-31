@@ -69,17 +69,22 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     
 
     return(
-        <div className='div-carrito'>
-
-                <h1>Carrito de {user.nombre}</h1>
-                 {carrito && carrito.map(producto => <div>
-                    <h3>Producto: {producto.nombre}</h3>
-                    <span>Precio Unidad: {producto.precio}</span>
+        <div className='divCarrito'>
+                <h1>Carrito de compras</h1>
+                {carrito && carrito.map(producto => <div className='divProducto'>
+                    <div className='divNombre'>
+                    <h3>{producto.nombre}</h3>
+                    </div>
+                    <span>Precio Unidad: <span className='precio'>${producto.precio}</span></span>
+                    <div className='cantidad'>
                     <span>Cantidad: </span>
                     <input key={producto.id*-1} type="number" onChange={(e, product= producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
-                    <span>Precio Total: {producto.precio * producto.cantidad}</span>
-                    <button onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
-                 </div>)}
+                    </div>
+                    <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
+                    <div className='divBoton'>
+                    <button className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
+                    </div>
+                </div>)}
                 {carrito[0] && <button onClick={vaciarCarrito}> vaciar carrito </button>}
         </div>
     )

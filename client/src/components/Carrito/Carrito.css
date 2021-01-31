@@ -1,5 +1,110 @@
-.div-carrito {
-  background-color: grey;
-  width: 500px;
+* {
+  box-sizing: border-box;
+}
+
+.divCarrito {
+  display: inline-block;
+  align-items: center;
+  background-color: #9e2e2e;
+  width: 100%;
   color: white;
+  margin-top: 150px;
+  padding: 25px;
+  border-radius: 20px;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+  font-family: "Lobster Two", cursive;
+  font-size: 3em;
+  margin-top: 2px;
+  margin-bottom: 15px;
+}
+
+.divNombre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+.divNombre h3 {
+}
+
+.divCarrito h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  margin: 10px;
+  margin-left: 30px;
+  margin-top: 15px;
+  color: #9e2e2e;
+  font-size: 1.5em;
+  font-family: "Great Vibes", cursive;
+}
+
+.divCantidad span {
+  margin-left: 10px;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 18px;
+}
+
+.divCarrito span {
+  margin-right: 80px;
+  color: black;
+  margin-left: 80px;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.3em;
+}
+
+.cantidad span {
+  margin-right: 5;
+}
+
+.divProducto .precio {
+  color: #9e2e2e;
+  margin-left: 15px;
+}
+
+.divProducto .precioTotal {
+  color: #9e2e2e;
+  margin-left: 15px;
+}
+
+.divCarrito input {
+  font-family: "Great Vibes", cursive;
+  color: #9e2e2e;
+  font-size: 2em;
+  width: 85px;
+  border: none;
+  background-color: white;
+  margin-right: 18px;
+}
+
+.divProducto {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  background-color: white;
+  height: 100%;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  width: 100%;
+  border-radius: 10px;
+}
+.divProducto:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px #000000a4;
+}
+.divBoton {
+  display: flex;
+  align-items: center;
+  margin-left: 100px;
+}
+
+.divBoton .eliminar {
+  border: none;
+  color: #9e2e2e;
 }
