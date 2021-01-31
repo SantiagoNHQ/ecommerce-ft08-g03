@@ -69,14 +69,15 @@ export function ProductCard (props) {
 
     return (
         <div className='card'>
-            <div className='titulo-y-precio'>
+            <div className='titulo'>
             <h1 className='titulo'>{props.nombre}</h1> 
-            <h4 className='precio'>$ {props.precio}</h4>
             </div>
             <div className='div-imagen'>
                 <img alt={props.nombre} src={stock.img}></img>
             </div>
-            <p>{props.descripcion}</p> 
+            <div className='div-precio'>
+            <h4 className='precio'><span>$</span>{props.precio}</h4>
+            </div>
             <div className='boton-y-stock'>
             <div className='div-boton'>
                 {(() => {
