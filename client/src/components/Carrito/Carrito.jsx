@@ -82,10 +82,10 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                     </div>
                     <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
                     <div className='divBoton'>
-                    <button className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
+                    <img src='https://www.vhv.rs/dpng/d/446-4464515_trashcan-trash-can-clipart-png-garbage-can-clipart.png' className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} ></img>
                     </div>
                 </div>)}
-                {carrito[0] && <button onClick={vaciarCarrito}> vaciar carrito </button>}
+                {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
         </div>
     )
 }
