@@ -192,7 +192,7 @@ server.put("/", (req, res, next) => {
         }
       );
     })
-    .then((r) => res.send("Producto modificado correctamente"))
+    .then((r) => res.status(200).json(r))
     .catch((err) => {
       console.log("Soy error: ", err);
       res.json(err);

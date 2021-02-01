@@ -26,12 +26,13 @@ body {
 }
 
 .input {
-  margin-left: 10px;
   border: none;
   background-color: #9e2e2e;
   outline: none;
   color: white;
   font-size: 18px;
+  border-radius: 20px;
+  height: 40px;
 }
 
 .multiselect {

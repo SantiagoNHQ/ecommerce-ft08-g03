@@ -10,21 +10,24 @@ body {
 
 /* NAVBAR */
 
-.div-navbar {
+.divNavbar {
   display: flex;
   align-items: center;
-  background-color: #c41919;
+  background-color: rgba(158, 22, 22, 0.733);
   justify-content: center;
   height: 47px;
 }
 
-.links {
+.Boton {
   font-family: "Abel", sans-serif;
+  color: white;
+  background-color: rgba(158, 22, 22, 0);
+  border: none;
+  margin: 50px;
+  font-size: 1.5em;
 }
 
-.Btn {
-  color: black;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.692);
-  margin-right: 10px;
+.Boton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0px 0px #000000a4;
 }

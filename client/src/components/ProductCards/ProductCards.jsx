@@ -66,7 +66,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
 
   return  (
     <div className='div-general-app'>
-
+      <div className='divcards'>
       {
         (categoria || search) && <div>Filtrando por: <br/>
         - Busqueda: {search} <br/>
@@ -79,9 +79,12 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
           </div>
         )
       }
+      </div>
+
       <div className='nuevo-div'>
         <div className='div-img-dada'>
-          <img src="https://lh3.googleusercontent.com/proxy/Vkk8iUJudQOkQDYnonYaArEXazcuGN7OXQVG4NKgPrVayyMzGbj76F71TxaG4bTGkdwzVEDIcPR_LFr0wlWSffwaw3gH5KStyhw" />
+        <img src="https://lossaboresdemexico.com/wp-content/uploads/2014/10/IMG_0340.jpg" alt="img" />
+          {/* <img src="https://lh3.googleusercontent.com/proxy/Vkk8iUJudQOkQDYnonYaArEXazcuGN7OXQVG4NKgPrVayyMzGbj76F71TxaG4bTGkdwzVEDIcPR_LFr0wlWSffwaw3gH5KStyhw" alt="img" /> */}
           <div className='div-texto-dada'>
             <h1>Linea Dada</h1>
             <p>Consegui todos los Dada aqui</p>

@@ -7,6 +7,7 @@ import {
   ORDERS_LOAD,
   ADD_CARRITO,
   CHANGE_USER_STATUS,
+  CHANGE_EDIT_PRODUCT
 } from "./constants";
 const initialState = {
   arrayCheckBox: [],
@@ -78,6 +79,9 @@ var variable = (state = initialState, action) => {
       }
 
       return (state = { ...state, logged: false, user: {} });
+    }
+    case CHANGE_EDIT_PRODUCT: {
+      return (state = {...state, editarProducto: action.editarProducto})
     }
     default:
       return state;
