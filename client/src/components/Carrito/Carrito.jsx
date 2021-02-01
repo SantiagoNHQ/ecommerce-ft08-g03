@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect}  from 'react';
 import './Carrito.css'
 import {connect} from 'react-redux' 
 import {addCarrito} from "../../redux/actions";
@@ -8,10 +8,25 @@ import axios from 'axios';
 
 export function Carrito ({carrito, user, onAddCarrito, products}) {
 
+    const [total, setTotal] = useState("0")
+
     console.log("mi carrito", carrito )
     console.log("productso", products )
 
+    function precioTotal() {
+        var algo= 0
+        carrito.map(carro => {
+            algo = algo + carro.precio * carro.cantidad
+            setTotal(algo)
+        })
+    }
+        
+    useEffect(() => {
+        precioTotal()
+    },[carrito])
+    
     function editar (e, producto){
+        precioTotal()
         var stock;
         products.map(pos => {
             if (pos.id ==producto.productId) {
@@ -42,7 +57,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     }
 
     function eliminar(e, producto){
-
+        precioTotal()
         axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.userId}`)
         .then(response => {
             return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
@@ -65,27 +80,32 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
         .catch(err => {
             console.log("ESTO ES UN ERROR", err)
         })
+        setTotal("0")
     }
     
 
     return(
         <div className='divCarrito'>
                 <h1>Carrito de compras</h1>
-                {carrito && carrito.map(producto => <div className='divProducto'>
-                    <div className='divNombre'>
-                    <h3>{producto.nombre}</h3>
-                    </div>
-                    <span>Precio Unidad: <span className='precio'>${producto.precio}</span></span>
-                    <div className='cantidad'>
-                    <span>Cantidad: </span>
-                    <input key={producto.id*-1} type="number" onChange={(e, product= producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
-                    </div>
-                    <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
-                    <div className='divBoton'>
-                    <button className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
-                    </div>
-                </div>)}
+                {carrito && carrito.map(producto => 
+
+                    <div className='divProducto'>
+                        <div className='divNombre'>
+                        <h3>{producto.nombre}</h3>
+                        </div>
+                        <span>Precio Unidad: <span className='precio'>${producto.precio}</span></span>
+                        <div className='cantidad'>
+                        <span>Cantidad: </span>
+                        <input key={producto.id*-1} type="number" onChange={(e, product= producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
+                        </div>
+                        <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
+                        <div className='divBoton'>
+                        <button className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} > ELIMINAR</button>
+                        </div>
+                    </div>)}
                 {carrito[0] && <button onClick={vaciarCarrito}> vaciar carrito </button>}
+                
+                {total && <h1>EL Precio Total: $ {total}</h1>}
         </div>
     )
 }
