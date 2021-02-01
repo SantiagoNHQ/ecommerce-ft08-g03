@@ -64,7 +64,7 @@ function SearchBar({search, onSearchChange, onSearchClick}) { // search = state.
     }
     return (
         <div className='buscador'>
-        <input className='input' onKeyPress={ submitEnter } placeholder="Buscar" onChange={ buscador }/>
+        <input className='input' onKeyPress={ submitEnter } placeholder="Buscar..." onChange={ buscador }/>
         <form>
             <div className="multiselect">
                 <div className="selectBox" onClick={showCheckboxes}>
