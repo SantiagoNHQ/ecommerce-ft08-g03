@@ -64,7 +64,7 @@ server.put("/category/:id", (req, res) => {
         { where: { id } }
       );
     })
-    .then((r) => res.send("Category modificada correctamente"))
+    .then((r) => res.send("Categoria modificada correctamente"))
     .catch((err) => {
       console.log("Soy error: ", err);
       res.json(err);
@@ -214,4 +214,31 @@ server.delete("/", (req, res) => {
     });
 });
 
+//  *** S55 : Crear ruta para Modificar Review ***
+// FUNCTION: Crear ruta para Modificar Review.
+//PUT /product/:id/review/:idReview
+server.put('/:id/review/:idReview', (req, res) => {
+  const idR = req.params.idReview;
+
+  Product.findOne({
+    where: idR,
+    include: review
+  })
+  .then(
+    Product.update({ review: review })
+    .then( answer => { 
+      console.log('Soy lo que buscas: ', answer);
+      res.send('Review modificada correctamente.')
+    })
+    .catch(err => {
+      console.log('Soy el error: ', err);
+      res.status(400).send('Error en el review')
+    })
+  )
+  .catch(error => {
+    console.log('SOY ERROR GRAVE: ', error);
+    res.status(400).send('ALERTA DE ERROR!')
+  });
+})
+  
 module.exports = server;
