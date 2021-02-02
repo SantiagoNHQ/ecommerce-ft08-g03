@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
 
 function ProductCards({search, products, categoria, onProductsLoad}) {
   //const [cards , setCards] = useState([]) ahora es products
-  //console.log("TEST: ", props)
+  console.log("Productos: ", products)
 
   useEffect(() => {
 

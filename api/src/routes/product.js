@@ -3,7 +3,7 @@ const { Product, Category, ProductAndCategory } = require("../db");
 const Sequelize = require("sequelize");
 const Review = require("../models/Review");
 
-//  *** S17-A : Crear ruta para agregar. ***
+//  *** S17-A : Crear ruta para agregar categoria. ***
 // POST /products/:idProducto/category/:idCategoria
 server.post("/:idProducto/categoria/:idCategoria", (req, res) => {
   var idP = req.params.idProducto;
@@ -30,7 +30,7 @@ server.post("/:idProducto/categoria/:idCategoria", (req, res) => {
     });
 });
 
-//  *** S17-B : Crear ruta borrar. ***
+//  *** S17-B : Crear ruta borrar categoria. ***
 // DELETE /products/:idProducto/category/:idCategoria
 server.delete("/:idProducto/categoria/:idCategoria", (req, res) => {
   var idP = req.params.idProducto;
@@ -321,6 +321,25 @@ server.post("/:id/review", (req, res) => {
     });
 
   // console.log(reviewExist);
+});
+
+//  *** S54 : Crear ruta para crear/agregar Review ***
+server.post("/:id/review", (req, res) => {
+  const userId = req.params.id; //id del usuario que agrega el review
+  const { descripcion, calificacion, productId } = req.body;
+  Review.create({
+    descripcion,
+    calificacion,
+    productId,
+    userId,
+  })
+    .then((res) => {
+      res.send("Su Review a sido cargada satisfactoriamente");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json(err);
+    });
 });
 
 module.exports = server;

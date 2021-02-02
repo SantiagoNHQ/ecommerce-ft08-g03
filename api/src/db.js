@@ -55,8 +55,14 @@ Orderline.belongsTo(Product, { primaryKey: true });
 // Orden.belongsTo(User); // Es lo mismo que los 4 comentarios de arriba
 Orderline.belongsTo(User);
 
-Product.hasMany(Review);
+
+//  The Review.belongsTo(User) association means that a One-To-One relationship exists between
+//  Review and User, with the foreign key being defined in the source model (Review).
 Review.belongsTo(User);
+
+//  One-To-Many relationship exists between Product and Review, with the foreign key being defined
+//  in the target model (Review).
+Product.hasMany(Review);
 
 /*
 *** TICKET *** = ORDEN
