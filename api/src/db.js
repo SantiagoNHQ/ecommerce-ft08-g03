@@ -3,12 +3,13 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { userInfo } = require("os");
+// const Review = require("./models/Review");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/development`,
   {
-    logging: false,//console.log, // set to console.log to see the raw SQL queries
+    logging: false, //console.log, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
 );
@@ -38,21 +39,24 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Category, Orden, Orderline, User } = sequelize.models;
+const { Product, Category, Orden, Orderline, User, Review } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 Product.belongsToMany(Category, { through: "ProductAndCategory" });
 Category.belongsToMany(Product, { through: "ProductAndCategory" });
 
- Orden.belongsTo(User); // ORDEN = Estado: carrito, completado, cancelado, etc
-Orden.hasMany(Orderline)
+Orden.belongsTo(User); // ORDEN = Estado: carrito, completado, cancelado, etc
+Orden.hasMany(Orderline);
 Orderline.belongsTo(Orden); // Orderline = productId, cantidad, precio, userId
 // Product.hasOne(Orderline, {as: "product"})
-Orderline.belongsTo(Product, {primaryKey: true})
+Orderline.belongsTo(Product, { primaryKey: true });
 // Orden.belongsToMany(Product, { through: Orderline }); // Estos dos
 // Orden.belongsTo(User); // Es lo mismo que los 4 comentarios de arriba
-Orderline.belongsTo(User)
+Orderline.belongsTo(User);
+
+Product.hasMany(Review);
+Review.belongsTo(User);
 
 /*
 *** TICKET *** = ORDEN

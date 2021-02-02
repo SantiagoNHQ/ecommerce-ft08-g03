@@ -1,6 +1,7 @@
 const server = require("express").Router();
 const { Product, Category, ProductAndCategory } = require("../db");
 const Sequelize = require("sequelize");
+const Review = require("../models/Review");
 
 //  *** S17-A : Crear ruta para agregar. ***
 // POST /products/:idProducto/category/:idCategoria
@@ -74,7 +75,7 @@ server.put("/category/:id", (req, res) => {
 //  *** S21 : Crear ruta que devuelva todos los productos ***
 server.get("/", (req, res, next) => {
   Product.findAll({
-    include: Category
+    include: Category,
   })
     .then((products) => {
       res.send(products);
@@ -148,21 +149,47 @@ server.post("/", (req, res, next) => {
   // Ahora tengo las categorias aca!
   // categories. ahora debo hacer el addCategory aca!
 
-  const { tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img, categories
+  const {
+    tipo,
+    edad,
+    nombre,
+    origen,
+    elaboracion,
+    descripcion,
+    precio,
+    stock,
+    img,
+    categories,
   } = req.body;
   console.log("Las categorias que llegan: ", categories);
-  Product.create({ tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
+  Product.create({
+    tipo,
+    edad,
+    nombre,
+    origen,
+    elaboracion,
+    descripcion,
+    precio,
+    stock,
+    img,
   })
     .then((data) => {
       // Pero primero debo saber los ids de las categorias...
       // data.addCategory(idCategoria)
       Category.findAll()
         .then((category) => {
-          let categoriasAgregadas = category.filter(v => categories.includes(v.dataValues.nombre))
-          categoriasAgregadas.forEach(v => {
-            console.log("Agrego la categoría NOMBRE: " + v.dataValues.nombre +  "ID: " + v.dataValues.id)
-            data.addCategory(v.dataValues.id)
-          })
+          let categoriasAgregadas = category.filter((v) =>
+            categories.includes(v.dataValues.nombre)
+          );
+          categoriasAgregadas.forEach((v) => {
+            console.log(
+              "Agrego la categoría NOMBRE: " +
+                v.dataValues.nombre +
+                "ID: " +
+                v.dataValues.id
+            );
+            data.addCategory(v.dataValues.id);
+          });
         })
         .catch("");
 
@@ -176,7 +203,17 @@ server.post("/", (req, res, next) => {
 
 //  *** S26 : Crear ruta para Modificar Producto ***
 server.put("/", (req, res, next) => {
-  const { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img
+  const {
+    id,
+    nombre,
+    descripcion,
+    stock,
+    precio,
+    tipo,
+    edad,
+    elaboracion,
+    origen,
+    img,
   } = req.body;
   console.log("Editado: ", req.body);
   Product.findOne({
@@ -184,7 +221,17 @@ server.put("/", (req, res, next) => {
   })
     .then((response) => {
       Product.update(
-        { nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img },
+        {
+          nombre,
+          descripcion,
+          stock,
+          precio,
+          tipo,
+          edad,
+          elaboracion,
+          origen,
+          img,
+        },
         {
           where: {
             id,
@@ -212,6 +259,68 @@ server.delete("/", (req, res) => {
       console.log(err);
       res.status(404).json(err);
     });
+});
+// ************************REVIEW***********************************************************
+// S56: Crear ruta para eliminar review.
+server.delete("/product/:id/review/:idReview", (req, res) => {
+  const id = req.params.id;
+  const idReview = req.params.idReview;
+
+  Review.destroy({
+    where: {
+      id,
+      idReview,
+    },
+  })
+    .then((response) => {
+      console.log("Review a eliminar: ", response);
+      res.json(response);
+    })
+    .catch((response) => {
+      console.log("No se pudo eliminar esta review: ", response);
+      res.json(response);
+    });
+});
+
+server.post("/:id/review", (req, res) => {
+  const userId = req.params.id;
+  const { descripcion, calificacion, fecha, productId } = req.body;
+
+  // var reviewExist = Review.findOne({
+  //   where: {
+  //     userId,
+  //     productId,
+  //   },
+  // }).then((reviewExist) => {
+  //   if (!reviewExist) {
+  //     Review.create({
+  //       descripcion,
+  //       calificacion,
+  //       fecha,
+  //       productId,
+  //       userId,
+  //     });
+  //     res.json(reviewExist);
+  //   } else {
+  //     console.log(
+  //       "El usuario ya a dado su opinion con respecto a este producto."
+  //     );
+  //     res.json(reviewExist);
+  //   }
+  // });
+  Review.create({
+    descripcion,
+    calificacion,
+    fecha,
+  })
+    .then((res) => {
+      send.json(res);
+    })
+    .catch((err) => {
+      send.res(err);
+    });
+
+  // console.log(reviewExist);
 });
 
 module.exports = server;
