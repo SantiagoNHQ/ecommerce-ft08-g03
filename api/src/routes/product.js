@@ -1,7 +1,7 @@
 const server = require("express").Router();
-const { Product, Category, ProductAndCategory } = require("../db");
+const { Product, Category, ProductAndCategory, Review } = require("../db");
 const Sequelize = require("sequelize");
-const Review = require("../models/Review");
+// const Review = require("../models/Review");
 
 //  *** S17-A : Crear ruta para agregar categoria. ***
 // POST /products/:idProducto/category/:idCategoria
@@ -325,20 +325,58 @@ server.post("/:id/review", (req, res) => {
 
 //  *** S54 : Crear ruta para crear/agregar Review ***
 server.post("/:id/review", (req, res) => {
-  const userId = req.params.id; //id del usuario que agrega el review
-  const { descripcion, calificacion, productId } = req.body;
-  Review.create({
-    descripcion,
-    calificacion,
-    productId,
-    userId,
+  var resp2;
+  const productId = req.params.id; //id del usuario que agrega el review
+  const { descripcion, calificacion, userId } = req.body;
+
+  Review.findOne({
+    where: { productId, userId },
   })
-    .then((res) => {
-      res.send("Su Review a sido cargada satisfactoriamente");
+    .then((review) => {
+      // console.log("ddd: ", ddd);
+      console.log("rrr:  ", review);
+
+      if (!review) {
+        Review.create({
+          descripcion,
+          calificacion,
+          productId,
+          userId,
+        })
+          .then((resp1) => {
+            console.log(resp1);
+            res.send(resp1);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(404).json(err);
+          });
+      } else {
+        resp2 = "el cliente ya posee una review para este producto";
+        console.log(resp2);
+        res.json(resp2);
+      }
     })
     .catch((err) => {
       console.log(err);
       res.status(404).json(err);
+    });
+});
+
+// S57 : Crear Ruta para obtener todas las reviews de un producto.
+server.get("/:id/review/", (req, res) => {
+  const id = req.params.id;
+  Review.findAll({
+    where: {
+      productId: id,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      res.status(404).send(err);
     });
 });
 
