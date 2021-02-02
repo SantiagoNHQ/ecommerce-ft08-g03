@@ -18,6 +18,7 @@ import NavSelect from "./components/NavSelect/NavSelect";
 import axios from "axios";
 import { connect } from "react-redux";
 import { addCarrito } from "./redux/actions";
+import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 
 function App(props) {
   useEffect(() => {
@@ -45,7 +46,7 @@ function App(props) {
             return <NavSelect />;
           }}
         />
-
+        <Route path="/detalle/:id" component={DetalleProducto} />
         <Route path="/seleccionar" component={NavSelect} />
         <Route path="/products/:id" component={Product} />
         {/* <Route path="/user" component={NavBar} /> */}
