@@ -3,6 +3,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { userInfo } = require("os");
+// const Review = require("./models/Review");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
 
 const sequelize = new Sequelize(
@@ -53,6 +54,7 @@ Orderline.belongsTo(Product, { primaryKey: true });
 // Orden.belongsToMany(Product, { through: Orderline }); // Estos dos
 // Orden.belongsTo(User); // Es lo mismo que los 4 comentarios de arriba
 Orderline.belongsTo(User);
+
 
 //  The Review.belongsTo(User) association means that a One-To-One relationship exists between
 //  Review and User, with the foreign key being defined in the source model (Review).

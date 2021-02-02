@@ -260,6 +260,68 @@ server.delete("/", (req, res) => {
       res.status(404).json(err);
     });
 });
+// ************************REVIEW***********************************************************
+// S56: Crear ruta para eliminar review.
+server.delete("/product/:id/review/:idReview", (req, res) => {
+  const id = req.params.id;
+  const idReview = req.params.idReview;
+
+  Review.destroy({
+    where: {
+      id,
+      idReview,
+    },
+  })
+    .then((response) => {
+      console.log("Review a eliminar: ", response);
+      res.json(response);
+    })
+    .catch((response) => {
+      console.log("No se pudo eliminar esta review: ", response);
+      res.json(response);
+    });
+});
+
+server.post("/:id/review", (req, res) => {
+  const userId = req.params.id;
+  const { descripcion, calificacion, fecha, productId } = req.body;
+
+  // var reviewExist = Review.findOne({
+  //   where: {
+  //     userId,
+  //     productId,
+  //   },
+  // }).then((reviewExist) => {
+  //   if (!reviewExist) {
+  //     Review.create({
+  //       descripcion,
+  //       calificacion,
+  //       fecha,
+  //       productId,
+  //       userId,
+  //     });
+  //     res.json(reviewExist);
+  //   } else {
+  //     console.log(
+  //       "El usuario ya a dado su opinion con respecto a este producto."
+  //     );
+  //     res.json(reviewExist);
+  //   }
+  // });
+  Review.create({
+    descripcion,
+    calificacion,
+    fecha,
+  })
+    .then((res) => {
+      send.json(res);
+    })
+    .catch((err) => {
+      send.res(err);
+    });
+
+  // console.log(reviewExist);
+});
 
 //  *** S54 : Crear ruta para crear/agregar Review ***
 server.post("/:id/review", (req, res) => {
