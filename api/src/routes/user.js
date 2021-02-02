@@ -15,7 +15,7 @@ server.post("/", (req, res) => {
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
   console.log("Body: ", req.body);
 
-  User.create({ nombre, nombreDeUsuario, email, clave, apellido })
+  User.create({ nombre, nombreDeUsuario, email, clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'), apellido })
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {
@@ -34,12 +34,19 @@ server.post("/", (req, res) => {
 
 // S36 : Crear Ruta que retorne todos los Usuarios
 server.get("/", (req, res) => {
-  User.findAll({})
+  User.findAll({
+    attributes: [
+      [
+        Sequelize.fn('PGP_SYM_DECRYPT', Sequelize.cast(Sequelize.col('clave'), 'bytea'), 'CLAVE_TEST'),
+        'clave'
+      ]
+    ]
+  })
     .then((response) => {
       res.status(200).json(response);
     })
     .catch((response) => {
-      res.send("No se pudieron obtener todos los usuarios, error: ", response);
+      res.send(response);
     });
 });
 
@@ -54,7 +61,7 @@ server.put("/:id", (req, res) => {
       apellido,
       nombreDeUsuario,
       email,
-      clave,
+      clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'),
     },
     {
       where: {

@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
       },
     },
     clave: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   });
