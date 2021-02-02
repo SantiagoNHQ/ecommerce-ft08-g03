@@ -11,7 +11,7 @@
     justify-content: space-around;
 }
 
-.nuevoUsuario {
+.iniciarSesion {
     width: 700px;
     background-color: rgba(158, 22, 22, 0.733);
     display: flex;
@@ -25,19 +25,19 @@
     align-items: center;
 }
 
-.nuevoUsuario h1 {
+.iniciarSesion h1 {
     text-align: center;
     font-size: 20px;
     color: White;
 }
 
-.nuevoUsuario input {
+.iniciarSesion input {
     border-color: solid black 5px;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
-.nuevoUsuario input [key = boton] {
+.iniciarSesion input [key = boton] {
     color: white;
     border-radius: 20px;
     height: 31px;

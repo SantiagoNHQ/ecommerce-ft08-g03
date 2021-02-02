@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Product, Category, ProductAndCategory } = require("../db");
+const { Product, Category, ProductAndCategory, Review } = require("../db");
 const Sequelize = require("sequelize");
 
 //  *** S17-A : Crear ruta para agregar. ***
@@ -218,25 +218,22 @@ server.delete("/", (req, res) => {
 // FUNCTION: Crear ruta para Modificar Review.
 //PUT /product/:id/review/:idReview
 server.put('/:id/review/:idReview', (req, res) => {
-  const idR = req.params.idReview;
+  const id = req.params.id;
+  const idR = req.params.idReview
+  
+  console.log('Me traen: ', id);
+  console.log('COMPAÑEROS!', idR)
 
-  Product.findOne({
-    where: idR,
-    include: review
-  })
-  .then(
-    Product.update({ review: review })
-    .then( answer => { 
+  Review.update(
+    {where: {id: userid, idR: idReview}},
+    {descripcion: descripcion, valoracion: valoracion}
+  )
+  .then( answer => { 
       console.log('Soy lo que buscas: ', answer);
       res.send('Review modificada correctamente.')
-    })
-    .catch(err => {
-      console.log('Soy el error: ', err);
-      res.status(400).send('Error en el review')
-    })
-  )
+  })
   .catch(error => {
-    console.log('SOY ERROR GRAVE: ', error);
+    console.log('SOY UN ERROR GRAVE: ', error);
     res.status(400).send('ALERTA DE ERROR!')
   });
 })
