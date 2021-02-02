@@ -282,47 +282,6 @@ server.delete("/product/:id/review/:idReview", (req, res) => {
     });
 });
 
-server.post("/:id/review", (req, res) => {
-  const userId = req.params.id;
-  const { descripcion, calificacion, fecha, productId } = req.body;
-
-  // var reviewExist = Review.findOne({
-  //   where: {
-  //     userId,
-  //     productId,
-  //   },
-  // }).then((reviewExist) => {
-  //   if (!reviewExist) {
-  //     Review.create({
-  //       descripcion,
-  //       calificacion,
-  //       fecha,
-  //       productId,
-  //       userId,
-  //     });
-  //     res.json(reviewExist);
-  //   } else {
-  //     console.log(
-  //       "El usuario ya a dado su opinion con respecto a este producto."
-  //     );
-  //     res.json(reviewExist);
-  //   }
-  // });
-  Review.create({
-    descripcion,
-    calificacion,
-    fecha,
-  })
-    .then((res) => {
-      send.json(res);
-    })
-    .catch((err) => {
-      send.res(err);
-    });
-
-  // console.log(reviewExist);
-});
-
 //  *** S54 : Crear ruta para crear/agregar Review ***
 server.post("/:id/review", (req, res) => {
   var resp2;
@@ -372,8 +331,8 @@ server.get("/:id/review/", (req, res) => {
     },
   })
     .then((response) => {
-      console.log(response);
-      res.status(200).json(response);
+      console.log("ENTREEEEEEEEEEEEEEEEEEEE",response);
+      res.json(response);
     })
     .catch((err) => {
       res.status(404).send(err);
