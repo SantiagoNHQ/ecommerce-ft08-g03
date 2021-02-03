@@ -1,8 +1,9 @@
 const server = require("express").Router();
 const { Product, Category, ProductAndCategory, Review } = require("../db");
 const Sequelize = require("sequelize");
+// const Review = require("../models/Review");
 
-//  *** S17-A : Crear ruta para agregar. ***
+//  *** S17-A : Crear ruta para agregar categoria. ***
 // POST /products/:idProducto/category/:idCategoria
 server.post("/:idProducto/categoria/:idCategoria", (req, res) => {
   var idP = req.params.idProducto;
@@ -29,7 +30,7 @@ server.post("/:idProducto/categoria/:idCategoria", (req, res) => {
     });
 });
 
-//  *** S17-B : Crear ruta borrar. ***
+//  *** S17-B : Crear ruta borrar categoria. ***
 // DELETE /products/:idProducto/category/:idCategoria
 server.delete("/:idProducto/categoria/:idCategoria", (req, res) => {
   var idP = req.params.idProducto;
@@ -74,7 +75,7 @@ server.put("/category/:id", (req, res) => {
 //  *** S21 : Crear ruta que devuelva todos los productos ***
 server.get("/", (req, res, next) => {
   Product.findAll({
-    include: Category
+    include: Category,
   })
     .then((products) => {
       res.send(products);
@@ -148,21 +149,30 @@ server.post("/", (req, res, next) => {
   // Ahora tengo las categorias aca!
   // categories. ahora debo hacer el addCategory aca!
 
-  const { tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img, categories
-  } = req.body;
+  const { 
+      tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img, categories
+    } = req.body;
   console.log("Las categorias que llegan: ", categories);
-  Product.create({ tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
-  })
+  Product.create({ 
+      tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
+    })
     .then((data) => {
       // Pero primero debo saber los ids de las categorias...
       // data.addCategory(idCategoria)
       Category.findAll()
         .then((category) => {
-          let categoriasAgregadas = category.filter(v => categories.includes(v.dataValues.nombre))
-          categoriasAgregadas.forEach(v => {
-            console.log("Agrego la categoría NOMBRE: " + v.dataValues.nombre +  "ID: " + v.dataValues.id)
-            data.addCategory(v.dataValues.id)
-          })
+          let categoriasAgregadas = category.filter((v) =>
+            categories.includes(v.dataValues.nombre)
+          );
+          categoriasAgregadas.forEach((v) => {
+            console.log(
+              "Agrego la categoría NOMBRE: " +
+                v.dataValues.nombre +
+                "ID: " +
+                v.dataValues.id
+            );
+            data.addCategory(v.dataValues.id);
+          });
         })
         .catch("");
 
@@ -176,15 +186,14 @@ server.post("/", (req, res, next) => {
 
 //  *** S26 : Crear ruta para Modificar Producto ***
 server.put("/", (req, res, next) => {
-  const { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img
-  } = req.body;
+  const { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img } = req.body;
   console.log("Editado: ", req.body);
   Product.findOne({
     where: { id },
   })
     .then((response) => {
       Product.update(
-        { nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img },
+        { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img },
         {
           where: {
             id,
@@ -220,13 +229,16 @@ server.delete("/", (req, res) => {
 server.put('/:id/review/:idReview', (req, res) => {
   const id = req.params.id;
   const idR = req.params.idReview
+  const { descripcion, calificacion } = req.body;
   
   console.log('Me traen: ', id);
   console.log('COMPAÑEROS!', idR)
+  console.log('Soy la descripcion: ', descripcion);
+  console.log('Soy la calificacion: ', calificacion);
 
   Review.update(
-    {where: {id: userid, idR: idReview}},
-    {descripcion: descripcion, valoracion: valoracion}
+    {where: {id: id, userId: id, idReview: idR}},
+    {descripcion: descripcion, calificacion: calificacion}
   )
   .then( answer => { 
       console.log('Soy lo que buscas: ', answer);
@@ -238,4 +250,20 @@ server.put('/:id/review/:idReview', (req, res) => {
   });
 })
   
+module.exports = server;
+//  *** S54 : Crear ruta para crear/agregar Review ***
+server.post("/:id/review", (req, res) => {
+  const userId = req.params.id; //id del usuario que agrega el review
+  const { descripcion, calificacion, productId } = req.body;
+  
+  Review.create({ descripcion, calificacion, productId, userId })
+    .then((res) => {
+      res.send("Su Review a sido cargada satisfactoriamente");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json(err);
+    });
+});
+
 module.exports = server;

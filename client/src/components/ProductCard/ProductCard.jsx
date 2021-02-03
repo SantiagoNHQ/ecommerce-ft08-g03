@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {useState, useEffect} from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import "./ProductCard.css"
 import {connect} from 'react-redux'
 import { addCarrito, changeEditProduct } from "../../redux/actions";
@@ -66,30 +66,36 @@ export function ProductCard (props) {
         props.onChangeEditProduct(props.id)
         history.push("/admin/product/edit")
     }
+    function detalle(){
+       var id=  props.id
+
+    }
 
     return (
-        <div className='card'>
-            <div className='titulo'>
-            <h1 className='titulo'>{props.nombre}</h1> 
+        <Link to={ '/detalle/' + props.id } >
+            <div className='card'>
+                <div className='titulo'>
+                <h1 className='titulo'>{props.nombre}</h1> 
+                </div>
+                <div className='div-imagen'>
+                    <img alt={props.nombre} src={stock.img}></img>
+                </div>
+                <div className='div-precio'>
+                <h4 className='precio'><span>$</span>{props.precio}</h4>
+                </div>
+                <div className='boton-y-stock'>
+                <div className='div-boton'>
+                    {(() => {
+                        switch (props.admin) {
+                            case true: return <button className='boton-comprar' onClick={(e)=> editar(e)}>Editar</button>
+                            default: return <button className='boton-comprar' onClick={(e)=> comprar(e)}>Añadir al carrito</button>
+                        }
+                    })()}
+                </div>
+                <h3 className='stock'><span>Stock:</span> {stock.stock}</h3> 
+                </div>
             </div>
-            <div className='div-imagen'>
-                <img alt={props.nombre} src={stock.img}></img>
-            </div>
-            <div className='div-precio'>
-            <h4 className='precio'><span>$</span>{props.precio}</h4>
-            </div>
-            <div className='boton-y-stock'>
-            <div className='div-boton'>
-                {(() => {
-                    switch (props.admin) {
-                        case true: return <button className='boton-comprar' onClick={(e)=> editar(e)}>Editar</button>
-                        default: return <button className='boton-comprar' onClick={(e)=> comprar(e)}>Añadir al carrito</button>
-                    }
-                })()}
-            </div>
-            <h3 className='stock'><span>Stock:</span> {stock.stock}</h3> 
-            </div>
-        </div>
+        </Link>
     )
 }
 
