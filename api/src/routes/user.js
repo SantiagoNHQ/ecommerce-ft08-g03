@@ -50,6 +50,26 @@ server.get("/", (req, res) => {
     });
 });
 
+// S37 : Crear ruta para eliminar Usuario
+
+server.delete("users/:id", (req, res) => {
+  const id = req.params.id;
+
+  User.destroy({
+    where: {
+      id,
+    },
+  })
+    .then((response) => {
+      console.log("Usuario eliminado correctamente");
+      send.res(response);
+    })
+    .catch((response) => {
+      console.log("No se puede eliminar el usuario");
+      send.res(response);
+    });
+});
+
 // S35 : Crear Ruta para modificar Usuario
 server.put("/:id", (req, res) => {
   const id = req.params.id;
@@ -108,28 +128,31 @@ server.delete("/cart/:userId", (req, res) => {
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put("/cart/:userId",  (req, res) => {
-    const userId = req.params.userId;
-    const { productId, cantidad } = req.body;
+server.put("/cart/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const { productId, cantidad } = req.body;
 
-    Orden.findOne({
-      where: {
-        userId,
-        estado: "carrito",
-      },
+  Orden.findOne({
+    where: {
+      userId,
+      estado: "carrito",
+    },
+  })
+    .then((r) => {
+      Orderline.update(
+        { cantidad },
+        { where: { userId, productId, ordenId: r.dataValues.id } }
+      )
+        .then((respuesta) => {
+          res.status(200).send("Cantidad modificada correctamente");
+        })
+        .catch((err) => {
+          console.log("Soy err: ", err);
+          res.status(400).json(err);
+        });
     })
-      .then((r) => {
-        Orderline.update({ cantidad }, { where: { userId, productId, ordenId: r.dataValues.id } })
-          .then((respuesta) => {
-            res.status(200).send("Cantidad modificada correctamente");
-          })
-          .catch((err) => {
-            console.log("Soy err: ", err);
-            res.status(400).json(err);
-          });
-      })
-      .catch((e) => console.log("Error linea 110: ", e));
-  });
+    .catch((e) => console.log("Error linea 110: ", e));
+});
 
 // S39 : Crear Ruta que retorne todos los items del Carrito
 /*  GET /users/:idUser/cart */
@@ -141,13 +164,12 @@ server.get("/cart/:userId", (req, res) => {
       userId,
       estado: "carrito",
     },
-
-    })
+  })
     .then((r) => {
       let ordenId = r.dataValues.id;
       Orderline.findAll({
         where: { ordenId },
-        order: [["productId", "DESC"]]
+        order: [["productId", "DESC"]],
       })
         .then((response) => {
           console.log("Respuesta: ", response);
@@ -164,7 +186,7 @@ server.get("/cart/:userId", (req, res) => {
 // S44 : Crear ruta que retorne todas las ordenes
 server.get("/orders", (req, res) => {
   Orden.findAll({
-    include: {model: User}
+    include: { model: User },
   })
 
     .then((response) => {
@@ -259,7 +281,7 @@ server.post("/:userId/cart", (req, res) => {
           productId: req.body.data.productId, //product.id,
           ordenId: ordenA,
           userId: req.params.userId,
-          nombre: req.body.data.nombre
+          nombre: req.body.data.nombre,
         }).then((orderline) => res.send(orderline));
         // });
       } else {
@@ -274,7 +296,7 @@ server.post("/:userId/cart", (req, res) => {
               productId: req.body.data.productId, //product.id,
               ordenId: ordenA,
               userId: req.params.userId,
-              nombre: req.body.data.nombre
+              nombre: req.body.data.nombre,
             })
               .then((res1) => {
                 res.json(res1);
@@ -298,26 +320,24 @@ server.post("/:userId/cart", (req, res) => {
 });
 
 server.delete("/delete/:productId/:userId", (req, res) => {
-     const {productId, userId} = req.params;
-    
-     console.log("AAAAAAAAAA", productId)
-     console.log("bbbbbbbbbbbbbb", userId)
-      Orderline.destroy({
-        where: {productId, userId }
-      })
-      .then((response) => {
-         console.log("Objeto a eliminar: ", response);
-         res.json(response)
-      })
-      .catch((err) => {
-         console.log("Error al intentar eliminar: ", err);
-         res.send(err)
-      });
- });
+  const { productId, userId } = req.params;
 
+  console.log("AAAAAAAAAA", productId);
+  console.log("bbbbbbbbbbbbbb", userId);
+  Orderline.destroy({
+    where: { productId, userId },
+  })
+    .then((response) => {
+      console.log("Objeto a eliminar: ", response);
+      res.json(response);
+    })
+    .catch((err) => {
+      console.log("Error al intentar eliminar: ", err);
+      res.send(err);
+    });
+});
 
 module.exports = server;
-
 
 //  *** S47 : Crear Ruta para modificar una Orden ***
 // PUT /orders/:id

@@ -222,6 +222,27 @@ server.delete("/", (req, res) => {
       res.status(404).json(err);
     });
 });
+// ************************REVIEW***********************************************************
+// S56: Crear ruta para eliminar review.
+server.delete("/product/:id/review/:idReview", (req, res) => {
+  const id = req.params.id;
+  const idReview = req.params.idReview;
+
+  Review.destroy({
+    where: {
+      id,
+      idReview,
+    },
+  })
+    .then((response) => {
+      console.log("Review a eliminar: ", response);
+      res.json(response);
+    })
+    .catch((response) => {
+      console.log("No se pudo eliminar esta review: ", response);
+      res.json(response);
+    });
+});
 
 //  *** S55 : Crear ruta para Modificar Review ***
 // FUNCTION: Crear ruta para Modificar Review.
@@ -229,16 +250,17 @@ server.delete("/", (req, res) => {
 server.put('/:id/review/:idReview', (req, res) => {
   const id = req.params.id;
   const idR = req.params.idReview
-  const { descripcion, calificacion } = req.body;
+  const { descripcion, calificacion, fecha } = req.body;
   
   console.log('Me traen: ', id);
   console.log('COMPAÑEROS!', idR)
   console.log('Soy la descripcion: ', descripcion);
   console.log('Soy la calificacion: ', calificacion);
+  console.log('Fecha: ', fecha)
 
   Review.update(
-    {where: {id: id, userId: id, idReview: idR}},
-    {descripcion: descripcion, calificacion: calificacion}
+    {descripcion: descripcion, calificacion: calificacion, fecha: fecha},
+    {where: {userId: id, idReview: idR}}
   )
   .then( answer => { 
       console.log('Soy lo que buscas: ', answer);
@@ -247,22 +269,105 @@ server.put('/:id/review/:idReview', (req, res) => {
   .catch(error => {
     console.log('SOY UN ERROR GRAVE: ', error);
     res.status(400).send('ALERTA DE ERROR!')
-  });
-})
-  
-module.exports = server;
+  })
+});
+
+//  *** S54 : Crear ruta para crear/agregar Review ***
+  server.post("/:id/review", (req, res) => {
+  const userId = req.params.id;
+  const { descripcion, calificacion, fecha, productId } = req.body;
+
+  // var reviewExist = Review.findOne({
+  //   where: {
+  //     userId,
+  //     productId,
+  //   },
+  // }).then((reviewExist) => {
+  //   if (!reviewExist) {
+  //     Review.create({
+  //       descripcion,
+  //       calificacion,
+  //       fecha,
+  //       productId,
+  //       userId,
+  //     });
+  //     res.json(reviewExist);
+  //   } else {
+  //     console.log(
+  //       "El usuario ya a dado su opinion con respecto a este producto."
+  //     );
+  //     res.json(reviewExist);
+  //   }
+  // });
+  Review.create({
+    descripcion,
+    calificacion,
+    fecha,
+  })
+    .then((res) => {
+      send.json(res);
+    })
+    .catch((err) => {
+      send.res(err);
+    });
+
+  // console.log(reviewExist);
+});
+
 //  *** S54 : Crear ruta para crear/agregar Review ***
 server.post("/:id/review", (req, res) => {
-  const userId = req.params.id; //id del usuario que agrega el review
-  const { descripcion, calificacion, productId } = req.body;
-  
-  Review.create({ descripcion, calificacion, productId, userId })
-    .then((res) => {
-      res.send("Su Review a sido cargada satisfactoriamente");
+  var resp2;
+  const productId = req.params.id; //id del usuario que agrega el review
+  const { descripcion, calificacion, userId } = req.body;
+
+  Review.findOne({
+    where: { productId, userId },
+  })
+    .then((review) => {
+      // console.log("ddd: ", ddd);
+      console.log("rrr:  ", review);
+
+      if (!review) {
+        Review.create({
+          descripcion,
+          calificacion,
+          productId,
+          userId,
+        })
+          .then((resp1) => {
+            console.log(resp1);
+            res.send(resp1);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(404).json(err);
+          });
+      } else {
+        resp2 = "el cliente ya posee una review para este producto";
+        console.log(resp2);
+        res.json(resp2);
+      }
     })
     .catch((err) => {
       console.log(err);
       res.status(404).json(err);
+    });
+});
+
+// S57 : Crear Ruta para obtener todas las reviews de un producto.
+server.get("/:id/review/", (req, res) => {
+  const id = req.params.id;
+  Review.findAll({
+    where: {
+      productId: id,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      res.status(404).send(err);
     });
 });
 

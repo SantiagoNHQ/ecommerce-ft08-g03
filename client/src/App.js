@@ -18,12 +18,9 @@ import NavSelect from "./components/NavSelect/NavSelect";
 import axios from "axios";
 import { connect } from "react-redux";
 import { addCarrito } from "./redux/actions";
-<<<<<<< HEAD
 import Login from "./components/Login/Login";
-=======
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 
->>>>>>> 7ae9d3fede494bf388208816baa898e271f9d7a9
 function App(props) {
   useEffect(() => {
     if (props.logged !== true) return;
