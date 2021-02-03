@@ -29,7 +29,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
         precioTotal()
         var stock;
         products.map(pos => {
-            if (pos.id ==producto.productId) {
+            if (pos.id === producto.productId) {
                 stock = pos.stock
             }
         })

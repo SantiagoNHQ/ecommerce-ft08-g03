@@ -1,8 +1,8 @@
-//S52 : Crear Formulario de Creación de Cuenta/Usuario
-
 import React, { useState } from "react";
 import axios from 'axios';
-import "./NuevoUsuario.css";
+import "./Login.css";
+
+//  S61 : Crear Componente Login
 
 
 export default function NuevoUsuario(props) {
@@ -48,14 +48,10 @@ export default function NuevoUsuario(props) {
     return (
         <div className = 'formulario'>
            
-            <form className = 'nuevoUsuario' onSubmit={ submit }>
-                <h1>Crear Usuario</h1>
-                <input key="nombre" type="text" onChange={cambios} placeholder="Nombre..." name="nombre"/>
-                <input key="apellido" type="text" onChange={cambios} placeholder="Apellido..." name="apellido"/> 
-                <input key="nombreDeUsuario" type="text" onChange={cambios} placeholder="Nombre de usuario..." name="nombreDeUsuario" />
-                <input key="email" type="email" onChange={cambios} placeholder="Email..." name="email" />
-                <input key="clave" type="password"  onChange={cambios} placeholder="Contraseña..." name="clave" />
-                <input key="repetirClave" type="password" onKeyPress={ submitEnter } onChange={cambios} placeholder="Repita su contraseña" name="repetirClave" />
+            <form className = 'iniciarSesion' onSubmit={ submit }>
+                <h1>Iniciar Sesion</h1>
+                <input key="email" type="email" onChange={cambios} placeholder="email" name="email" />
+                <input key="clave" type="password" onKeyPress={ submitEnter }  onChange={cambios} placeholder="contraseña" name="clave" />
                 <input type="submit" key="boton" />
             </form>
         </div>

@@ -65,7 +65,7 @@ server.put("/category/:id", (req, res) => {
         { where: { id } }
       );
     })
-    .then((r) => res.send("Category modificada correctamente"))
+    .then((r) => res.send("Categoria modificada correctamente"))
     .catch((err) => {
       console.log("Soy error: ", err);
       res.json(err);
@@ -150,29 +150,12 @@ server.post("/", (req, res, next) => {
   // categories. ahora debo hacer el addCategory aca!
 
   const {
-    tipo,
-    edad,
-    nombre,
-    origen,
-    elaboracion,
-    descripcion,
-    precio,
-    stock,
-    img,
-    categories,
-  } = req.body;
+      tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img, categories
+    } = req.body;
   console.log("Las categorias que llegan: ", categories);
   Product.create({
-    tipo,
-    edad,
-    nombre,
-    origen,
-    elaboracion,
-    descripcion,
-    precio,
-    stock,
-    img,
-  })
+      tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
+    })
     .then((data) => {
       // Pero primero debo saber los ids de las categorias...
       // data.addCategory(idCategoria)
@@ -203,35 +186,14 @@ server.post("/", (req, res, next) => {
 
 //  *** S26 : Crear ruta para Modificar Producto ***
 server.put("/", (req, res, next) => {
-  const {
-    id,
-    nombre,
-    descripcion,
-    stock,
-    precio,
-    tipo,
-    edad,
-    elaboracion,
-    origen,
-    img,
-  } = req.body;
+  const { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img } = req.body;
   console.log("Editado: ", req.body);
   Product.findOne({
     where: { id },
   })
     .then((response) => {
       Product.update(
-        {
-          nombre,
-          descripcion,
-          stock,
-          precio,
-          tipo,
-          edad,
-          elaboracion,
-          origen,
-          img,
-        },
+        { id, nombre, descripcion, stock, precio, tipo, edad, elaboracion, origen, img },
         {
           where: {
             id,
@@ -337,6 +299,35 @@ server.get("/:id/review/", (req, res) => {
     .catch((err) => {
       res.status(404).send(err);
     });
+});
+
+//  *** S55 : Crear ruta para Modificar Review ***
+// FUNCTION: Crear ruta para Modificar Review.
+//PUT /product/:id/review/:idReview
+server.put('/:id/review/:idReview', (req, res) => {
+  const id = req.params.id;
+  const idR = req.params.idReview;
+  const {descripcion, calificacion} = req.body;
+
+  console.log('Me traen: ', id);
+  console.log('COMPAÑEROS!', idR);
+  console.log('Soy la descripcion: ', descripcion);
+  console.log('Soy la calificacion: ', calificacion);
+
+  Review.update(
+    {nom: req.body.nom },
+    {where: {productId: id, idReview: idR}},
+    {descripcion: descripcion, calificacion: calificacion}
+  )
+  .then( answer => {
+      
+      console.log('Soy lo que buscas: ', answer);
+      res.send('Review modificada correctamente.')
+  })
+  .catch(error => {
+    console.log('SOY UN ERROR GRAVE: ', error);
+    res.status(400).send('ALERTA DE ERROR!')
+  });
 });
 
 module.exports = server;
