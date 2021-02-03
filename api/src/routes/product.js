@@ -244,76 +244,6 @@ server.delete("/product/:id/review/:idReview", (req, res) => {
     });
 });
 
-//  *** S55 : Crear ruta para Modificar Review ***
-// FUNCTION: Crear ruta para Modificar Review.
-//PUT /product/:id/review/:idReview
-server.put('/:id/review/:idReview', (req, res) => {
-  const id = req.params.id;
-  const idR = req.params.idReview
-  const { descripcion, calificacion, fecha } = req.body;
-  
-  console.log('Me traen: ', id);
-  console.log('COMPAÑEROS!', idR)
-  console.log('Soy la descripcion: ', descripcion);
-  console.log('Soy la calificacion: ', calificacion);
-  console.log('Fecha: ', fecha)
-
-  Review.update(
-    {descripcion: descripcion, calificacion: calificacion, fecha: fecha},
-    {where: {userId: id, idReview: idR}}
-  )
-  .then( answer => { 
-      console.log('Soy lo que buscas: ', answer);
-      res.send('Review modificada correctamente.')
-  })
-  .catch(error => {
-    console.log('SOY UN ERROR GRAVE: ', error);
-    res.status(400).send('ALERTA DE ERROR!')
-  })
-});
-
-//  *** S54 : Crear ruta para crear/agregar Review ***
-  server.post("/:id/review", (req, res) => {
-  const userId = req.params.id;
-  const { descripcion, calificacion, fecha, productId } = req.body;
-
-  // var reviewExist = Review.findOne({
-  //   where: {
-  //     userId,
-  //     productId,
-  //   },
-  // }).then((reviewExist) => {
-  //   if (!reviewExist) {
-  //     Review.create({
-  //       descripcion,
-  //       calificacion,
-  //       fecha,
-  //       productId,
-  //       userId,
-  //     });
-  //     res.json(reviewExist);
-  //   } else {
-  //     console.log(
-  //       "El usuario ya a dado su opinion con respecto a este producto."
-  //     );
-  //     res.json(reviewExist);
-  //   }
-  // });
-  Review.create({
-    descripcion,
-    calificacion,
-    fecha,
-  })
-    .then((res) => {
-      send.json(res);
-    })
-    .catch((err) => {
-      send.res(err);
-    });
-
-  // console.log(reviewExist);
-});
-
 //  *** S54 : Crear ruta para crear/agregar Review ***
 server.post("/:id/review", (req, res) => {
   var resp2;
@@ -363,12 +293,37 @@ server.get("/:id/review/", (req, res) => {
     },
   })
     .then((response) => {
-      console.log(response);
-      res.status(200).json(response);
+      console.log("ENTREEEEEEEEEEEEEEEEEEEE",response);
+      res.json(response);
     })
     .catch((err) => {
       res.status(404).send(err);
     });
+});
+
+//  *** S55 : Crear ruta para Modificar Review ***
+// FUNCTION: Crear ruta para Modificar Review.
+//PUT /product/:id/review/:idReview
+server.put('/:id/review/:idReview', (req, res) => {
+  const id = req.params.id;
+  const idR = req.params.idReview;
+  const {descripcion, valoracion} = req.body;
+  
+  console.log('Me traen: ', id);
+  console.log('COMPAÑEROS!', idR)
+
+  Review.update(
+    {where: {id: userid, idR: idReview}},
+    {descripcion: descripcion, valoracion: valoracion}
+  )
+  .then( answer => { 
+      console.log('Soy lo que buscas: ', answer);
+      res.send('Review modificada correctamente.')
+  })
+  .catch(error => {
+    console.log('SOY UN ERROR GRAVE: ', error);
+    res.status(400).send('ALERTA DE ERROR!')
+  })
 });
 
 module.exports = server;
