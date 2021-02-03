@@ -18,6 +18,7 @@ import NavSelect from "./components/NavSelect/NavSelect";
 import axios from "axios";
 import { connect } from "react-redux";
 import { addCarrito } from "./redux/actions";
+import Login from "./components/Login/Login";
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 
 function App(props) {
@@ -67,6 +68,7 @@ function App(props) {
           )}
         />
         <Route exact path="/user/nuevo" component={NuevoUsuario} />
+        <Route exact path="/user/ingresar" component={Login} />
         <Route exact path="/admin/formProduct" component={FormProduct} />
         <Route exact path="/admin/formCategory" component={FormCategory} />
         <Route path="/user/product/:id" component={Product} />
