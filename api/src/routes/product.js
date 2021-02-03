@@ -149,11 +149,11 @@ server.post("/", (req, res, next) => {
   // Ahora tengo las categorias aca!
   // categories. ahora debo hacer el addCategory aca!
 
-  const { 
+  const {
       tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img, categories
     } = req.body;
   console.log("Las categorias que llegan: ", categories);
-  Product.create({ 
+  Product.create({
       tipo, edad, nombre, origen, elaboracion, descripcion, precio, stock, img
     })
     .then((data) => {
@@ -307,23 +307,27 @@ server.get("/:id/review/", (req, res) => {
 server.put('/:id/review/:idReview', (req, res) => {
   const id = req.params.id;
   const idR = req.params.idReview;
-  const {descripcion, valoracion} = req.body;
-  
+  const {descripcion, calificacion} = req.body;
+
   console.log('Me traen: ', id);
-  console.log('COMPAÑEROS!', idR)
+  console.log('COMPAÑEROS!', idR);
+  console.log('Soy la descripcion: ', descripcion);
+  console.log('Soy la calificacion: ', calificacion);
 
   Review.update(
-    {where: {id: userid, idR: idReview}},
-    {descripcion: descripcion, valoracion: valoracion}
+    {nom: req.body.nom },
+    {where: {productId: id, idReview: idR}},
+    {descripcion: descripcion, calificacion: calificacion}
   )
-  .then( answer => { 
+  .then( answer => {
+      
       console.log('Soy lo que buscas: ', answer);
       res.send('Review modificada correctamente.')
   })
   .catch(error => {
     console.log('SOY UN ERROR GRAVE: ', error);
     res.status(400).send('ALERTA DE ERROR!')
-  })
+  });
 });
 
 module.exports = server;
