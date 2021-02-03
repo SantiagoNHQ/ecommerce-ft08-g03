@@ -104,7 +104,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 </div>)}
                 {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
         
-                {total && <h1>EL Precio Total: $ {total}</h1>}
+                {carrito[0] && <h1>EL Precio Total: $ {total}</h1>}
 
         </div>
     )
