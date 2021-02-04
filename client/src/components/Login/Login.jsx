@@ -10,35 +10,24 @@ export default function NuevoUsuario(props) {
     const [state, setState] = useState({/* nombre:"", descripcion:"" */})
 
     function submit(e) {
-        console.log("Probando: ", state)
+        console.log("Usuario y contraseña: ", state)
         e.preventDefault()
-        if(state.coinciden) {
-        axios.post("http://localhost:3001/user/", {data: state})
+        axios.post("http://localhost:3001/register/login", state)
         .then(res => {
+            console.log("RESPONDI")
             props.history.push("/");
             window.location.reload(true);
         })
         .catch (err => {
-            console.log("mal", err)
+            console.log("Mal", err)
         })
-        } else {
-            alert("Las contraseñas no coinciden")
-        }
     }
 
    function cambios (e){
         e.preventDefault()
-        //setState({...state, [e.target.name]: e.target.value})
-        if(e.target.name === "repetirClave" && state.clave === e.target.value || e.target.name === "clave" && state.repetirClave === e.target.value) {
-            console.log('Las contraseñas coinciden');
-            setState({...state, [e.target.name]: e.target.value, coinciden: true})
-        } else if(e.target.name === "repetirClave" || e.target.name === "clave") {
-            console.log('Las contraseñas no coinciden');
-            setState({...state, [e.target.name]: e.target.value, coinciden: false})
-        } else {
-            setState({...state, [e.target.name]: e.target.value})
+        setState({...state, [e.target.name]: e.target.value})
         }
-    }
+    
     function submitEnter (e) {
         if (e.key === 'Enter'){
             submit(e)
@@ -48,12 +37,13 @@ export default function NuevoUsuario(props) {
     return (
         <div className = 'formulario'>
            
-            <form className = 'iniciarSesion' onSubmit={ submit }>
+            <form className='iniciarSesion' action='/login' method='POST' onSubmit={ submit }>
                 <h1>Iniciar Sesion</h1>
-                <input key="email" type="email" onChange={cambios} placeholder="email" name="email" />
-                <input key="clave" type="password" onKeyPress={ submitEnter }  onChange={cambios} placeholder="contraseña" name="clave" />
+                <input key="email" type="text" onChange={cambios} placeholder="nombre de usuario" name="username" />
+                <input key="clave" type="password" onKeyPress={ submitEnter }  onChange={cambios} placeholder="contraseña" name="password" />
                 <input type="submit" key="boton" />
             </form>
         </div>
     )
 }
+

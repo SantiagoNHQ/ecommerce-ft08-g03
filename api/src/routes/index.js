@@ -5,6 +5,7 @@ const productRouter = require("./product");
 const categoryRouter = require("./category");
 const userRouter = require("./user");
 const fileUpload = require("./fileUpload");
+const authentication = require("./authentication");
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use("/product", productRouter);
 router.use("/category", categoryRouter);
 router.use("/user", userRouter);
 router.use("/upload", fileUpload);
+router.use("/register", authentication);
 
 module.exports = router;
