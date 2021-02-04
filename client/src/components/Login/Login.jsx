@@ -12,14 +12,22 @@ export default function NuevoUsuario(props) {
     function submit(e) {
         console.log("Usuario y contraseña: ", state)
         e.preventDefault()
-        axios.post("http://localhost:3001/register/login", state)
+        axios.post("http://localhost:3001/auth/login",{ data: state})
+        // axios({
+        //     method: 'post', 
+        //     url: 'http://localhost:3001/auth/login',
+        //     data: {
+        //       state
+        //     }
+        //   })
         .then(res => {
-            console.log("RESPONDI")
-            props.history.push("/");
-            window.location.reload(true);
+            console.log("RESPONDI", res)
+            alert("USER LOGUEADO")
+            // props.history.push("/");
+            // window.location.reload(true);
         })
         .catch (err => {
-            console.log("Mal", err)
+            console.log("Mallllllllllllllllllll", err)
         })
     }
 
@@ -37,11 +45,11 @@ export default function NuevoUsuario(props) {
     return (
         <div className = 'formulario'>
            
-            <form className='iniciarSesion' action='/login' method='POST' onSubmit={ submit }>
+            <form className='iniciarSesion' /*action="http://localhost:3001/auth/login" method='POST' */>
                 <h1>Iniciar Sesion</h1>
-                <input key="email" type="text" onChange={cambios} placeholder="nombre de usuario" name="username" />
-                <input key="clave" type="password" onKeyPress={ submitEnter }  onChange={cambios} placeholder="contraseña" name="password" />
-                <input type="submit" key="boton" />
+                <input key="username" type="text" placeholder="username" onChange={cambios} name="username" />
+                <input key="password" type="password" placeholder="password" onChange={cambios} name="password" />
+                <input type="submit" key="boton" onSubmit={submit} value="Enviar" />
             </form>
         </div>
     )
