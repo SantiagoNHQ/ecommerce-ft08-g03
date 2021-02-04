@@ -9,9 +9,13 @@ const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
 const { User } = require("./db");
 
+// const cors = require("cors");
+
 require("./db.js");
 
 const server = express();
+
+// server.use(cors());
 
 server.name = "API";
 server.use(express.urlencoded({ extended: true }));
@@ -36,33 +40,34 @@ server.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   next();
 });
 // configuramos el comportamiento de la estrategia de autenticacion.
 // done debe enviar el resultado del proceso de autenticacion.
 passport.use(
   new Strategy(function (username, password, done) {
-    // User.findOne({
-    //   where: {
-    //     nombreDeUsuario: username,
-    //     clave: password,
-    //   },
-    // })
-    //   .then((res) => {
-    //     if (res.dataValues) {
-    //       console.log(res.dataValues);
-    //       return done(null, res.dataValues);
-    //     } else {
-    //       return done(null, false);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     return done(err);
-    //   });
-    var user = { id: 1 };
-    done(null, user);
+    User.findOne({
+      where: {
+        nombreDeUsuario: username,
+        clave: password,
+      },
+    })
+      .then((res) => {
+        console.log("LINEA 54 APP")
+        if (res) {
+          console.log("ESTO ES LA RESPUESTA",res.dataValues);
+          return done(null, res.dataValues);
+        } else {
+          return done(null, false);
+        }
+      })
+      .catch((err) => {
+        console.log("ERORRRRRRRRRRRRRR LINEA 63")
+        return done(err);
+      });
   })
 );
 // serializacion
@@ -85,6 +90,14 @@ passport.deserializeUser(function (id, done) {
     .catch((err) => {
       return done(err);
     });
+});
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.use((req, res, next) => {
+  console.log(req.session);
+  console.log(req.user);
+  next();
 });
 
 server.use("/", routes);

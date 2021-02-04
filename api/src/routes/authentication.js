@@ -1,6 +1,7 @@
 const server = require("express").Router();
 const passport = require("passport");
 const sequelize = require("sequelize");
+
 const {
   User,
   Product,
@@ -9,6 +10,7 @@ const {
   Review,
 } = require("../db");
 // urlecoded sirve para leer los datos de los inputs, cosa que express por si solo no lo hace
+
 
 server.get("/", (req, res) => {
   // Si ya iniciamos sesion redireccionamos a Home.
@@ -21,12 +23,24 @@ server.get("/login", (req, res) => {
 });
 
 // Recibo el email y contraseña para loguearse.
-server.post("/login", passport.authenticate("local"), (req, res) => {
-  const usuarioAutenticado = req.user;
+// /auth/login/
+
+server.post("/login", passport.authenticate('local', { successRedirect: 'http://localhost:3000/',
+failureRedirect: 'http://localhost:3000/user/ingresar' }), (req, res) => {
+  var usuarioAutenticado = req.user;
+  console.log( "HOLAAAAAAA")
   // const { username, password } = req.body;
   // console.log("USUARIO:", username, "CONTRASEÑA: ", password);
-  res.redirect("/");
-  res.send(usuarioAutenticado);
+  res.json(usuarioAutenticado);
 });
+// server.post('/login',
+//     passport.authenticate('local'),
+//     function(req, res) {
+//         console.log('inicio de sesion exitoso')
+//         res.json(req.user)
+//     // res.redirect('/');
+// });
+
+
 
 module.exports = server;
