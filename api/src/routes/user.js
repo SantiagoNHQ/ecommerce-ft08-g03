@@ -15,7 +15,7 @@ server.post("/", (req, res) => {
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
   console.log("Body: ", req.body);
 
-  User.create({ nombre, nombreDeUsuario, email, clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'), apellido })
+  User.create({ nombre, nombreDeUsuario, email, clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/, apellido })
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {

@@ -25,21 +25,13 @@ server.get("/login", (req, res) => {
 // Recibo el email y contraseña para loguearse.
 // /auth/login/
 
-server.post("/login", passport.authenticate('local', { successRedirect: 'http://localhost:3000/',
-failureRedirect: 'http://localhost:3000/user/ingresar' }), (req, res) => {
-  var usuarioAutenticado = req.user;
-  console.log( "HOLAAAAAAA")
-  // const { username, password } = req.body;
-  // console.log("USUARIO:", username, "CONTRASEÑA: ", password);
-  res.json(usuarioAutenticado);
+server.post('/login',
+    passport.authenticate('local'),
+    function(req, res) {
+        console.log('inicio de sesion exitoso')
+        res.json(req.user)
+    // res.redirect('/');
 });
-// server.post('/login',
-//     passport.authenticate('local'),
-//     function(req, res) {
-//         console.log('inicio de sesion exitoso')
-//         res.json(req.user)
-//     // res.redirect('/');
-// });
 
 
 

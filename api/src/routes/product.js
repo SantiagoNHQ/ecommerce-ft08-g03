@@ -315,9 +315,9 @@ server.put('/:id/review/:idReview', (req, res) => {
   console.log('Soy la calificacion: ', calificacion);
 
   Review.update(
-    {nom: req.body.nom },
+    // {nom: req.body.nom },
+    {descripcion: descripcion, calificacion: calificacion},
     {where: {productId: id, idReview: idR}},
-    {descripcion: descripcion, calificacion: calificacion}
   )
   .then( answer => {
       

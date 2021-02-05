@@ -62,3 +62,4 @@ export const changeEditProduct = (editarProducto) => {
         editarProducto
     }
 };
+
