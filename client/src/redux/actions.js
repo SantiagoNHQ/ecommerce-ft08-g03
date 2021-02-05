@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO, CHANGE_USER_STATUS, CHANGE_EDIT_PRODUCT } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO, CHANGE_USER_STATUS, CHANGE_EDIT_PRODUCT, SET_USER } from './constants';
 
 export const formChange = (form) => {
     return {
@@ -63,3 +63,9 @@ export const changeEditProduct = (editarProducto) => {
     }
 };
 
+export const setUser = (user) => {
+    return {
+        type: SET_USER,
+        user
+    }
+};

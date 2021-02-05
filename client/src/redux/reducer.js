@@ -7,7 +7,8 @@ import {
   ORDERS_LOAD,
   ADD_CARRITO,
   CHANGE_USER_STATUS,
-  CHANGE_EDIT_PRODUCT
+  CHANGE_EDIT_PRODUCT,
+  SET_USER
 } from "./constants";
 const initialState = {
   arrayCheckBox: [],
@@ -80,6 +81,9 @@ var variable = (state = initialState, action) => {
     }
     case CHANGE_EDIT_PRODUCT: {
       return (state = {...state, editarProducto: action.editarProducto})
+    }
+    case SET_USER: {
+      return (state = {...state, user: action.user})
     }
     default:
       return state;
