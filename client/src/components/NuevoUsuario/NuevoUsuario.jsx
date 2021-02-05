@@ -46,7 +46,7 @@ export default function NuevoUsuario(props) {
     } 
 
     return (
-        <div className = 'formulario'>
+        <div className = 'formulario    '>
            
             <form className = 'nuevoUsuario' onSubmit={ submit }>
                 <h1>Crear Usuario</h1>
@@ -56,7 +56,7 @@ export default function NuevoUsuario(props) {
                 <input key="email" type="email" onChange={cambios} placeholder="Email..." name="email" />
                 <input key="clave" type="password"  onChange={cambios} placeholder="Contraseña..." name="clave" />
                 <input key="repetirClave" type="password" onKeyPress={ submitEnter } onChange={cambios} placeholder="Repita su contraseña" name="repetirClave" />
-                <input type="submit" key="boton" />
+                <input className='botonRegister' type="submit" key="boton" />
             </form>
         </div>
     )
