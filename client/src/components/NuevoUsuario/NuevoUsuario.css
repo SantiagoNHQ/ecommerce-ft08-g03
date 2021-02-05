@@ -13,7 +13,7 @@
 
 .nuevoUsuario {
   width: 450px;
-  background-color: #9e2e2e;
+  background-color: rgba(158, 22, 22, 0.733);
   display: flex;
   flex-direction: column;
   /* padding: 5px; */
@@ -26,16 +26,27 @@
 }
 
 .nuevoUsuario h1 {
+  margin-bottom: 40px;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 2.8em;
   color: White;
 }
 
 .nuevoUsuario input {
-  /* border-color: solid black 5px; */
+  border: none;
   border-radius: 5px;
-  margin-bottom: 30px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-bottom: 20px;
+  /* color: rgba(158, 22, 22, 0.733); */
+  background-color: white;
   height: 30px;
+  width: 215px;
+  font-size: 0.8em;
+  margin-left: 118px;
+}
+
+.botonRegister {
+  margin-top: 40px;
+  width: 100px;
+  height: 25px;
+  border-radius: 50px;
 }

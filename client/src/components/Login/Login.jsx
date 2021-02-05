@@ -56,9 +56,9 @@ function NuevoUsuario(props) {
            
             <form onSubmit={submit} className='iniciarSesion' >
                 <h1>Iniciar Sesion</h1>
-                <input key="username" type="text" placeholder="username" onChange={cambios} name="username" />
-                <input key="password" onKeyPress={submitEnter} type="password" placeholder="password" onChange={cambios} name="password" />
-                <input type="submit" key="boton" value="Enviar" />
+                <input key="username" type="text" placeholder="Nombre de Usuario" onChange={cambios} name="username" />
+                <input key="password" onKeyPress={submitEnter} type="password" placeholder="Contraseña" onChange={cambios} name="password" />
+                <input className='botonLogin' type="submit" key="boton" value="Entrar" />
             </form>
         </div>
     )
