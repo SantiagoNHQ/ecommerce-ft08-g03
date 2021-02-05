@@ -10,28 +10,28 @@ body {
 
 /* NAVBAR */
 
-.divNavbar {
+.divNavbarGuest {
   display: flex;
   align-items: center;
   /* background-color: rgba(158, 22, 22, 0.733); */
-  justify-content: center;
+  justify-content: space-between;
   height: 50px;
-  background-color: black;
+  background-color: rgba(158, 22, 22, 0.733);;
 }
 
-.divLinks {
-  margin-right: 780px;
+.divLinksGuest {
   font-family: "Abel", sans-serif;
+  margin-left: 10px;
 }
 
-.divLinks a {
+.divLinksGuest a {
   font-size: 1.3em;
   color: white;
   text-decoration: none;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
-.divNavbar a:hover {
+.divNavbarGuest a:hover {
   color: rgba(255, 255, 255, 0.692);
   text-decoration: none;
   border-bottom: 2px solid rgb(255, 255, 255);

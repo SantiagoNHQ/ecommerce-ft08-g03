@@ -10,12 +10,12 @@ body {
 
 /* NAVBAR */
 
-.divNavbar {
+.divNavbarSelect {
   display: flex;
   align-items: center;
   background-color: rgba(158, 22, 22, 0.733);
   justify-content: center;
-  height: 47px;
+  height: 50px;
 }
 
 .Boton {

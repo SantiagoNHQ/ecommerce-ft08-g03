@@ -14,21 +14,22 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     console.log("productso", products )
 
     function precioTotal() {
-        var algo= 0
-        carrito.map(carro => {
-            algo = algo + carro.precio * carro.cantidad
-            setTotal(algo)
+        var suma = 0
+        carrito.forEach(carro => {
+            suma += carro.precio * carro.cantidad
+            //setTotal(suma)
         })
+        setTotal(suma)
     }
         
     useEffect(() => {
         precioTotal()
-    },[carrito])
+    })
     
     function editar (e, producto){
         precioTotal()
         var stock;
-        products.map(pos => {
+        products.forEach(pos => {
             if (pos.id === producto.productId) {
                 stock = pos.stock
             }
@@ -99,7 +100,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                     </div>
                     <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
                     <div className='divBoton'>
-                    <img src='https://www.vhv.rs/dpng/d/446-4464515_trashcan-trash-can-clipart-png-garbage-can-clipart.png' className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} ></img>
+                    <img alt="imagen de producto" src='https://www.vhv.rs/dpng/d/446-4464515_trashcan-trash-can-clipart-png-garbage-can-clipart.png' className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} ></img>
                     </div>
                 </div>)}
                 {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}

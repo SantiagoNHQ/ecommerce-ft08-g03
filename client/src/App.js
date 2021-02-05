@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.css";
+//import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -22,7 +22,8 @@ import Login from "./components/Login/Login";
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 
 function App(props) {
-  useEffect(() => {
+  
+  function avoidWarnings() {
     if (props.logged !== true) return;
 
     axios
@@ -33,7 +34,11 @@ function App(props) {
       .catch((response) => {
         console.log("ERROR", response);
       });
-  }, [props.user.userId, props.onAddCarrito]);
+  }
+  
+  useEffect(() => {
+    avoidWarnings()
+  });
 
   return (
     <BrowserRouter>

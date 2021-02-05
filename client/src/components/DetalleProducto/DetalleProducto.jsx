@@ -8,23 +8,27 @@ export function DetalleProducto (props) {
     var id = props.match.params.id
     const [producto, setProducto] = useState()
 
-    useEffect(() => {
-             if(props.products){
-            props.products.map(pos =>{
-                if(pos.id == id){
-                setProducto(pos)
+    function avoidWarnings() {
+        if(props.products){
+            props.products.forEach(pos => { // Cambié map por forEach xq no se estaba mapeando nada!
+                if(pos.id === id){
+                    setProducto(pos)
                 }
             })
         } else {
             axios.get(`http://localhost:3001/product/${id}`)
-            .then (response => {
-                setProducto(response.data)
-            })
-            .catch(err => {
-                console.log ("ERROR")
-            })
+                .then (response => {
+                    setProducto(response.data)
+                })
+                .catch(err => {
+                    console.log ("ERROR")
+                })
         }
-    },[props.products])
+    }
+
+    useEffect(() => {
+        avoidWarnings()
+    })
 
     return (
         <div>

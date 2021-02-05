@@ -29,7 +29,7 @@ export default function NuevoUsuario(props) {
    function cambios (e){
         e.preventDefault()
         //setState({...state, [e.target.name]: e.target.value})
-        if(e.target.name === "repetirClave" && state.clave === e.target.value || e.target.name === "clave" && state.repetirClave === e.target.value) {
+        if ((e.target.name === "repetirClave" && state.clave === e.target.value) || (e.target.name === "clave" && state.repetirClave === e.target.value)) {
             console.log('Las contraseñas coinciden');
             setState({...state, [e.target.name]: e.target.value, coinciden: true})
         } else if(e.target.name === "repetirClave" || e.target.name === "clave") {
