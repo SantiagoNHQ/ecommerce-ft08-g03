@@ -22,8 +22,8 @@ export default function NuevoUsuario(props) {
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)
             alert("No logueado")
-            props.history.push("/user/ingresar");
-            window.location.reload(true);
+            // props.history.push("/user/ingresar");
+            // window.location.reload(true);
         })
     }
 
