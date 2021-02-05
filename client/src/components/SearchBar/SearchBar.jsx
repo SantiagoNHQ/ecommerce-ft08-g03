@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
-import axios from 'axios';
+// import axios from 'axios';
 import { connect } from 'react-redux'
 import { searchChange, searchClick } from "../../redux/actions";
 import {useHistory} from 'react-router-dom'

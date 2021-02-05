@@ -47,8 +47,8 @@ export default function NuevoUsuario(props) {
            
             <form className='iniciarSesion' /*action="http://localhost:3001/auth/login" method='POST' */>
                 <h1>Iniciar Sesion</h1>
-                <input key="username" type="text" placeholder="username" onChange={cambios} name="username" />
-                <input key="password" type="password" placeholder="password" onChange={cambios} name="password" />
+                <input key="username" type="text" placeholder="username" onKeyPress={ submitEnter } onChange={cambios} name="username" />
+                <input key="password" type="password" placeholder="password" onKeyPress={ submitEnter } onChange={cambios} name="password" />
                 <input type="submit" key="boton" onSubmit={submit} value="Enviar" />
             </form>
         </div>

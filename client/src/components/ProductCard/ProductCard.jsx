@@ -66,10 +66,10 @@ export function ProductCard (props) {
         props.onChangeEditProduct(props.id)
         history.push("/admin/product/edit")
     }
-    function detalle(){
+    /* function detalle(){
        var id=  props.id
 
-    }
+    } */
 
     return (
         <Link to={ '/detalle/' + props.id } >

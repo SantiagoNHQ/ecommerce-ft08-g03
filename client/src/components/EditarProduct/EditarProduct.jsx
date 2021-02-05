@@ -7,19 +7,18 @@ export default function EditarProducto(props) {
     let history = useHistory()
     const [cards, setCards] =useState({})
 
-    useEffect(() => {
-        function product () {
-            console.log("Get: " + "http://localhost:3001/product/"+props.id)
-            axios.get("http://localhost:3001/product/"+props.id)
-            .then(res => {
-                console.log("Data de respuesta: ", res.data)
-                //setCards({...cards, productos: res.data})
-                setCards((state) => ({productos: res.data}))
-            })
-        }
-            
+    function product () {
+        // console.log("Get: " + "http://localhost:3001/product/"+props.id)
+        axios.get("http://localhost:3001/product/"+props.id)
+        .then(res => {
+            console.log("Data de respuesta: ", res.data)
+            //setCards({...cards, productos: res.data})
+            setCards((state) => ({productos: res.data}))
+        })
+    }
+    useEffect(() => { 
         product()
-    }, [])
+    })
 
     function submitEliminar(p) {
         console.log(" ELIMINAR: ", p)

@@ -5,7 +5,7 @@ import React, {useState, useEffect} from "react";
 export function Reviews (props) {
     const [review, setReview] = useState([])
 
-    useEffect(() => {
+    let avoidWarnings = () => {
         axios.get("http://localhost:3001/product/"+props.id+"/review")
             .then (response => {
                 setReview(response.data)
@@ -13,8 +13,11 @@ export function Reviews (props) {
             .catch(err => {
                 console.log ("ERROR")
             })
-        },[]
-    )
+    }
+
+    useEffect(() => {
+        avoidWarnings()
+    })
 
     return (
         <div>
