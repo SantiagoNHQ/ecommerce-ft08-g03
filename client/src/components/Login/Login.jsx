@@ -29,6 +29,7 @@ function NuevoUsuario(props) {
         e.preventDefault()
         axios.post("http://localhost:3001/auth/login", state)
         .then(res => {
+            console.log("RESPONDIÓ")
             var user = res.data
             props.onSetUser(user)
             props.history.push("/");
@@ -39,7 +40,7 @@ function NuevoUsuario(props) {
         })
     }
 
-   function cambios (e){
+   function cambios (e) {
        console.log("ESTADO", state)
         e.preventDefault()
         setState({...state, [e.target.name]: e.target.value})
