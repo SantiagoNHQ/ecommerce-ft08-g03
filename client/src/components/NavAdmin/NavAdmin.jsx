@@ -28,8 +28,8 @@ import {Link} from "react-router-dom";
 
 export default function NavAdmin(props) {
     return (
-        <div className='divNavbar'>
-            <div className="divLinks">
+        <div className='divNavbarAdmin'>
+            <div className="divLinksAdmin">
                 <nav /* className='links' */>
                     <Link to="/">Inicio</Link>
                     <Link to="/user/products">Catalogo</Link>

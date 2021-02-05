@@ -65,4 +65,3 @@ function NuevoUsuario(props) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NuevoUsuario)
-

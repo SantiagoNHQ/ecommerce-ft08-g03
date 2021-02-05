@@ -11,7 +11,6 @@ const {
 } = require("../db");
 // urlecoded sirve para leer los datos de los inputs, cosa que express por si solo no lo hace
 
-
 server.get("/", (req, res) => {
   // Si ya iniciamos sesion redireccionamos a Home.
   // Si no iniciamos sesion redireccionamos a /login.
@@ -25,14 +24,17 @@ server.get("/login", (req, res) => {
 // Recibo el email y contraseña para loguearse.
 // /auth/login/
 
-server.post('/login',
-    passport.authenticate('local'),
-    function(req, res) {
-        console.log('inicio de sesion exitoso')
-        res.json(req.user)
-    // res.redirect('/');
+server.post("/login", passport.authenticate("local"), function (req, res) {
+  console.log("inicio de sesion exitoso");
+  res.json(req.user);
+  // res.redirect('/');
 });
 
+// S64: Crear ruta de logout.
 
+server.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 
 module.exports = server;

@@ -41,7 +41,7 @@ server.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
+  );
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   next();
 });
@@ -56,16 +56,16 @@ passport.use(
       },
     })
       .then((res) => {
-        console.log("LINEA 54 APP")
+        console.log("LINEA 54 APP");
         if (res) {
-          console.log("ESTO ES LA RESPUESTA",res.dataValues);
+          console.log("ESTO ES LA RESPUESTA", res.dataValues);
           return done(null, res.dataValues);
         } else {
           return done(null, false);
         }
       })
       .catch((err) => {
-        console.log("ERORRRRRRRRRRRRRR LINEA 63")
+        console.log("ERRORRRRRRRRRRRRRR LINEA 63");
         return done(err);
       });
   })
