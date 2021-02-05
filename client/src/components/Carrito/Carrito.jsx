@@ -4,30 +4,37 @@ import {connect} from 'react-redux'
 import {addCarrito} from "../../redux/actions";
 import axios from 'axios';
 
-
-
 export function Carrito ({carrito, user, onAddCarrito, products}) {
-
-    const [total, setTotal] = useState("0")
+    const [total, setTotal] = useState(0)
 
     console.log("mi carrito", carrito )
     console.log("productso", products )
 
     function precioTotal() {
         var suma = 0
-        carrito.forEach(carro => {
-            suma += carro.precio * carro.cantidad
-            //setTotal(suma)
-        })
+        carrito.forEach(carro => suma += carro.precio * carro.cantidad)
         setTotal(suma)
+        // loadProducts()
+    }
+
+    function loadProducts() {
+        if (!user.id) {
+            let aC = localStorage.getItem('carrito')
+            if (aC) {
+                aC = JSON.parse(aC)
+                if (!carrito[0]) onAddCarrito(aC)
+            }
+        }
+        // precioTotal()
     }
         
     useEffect(() => {
+        loadProducts()
         precioTotal()
-    })
+    }, [user])
     
-    function editar (e, producto){
-        precioTotal()
+    function editar (e, producto) { // producto.id = ID
+        // precioTotal()
         var stock;
         products.forEach(pos => {
             if (pos.id === producto.productId) {
@@ -38,8 +45,87 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
             cantidad: e.target.value,
             productId: producto.productId
         }
-        if (e.target.value > 0 && e.target.value <= stock ){
-            axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+        if (e.target.value > 0 && e.target.value <= stock ) {
+            if (user.id) {
+                axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+                .then(response => {
+                    return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                })
+                .then(response => {
+                    onAddCarrito(response.data)
+                })
+                .catch(err => {
+                    console.log("ESTO ES UN ERROR", err)
+                })
+            } else {
+                let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
+                for (let i = 0; i < arrayProductos.length; i++) {
+                    if (arrayProductos[i].productId === producto.productId) {
+                        arrayProductos[i].cantidad = e.target.value
+                    }
+                }
+                localStorage.setItem('carrito', JSON.stringify(arrayProductos))
+                onAddCarrito(arrayProductos)
+            }
+        } else if (e.target.value <= 0) { // Minimo uno, si quiere puede sacar el producto (funcion eliminar)
+            e.target.value = 1
+
+            if (user.id) {
+                obj.cantidad = 1
+                axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+                .then(response => {
+                    return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                })
+                .then(response => {
+                    onAddCarrito(response.data)
+                })
+                .catch(err => {
+                    console.log("ESTO ES UN ERROR", err)
+                })
+            } else {
+                let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
+                for (let i = 0; i < arrayProductos.length; i++) {
+                    if (arrayProductos[i].productId === producto.productId) {
+                        arrayProductos[i].cantidad = 1
+                    }
+                }
+                localStorage.setItem('carrito', JSON.stringify(arrayProductos))
+                onAddCarrito(arrayProductos)
+            }
+        } else {
+            alert("No hay suficiente stock")
+            e.target.value = stock
+
+            if (user.id) {
+                obj.cantidad = stock
+                axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+                .then(response => {
+                    return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                })
+                .then(response => {
+                    onAddCarrito(response.data)
+                })
+                .catch(err => {
+                    console.log("ESTO ES UN ERROR", err)
+                })
+            } else {
+                let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
+                for (let i = 0; i < arrayProductos.length; i++) {
+                    if (arrayProductos[i].productId === producto.productId) {
+                        arrayProductos[i].cantidad = stock
+                    }
+                }
+                localStorage.setItem('carrito', JSON.stringify(arrayProductos))
+                onAddCarrito(arrayProductos)
+            }
+        }
+
+        precioTotal()
+    }
+
+    function eliminar(e, producto) {
+        if (user.id) {
+            axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.userId}`)
             .then(response => {
                 return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
             })
@@ -49,39 +135,42 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
             .catch(err => {
                 console.log("ESTO ES UN ERROR", err)
             })
-        }else if(e.target.value <= stock){
-            e.target.value = 1
-        } else{
-            alert("No hay suficiente stock")
-            e.target.value = stock
+        } else {
+            let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
+            console.log("ANTES DE BORRAR: ", arrayProductos)
+            for (let i = 0; i < arrayProductos.length; i++) {
+                if (arrayProductos[i].productId === producto.productId) {
+                    console.log("ENCONTRADO")
+                    arrayProductos.splice(i, 1)
+                    break;
+                }
+            }
+            console.log("DESPUES DE BORRAR: ", arrayProductos)
+            localStorage.setItem('carrito', JSON.stringify(arrayProductos))
+            onAddCarrito(arrayProductos)
         }
+
+        precioTotal()
     }
 
-    function eliminar(e, producto){
-        precioTotal()
-        axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.userId}`)
-        .then(response => {
-            return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
-        })
-        .then(response => {
-            onAddCarrito(response.data)
-        })
-        .catch(err => {
-            console.log("ESTO ES UN ERROR", err)
-        })
-    }
     function vaciarCarrito() {
-        axios.delete(`http://localhost:3001/user/cart/${user.userId}`)
-        .then(response => {
-            return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
-        })
-        .then(response => {
-            onAddCarrito(response.data)
-        })
-        .catch(err => {
-            console.log("ESTO ES UN ERROR", err)
-        })
+        if (user.id) {
+            axios.delete(`http://localhost:3001/user/cart/${user.userId}`)
+            .then(response => {
+                return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+            })
+            .then(response => {
+                onAddCarrito(response.data)
+            })
+            .catch(err => {
+                console.log("ESTO ES UN ERROR", err)
+            })
+        } else {
+            localStorage.setItem('carrito', [])
+            onAddCarrito([])
+        }
         setTotal("0")
+        precioTotal()
     }
     
 
@@ -96,7 +185,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                     <span>Precio Unidad: <span className='precio'>${producto.precio}</span></span>
                     <div className='cantidad'>
                     <span>Cantidad: </span>
-                    <input key={producto.id*-1} type="number" onChange={(e, product= producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
+                    <input key={producto.id*-1} type="number" onChange={(e, product = producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
                     </div>
                     <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
                     <div className='divBoton'>
@@ -105,12 +194,11 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 </div>)}
                 {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
         
-                {carrito[0] && <h1>EL Precio Total: $ {total}</h1>}
+                {carrito[0] && <h1>Total: ${total}</h1>}
 
         </div>
     )
 }
-
 
 const mapStateToProps = (state) => {
     return {

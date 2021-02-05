@@ -27,14 +27,16 @@ export function ProductCard (props) {
 
     function comprar(e) {
         e.preventDefault()
+
         var obj = {
             productId : props.id,
             nombre: props.nombre,
-            precio: props.precio,       
+            precio: props.precio,
+            cantidad: 1
         }
         if(props.stock <= 0){
             alert("Este producto no tiene disponibilidad actualmente")
-        } else{
+        } else if (props.user.id) { // Si es un usuario
         // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
             axios.post(`http://localhost:3001/user/${props.user.userId}/cart`, {data: obj} )
             .then(res => {
@@ -48,6 +50,29 @@ export function ProductCard (props) {
             .catch(err => {
                 if(err) return err;
             })
+        } else { // Si es un invitado
+            // Codigo para guardar en localStorage
+            // props.onAddCarrito({...props.carrito, obj})
+            let valorDelCarrito = localStorage.getItem('carrito')
+            let objs = !valorDelCarrito ? [] : JSON.parse(valorDelCarrito)
+            let encontro = false
+            for (var i = 0; i < objs.length; i++) {
+                if (objs[i].productId === obj.productId) { // Si el producto existe en el array, modificamos la cantidad
+                    console.log("Encontrado, cantidad antes de modificar: ", objs[i].cantidad)
+                    objs[i].cantidad++
+                    encontro = true
+                    console.log("Encontrado, se modificó la cantidad: ", objs[i].cantidad)
+                    break;
+                }
+            }
+
+            if (!encontro) {
+                console.log("No se encontró, se pusheó")
+                objs.push(obj)
+            }
+
+            localStorage.setItem('carrito', JSON.stringify(objs));
+            props.onAddCarrito(objs)
         }
     }
 
