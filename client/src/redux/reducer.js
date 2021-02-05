@@ -12,9 +12,7 @@ import {
 const initialState = {
   arrayCheckBox: [],
   formulario: { categories: [] },
-  user: {
-    /*  name: "benja", userId: 1  */
-  },
+  user: {},
   carrito: [],
   logged: null,
 };
@@ -85,7 +83,7 @@ var variable = (state = initialState, action) => {
     }
     default:
       return state;
-  }
+    }
 };
 
 export default variable;

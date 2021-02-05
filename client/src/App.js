@@ -41,10 +41,11 @@ function App(props) {
         <Route
           path="/"
           component={() => {
-            if (props.logged === "admin") return <NavAdmin />;
-            else if (props.logged) return <NavBar />;
-            else if (props.logged === false) return <NavBarGuest />;
-            return <NavSelect />;
+            const string = localStorage.getItem('user');
+            var value = JSON.parse(string);
+            if (value && !value.admin) return <NavBar />;
+            else if (value && value.admin) return <NavAdmin />;
+            else return <NavBarGuest />
           }}
         />
         <Route path="/detalle/:id" component={DetalleProducto} />
