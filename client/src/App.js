@@ -41,11 +41,10 @@ function App(props) {
         <Route
           path="/"
           component={() => {
-            const string = localStorage.getItem('user');
-            var value = JSON.parse(string);
-            if (value && !value.admin) return <NavBar />;
-            else if (value && value.admin) return <NavAdmin />;
-            else return <NavBarGuest />
+            if (props.user.admin) return <NavAdmin />;
+            else if (props.user.id) return <NavBar />;
+            else return <NavBarGuest />;
+            // return <NavSelect />;
           }}
         />
         <Route path="/detalle/:id" component={DetalleProducto} />

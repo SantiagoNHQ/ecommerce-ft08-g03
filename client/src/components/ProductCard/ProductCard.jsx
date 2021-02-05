@@ -86,7 +86,7 @@ export function ProductCard (props) {
                 <div className='boton-y-stock'>
                 <div className='div-boton'>
                     {(() => {
-                        switch (props.admin) {
+                        switch (props.user.admin) {
                             case true: return <button className='boton-comprar' onClick={(e)=> editar(e)}>Editar</button>
                             default: return <button className='boton-comprar' onClick={(e)=> comprar(e)}>Añadir al carrito</button>
                         }

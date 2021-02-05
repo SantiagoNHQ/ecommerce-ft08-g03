@@ -1,10 +1,26 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import "./Login.css";
+import { connect } from 'react-redux'
+import { setUser } from "../../redux/actions";
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSetUser: (text) => {
+            dispatch(setUser(text))
+        }
+    }
+}
 //  S61 : Crear Componente Login
 
 
-export default function NuevoUsuario(props) {
+function NuevoUsuario(props) {
 
     const [state, setState] = useState({})
 
@@ -14,21 +30,12 @@ export default function NuevoUsuario(props) {
         axios.post("http://localhost:3001/auth/login", state)
         .then(res => {
             var user = res.data
-            var value = JSON.stringify(user);       //nos pasa el objeto a JSON
-            localStorage.setItem('user', value);        //guardamos ese JSON en el store
-            
+            props.onSetUser(user)
             props.history.push("/");
-            window.location.reload(true);
-
-            // const string = localStorage.getItem('user');
-            // value = JSON.parse(string);
-            // console.log("mi store es: ", value)
         })
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)
             alert("No logueado")
-            props.history.push("/user/ingresar");
-            window.location.reload(true);
         })
     }
 
@@ -57,4 +64,5 @@ export default function NuevoUsuario(props) {
     )
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(NuevoUsuario)
 
