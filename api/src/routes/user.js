@@ -9,14 +9,20 @@ const {
 } = require("../db");
 const Sequelize = require("sequelize");
 const { Model } = require("sequelize");
-const { isAdmin, isUser, isGuest, isUserOrAdmin } = require('./checkUserState')
+// const { isAdmin, isUser, isGuest, isUserOrAdmin } = require("./checkUserState");
 
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
   console.log("Body: ", req.body);
 
-  User.create({ nombre, nombreDeUsuario, email, clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/, apellido })
+  User.create({
+    nombre,
+    nombreDeUsuario,
+    email,
+    clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/,
+    apellido,
+  })
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {
@@ -33,43 +39,6 @@ server.post("/", (req, res) => {
     });
 });
 
-// S36 : Crear Ruta que retorne todos los Usuarios
-server.get("/", (req, res) => {
-  User.findAll({
-    attributes: [
-      [
-        Sequelize.fn('PGP_SYM_DECRYPT', Sequelize.cast(Sequelize.col('clave'), 'bytea'), 'CLAVE_TEST'),
-        'clave'
-      ]
-    ]
-  })
-    .then((response) => {
-      res.status(200).json(response);
-    })
-    .catch((response) => {
-      res.send(response);
-    });
-});
-
-// S37 : Crear ruta para eliminar Usuario
-
-server.delete("users/:id",  (req, res) => {
-  const id = req.params.id;
-
-  User.destroy({
-    where: {
-      id,
-    },
-  })
-    .then((response) => {
-      console.log("Usuario eliminado correctamente");
-      send.res(response);
-    })
-    .catch((response) => {
-      console.log("No se puede eliminar el usuario");
-      send.res(response);
-    });
-});
 
 // S35 : Crear Ruta para modificar Usuario
 server.put("/:id", (req, res) => {
@@ -82,7 +51,7 @@ server.put("/:id", (req, res) => {
       apellido,
       nombreDeUsuario,
       email,
-      clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'),
+      clave: Sequelize.fn("PGP_SYM_ENCRYPT", clave, "CLAVE_TEST"),
     },
     {
       where: {
@@ -97,6 +66,50 @@ server.put("/:id", (req, res) => {
     .catch((err) => {
       console.log("Error linea 60: ", err);
       res.status(404).json(err);
+    });
+});
+
+// S36 : Crear Ruta que retorne todos los Usuarios
+server.get(
+  "/",
+  /*isAdmin,*/ (req, res) => {
+    User.findAll({
+      attributes: [
+        [
+          Sequelize.fn(
+            "PGP_SYM_DECRYPT",
+            Sequelize.cast(Sequelize.col("clave"), "bytea"),
+            "CLAVE_TEST"
+          ),
+          "clave",
+        ],
+      ],
+    })
+      .then((response) => {
+        res.status(200).json(response);
+      })
+      .catch((response) => {
+        res.send(response);
+      });
+  }
+);
+
+// S37 : Crear ruta para eliminar Usuario
+server.delete("users/:id", (req, res) => {
+  const id = req.params.id;
+
+  User.destroy({
+    where: {
+      id,
+    },
+  })
+    .then((response) => {
+      console.log("Usuario eliminado correctamente");
+      send.res(response);
+    })
+    .catch((response) => {
+      console.log("No se puede eliminar el usuario");
+      send.res(response);
     });
 });
 
@@ -255,9 +268,6 @@ server.get("/:id/orders", (req, res) => {
 // S38 : Crear Ruta para agregar Item al Carrito
 // POST /users/:idUser/cart
 server.post("/:userId/cart", (req, res) => {
-  //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
-  //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
-  //  PARA ESTE CLIENTE...
   var ordenA;
   var creado;
   // var orden;
@@ -273,8 +283,6 @@ server.post("/:userId/cart", (req, res) => {
     })
     .then((orden) => {
       if (creado) {
-        // Product.findByPk(req.body.productId).then((product) => {
-        //  Busca el producto en el modelo Producto.
         Orderline.create({
           //Crea el Orderline con el producto, userId y orderId.
           cantidad: 1, // Seteamos a 1 para correr la ruta.

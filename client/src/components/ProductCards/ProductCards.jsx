@@ -1,7 +1,6 @@
 // import React, { useEffect, useState } from "react";
 import React, {useEffect} from "react";
 import "./ProductCards.css";
-//import axios from 'axios';
 import ProductCard from "../ProductCard/ProductCard.jsx"
 import axios from "axios";
 import { connect } from 'react-redux'
@@ -65,7 +64,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
   }, [categoria, search, onProductsLoad])
 
   return  (
-    <div className='div-general-app'>
+    <div /*className='div-general-app'*/>
       <div className='divcards'>
       {
         (categoria || search) && <div>Filtrando por: <br/>
@@ -74,7 +73,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
       }
       {
         products && products.map(p => 
-          <div key={p.id} className='div-productos'>
+          <div key={p.id} /*className='div-productos'*/>
             <ProductCard id={p.id} nombre={p.nombre} descripcion={p.descripcion} stock={p.stock} precio={p.precio} img={p.img} />
           </div>
         )
