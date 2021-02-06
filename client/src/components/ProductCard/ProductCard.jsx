@@ -38,10 +38,10 @@ export function ProductCard (props) {
             alert("Este producto no tiene disponibilidad actualmente")
         } else if (props.user.id) { // Si es un usuario
         // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
-            axios.post(`http://localhost:3001/user/${props.user.userId}/cart`, {data: obj} )
+            axios.post(`http://localhost:3001/user/${props.user.id}/cart`, {data: obj} )
             .then(res => {
                 console.log('Todo Okey: ', res)
-                return axios.get(`http://localhost:3001/user/cart/${props.user.userId}`)
+                return axios.get(`http://localhost:3001/user/cart/${props.user.id}`)
             })
             .then(res =>{
                 console.log("ESTOS SON TODOS LOS ELEMENTOS DEL CARRITO", res.data)
@@ -75,7 +75,7 @@ export function ProductCard (props) {
             props.onAddCarrito(objs)
         }
     }
-
+ 
     function editar(e) {
         e.preventDefault()
         
@@ -97,7 +97,7 @@ export function ProductCard (props) {
     } */
 
     return (
-        <Link to={ '/detalle/' + props.id } >
+        <Link className='linkCard' to={ '/detalle/' + props.id } >
             <div className='card'>
                 <div className='titulo'>
                 <h1 className='titulo'>{props.nombre}</h1> 

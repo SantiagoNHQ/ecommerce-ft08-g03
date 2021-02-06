@@ -9,14 +9,20 @@ const {
 } = require("../db");
 const Sequelize = require("sequelize");
 const { Model } = require("sequelize");
-const { isAdmin, isUser, isGuest, isUserOrAdmin } = require('./checkUserState')
+// const { isAdmin, isUser, isGuest, isUserOrAdmin } = require("./checkUserState");
 
 // S34 : Crear Ruta para creación de Usuario
-server.post("/", isGuest, (req, res) => {
+server.post("/", (req, res) => {
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
   console.log("Body: ", req.body);
 
-  User.create({ nombre, nombreDeUsuario, email, clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/, apellido })
+  User.create({
+    nombre,
+    nombreDeUsuario,
+    email,
+    clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/,
+    apellido,
+  })
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {
@@ -33,46 +39,8 @@ server.post("/", isGuest, (req, res) => {
     });
 });
 
-// S36 : Crear Ruta que retorne todos los Usuarios
-server.get("/", isAdmin, (req, res) => {
-  User.findAll({
-    attributes: [
-      [
-        Sequelize.fn('PGP_SYM_DECRYPT', Sequelize.cast(Sequelize.col('clave'), 'bytea'), 'CLAVE_TEST'),
-        'clave'
-      ]
-    ]
-  })
-    .then((response) => {
-      res.status(200).json(response);
-    })
-    .catch((response) => {
-      res.send(response);
-    });
-});
-
-// S37 : Crear ruta para eliminar Usuario
-
-server.delete("users/:id", isAdmin, (req, res) => {
-  const id = req.params.id;
-
-  User.destroy({
-    where: {
-      id,
-    },
-  })
-    .then((response) => {
-      console.log("Usuario eliminado correctamente");
-      send.res(response);
-    })
-    .catch((response) => {
-      console.log("No se puede eliminar el usuario");
-      send.res(response);
-    });
-});
-
 // S35 : Crear Ruta para modificar Usuario
-server.put("/:id", isUserOrAdmin, (req, res) => {
+server.put("/:id", (req, res) => {
   const id = req.params.id;
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
 
@@ -82,7 +50,7 @@ server.put("/:id", isUserOrAdmin, (req, res) => {
       apellido,
       nombreDeUsuario,
       email,
-      clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'),
+      clave: Sequelize.fn("PGP_SYM_ENCRYPT", clave, "CLAVE_TEST"),
     },
     {
       where: {
@@ -100,9 +68,53 @@ server.put("/:id", isUserOrAdmin, (req, res) => {
     });
 });
 
+// S36 : Crear Ruta que retorne todos los Usuarios
+server.get(
+  "/",
+  /*isAdmin,*/ (req, res) => {
+    User.findAll({
+      attributes: [
+        [
+          Sequelize.fn(
+            "PGP_SYM_DECRYPT",
+            Sequelize.cast(Sequelize.col("clave"), "bytea"),
+            "CLAVE_TEST"
+          ),
+          "clave",
+        ],
+      ],
+    })
+      .then((response) => {
+        res.status(200).json(response);
+      })
+      .catch((response) => {
+        res.send(response);
+      });
+  }
+);
+
+// S37 : Crear ruta para eliminar Usuario
+server.delete("users/:id", (req, res) => {
+  const id = req.params.id;
+
+  User.destroy({
+    where: {
+      id,
+    },
+  })
+    .then((response) => {
+      console.log("Usuario eliminado correctamente");
+      send.res(response);
+    })
+    .catch((response) => {
+      console.log("No se puede eliminar el usuario");
+      send.res(response);
+    });
+});
+
 // S40 : Crear Ruta para vaciar el carrito
 /*  DELETE /users/:idUser/cart/ */
-server.delete("/cart/:userId", isUser, (req, res) => {
+server.delete("/cart/:userId", (req, res) => {
   const userId = req.params.userId;
   Orden.findOne({
     where: {
@@ -129,7 +141,7 @@ server.delete("/cart/:userId", isUser, (req, res) => {
 
 // S41 : Crear Ruta para editar las cantidades del carrito
 /*  PUT /users/:idUser/cart */
-server.put("/cart/:userId", isUser, (req, res) => {
+server.put("/cart/:userId", (req, res) => {
   const userId = req.params.userId;
   const { productId, cantidad } = req.body;
 
@@ -185,7 +197,7 @@ server.get("/cart/:userId", (req, res) => {
 });
 
 // S44 : Crear ruta que retorne todas las ordenes
-server.get("/orders", isAdmin, (req, res) => {
+server.get("/orders", (req, res) => {
   Orden.findAll({
     include: { model: User },
   })
@@ -201,7 +213,7 @@ server.get("/orders", isAdmin, (req, res) => {
 });
 
 // S44: Esta ruta puede recibir el query string status y deberá devolver sólo las ordenes con ese status.
-server.get("/orders/:status", isAdmin, (req, res) => {
+server.get("/orders/:status", (req, res) => {
   const estado = req.params.status;
   Orden.findAll({
     where: { estado },
@@ -217,7 +229,7 @@ server.get("/orders/:status", isAdmin, (req, res) => {
 });
 
 // S46 : Crear Ruta que retorne una orden en particular.
-server.get("/order/:id", isUserOrAdmin, (req, res) => {
+server.get("/order/:id", (req, res) => {
   const id = req.params.id;
   Orden.findAll({
     where: {
@@ -235,7 +247,7 @@ server.get("/order/:id", isUserOrAdmin, (req, res) => {
 });
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-server.get("/:id/orders", isAdmin, (req, res) => {
+server.get("/:id/orders", (req, res) => {
   const userId = req.params.id;
   Orden.findAll({
     where: {
@@ -254,10 +266,7 @@ server.get("/:id/orders", isAdmin, (req, res) => {
 
 // S38 : Crear Ruta para agregar Item al Carrito
 // POST /users/:idUser/cart
-server.post("/:userId/cart", isUser, (req, res) => {
-  //  OJO: TOMA EN CUENTA SOLO EL CASO EN QUE NO EXISTE ORDEN CREADA.
-  //  SE DEBE DESARROLLAR EL CASO EN QUE EXISTE UNA ORDEN TIPO CARRITO
-  //  PARA ESTE CLIENTE...
+server.post("/:userId/cart", (req, res) => {
   var ordenA;
   var creado;
   // var orden;
@@ -273,8 +282,6 @@ server.post("/:userId/cart", isUser, (req, res) => {
     })
     .then((orden) => {
       if (creado) {
-        // Product.findByPk(req.body.productId).then((product) => {
-        //  Busca el producto en el modelo Producto.
         Orderline.create({
           //Crea el Orderline con el producto, userId y orderId.
           cantidad: 1, // Seteamos a 1 para correr la ruta.
@@ -320,7 +327,7 @@ server.post("/:userId/cart", isUser, (req, res) => {
     });
 });
 
-server.delete("/delete/:productId/:userId", isUser, (req, res) => {
+server.delete("/delete/:productId/:userId", (req, res) => {
   const { productId, userId } = req.params;
 
   console.log("AAAAAAAAAA", productId);
