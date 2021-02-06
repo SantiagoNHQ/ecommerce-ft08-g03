@@ -6,10 +6,10 @@ import { Reviews } from "../Reviews/Reviews";
 //  *** S10 : Crear Componente ProductCard ***
 export function DetalleProducto (props) {
     var id = props.match.params.id
-    const [producto, setProducto] = useState()
+    const [producto, setProducto] = useState(null)
 
     function avoidWarnings() {
-        if(props.products){
+        /* if (props.products) {
             props.products.forEach(pos => { // Cambié map por forEach xq no se estaba mapeando nada!
                 if(pos.id === id){
                     setProducto(pos)
@@ -18,17 +18,24 @@ export function DetalleProducto (props) {
         } else {
             axios.get(`http://localhost:3001/product/${id}`)
                 .then (response => {
+                    console.log(response)
                     setProducto(response.data)
                 })
                 .catch(err => {
                     console.log ("ERROR")
                 })
-        }
+        } */
+        if (!producto) axios.get(`http://localhost:3001/product/${id}`)
+            .then (response => {
+                console.log(response)
+                setProducto(response.data)
+            })
+            .catch(err => {
+                console.log ("ERROR")
+            })
     }
 
-    useEffect(() => {
-        avoidWarnings()
-    })
+    useEffect(() => avoidWarnings())
 
     return (
         <div>
@@ -54,9 +61,10 @@ export function DetalleProducto (props) {
                             <h3 className='stock'><span>edad:</span> {producto.edad}</h3>
                         </div>
                     </div>
-                    <Reviews id={id}/>
                 </div>
-        } 
+        }
+            
+            <Reviews id={id}/>
         </div>
     )
 }
