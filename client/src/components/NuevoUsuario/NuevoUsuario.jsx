@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import "./NuevoUsuario.css";
+import {connect} from 'react-redux'
 
-
-export default function NuevoUsuario(props) {
+function NuevoUsuario(props) {
 
     const [state, setState] = useState({/* nombre:"", descripcion:"" */})
 
@@ -13,14 +13,14 @@ export default function NuevoUsuario(props) {
         console.log("Probando: ", state)
         e.preventDefault()
         if(state.coinciden) {
-        axios.post("http://localhost:3001/user/", {data: state})
-        .then(res => {
-            props.history.push("/");
-            window.location.reload(true);
-        })
-        .catch (err => {
-            console.log("mal", err)
-        })
+            axios.post("http://localhost:3001/user/", {data: state, user: props.user})
+                .then(res => {
+                    props.history.push("/");
+                    window.location.reload(true);
+                })
+                .catch (err => {
+                    console.log("mal", err)
+                })
         } else {
             alert("Las contraseñas no coinciden")
         }
@@ -61,3 +61,11 @@ export default function NuevoUsuario(props) {
         </div>
     )
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(NuevoUsuario)
