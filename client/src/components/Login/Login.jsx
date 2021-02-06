@@ -3,6 +3,7 @@ import axios from 'axios';
 import "./Login.css";
 import { connect } from 'react-redux'
 import { setUser } from "../../redux/actions";
+import { useHistory } from "react-router-dom";
 
 const mapStateToProps = (state) => {
     return {
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 function NuevoUsuario(props) {
-
+    let history = useHistory()
     const [state, setState] = useState({})
 
     function submit(e) {
@@ -32,7 +33,7 @@ function NuevoUsuario(props) {
             console.log("RESPONDIÓ")
             var user = res.data
             props.onSetUser(user)
-            props.history.push("/");
+            history.push("/");
         })
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)

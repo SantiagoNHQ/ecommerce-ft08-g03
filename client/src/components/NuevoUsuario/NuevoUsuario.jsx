@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import axios from 'axios';
 import "./NuevoUsuario.css";
 import {connect} from 'react-redux'
+import { useHistory } from "react-router-dom";
 
 function NuevoUsuario(props) {
-
+    let history = useHistory()
     const [state, setState] = useState({/* nombre:"", descripcion:"" */})
 
     function submit(e) {
@@ -15,7 +16,7 @@ function NuevoUsuario(props) {
         if(state.coinciden) {
             axios.post("http://localhost:3001/user/", {data: state, user: props.user})
                 .then(res => {
-                    props.history.push("/");
+                    history.push("/");
                     window.location.reload(true);
                 })
                 .catch (err => {
