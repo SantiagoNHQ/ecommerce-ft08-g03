@@ -17,7 +17,7 @@ export function Reviews (props) {
 
     useEffect(() => {
         avoidWarnings()
-    })
+    },[])
 
     return (
         <div>

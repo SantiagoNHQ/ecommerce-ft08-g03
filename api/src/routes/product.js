@@ -290,10 +290,10 @@ server.get("/:id/review/", (req, res) => {
   Review.findAll({
     where: {
       productId: id,
-    },
+    }
   })
     .then((response) => {
-      console.log("ENTREEEEEEEEEEEEEEEEEEEE",response);
+      console.log("ENTREEEEEEEEEEEEEEEEEEEE", response);
       res.json(response);
     })
     .catch((err) => {
