@@ -39,6 +39,7 @@ server.post("/", (req, res) => {
     });
 });
 
+
 // S35 : Crear Ruta para modificar Usuario
 server.put("/:id", (req, res) => {
   const id = req.params.id;
