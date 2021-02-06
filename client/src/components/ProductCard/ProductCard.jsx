@@ -38,7 +38,7 @@ export function ProductCard (props) {
             alert("Este producto no tiene disponibilidad actualmente")
         } else if (props.user.id) { // Si es un usuario
         // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
-            axios.post(`http://localhost:3001/user/${props.user.userId}/cart`, {data: obj} )
+            axios.post(`http://localhost:3001/user/${props.user.id}/cart`, {data: obj} )
             .then(res => {
                 console.log('Todo Okey: ', res)
                 return axios.get(`http://localhost:3001/user/cart/${props.user.userId}`)

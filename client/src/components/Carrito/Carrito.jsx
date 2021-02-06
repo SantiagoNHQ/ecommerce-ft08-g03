@@ -10,27 +10,37 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     console.log("mi carrito", carrito )
     console.log("productso", products )
 
-    function precioTotal() {
+    function precioTotal(c) {
         var suma = 0
-        carrito.forEach(carro => suma += carro.precio * carro.cantidad)
+        c.forEach(carro => suma += carro.precio * carro.cantidad)
         setTotal(suma)
         // loadProducts()
     }
 
     function loadProducts() {
+        
         if (!user.id) {
             let aC = localStorage.getItem('carrito')
             if (aC) {
                 aC = JSON.parse(aC)
                 if (!carrito[0]) onAddCarrito(aC)
+                precioTotal(aC)
             }
+        } else {
+            axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                .then(response => {
+                    onAddCarrito(response.data)
+                    precioTotal(response.data)
+                })
+                .catch(err => {
+                    console.log("ESTO ES UN ERROR", err)
+                })
         }
         // precioTotal()
     }
         
     useEffect(() => {
         loadProducts()
-        precioTotal()
     }, [user])
     
     function editar (e, producto) { // producto.id = ID
@@ -47,12 +57,13 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
         }
         if (e.target.value > 0 && e.target.value <= stock ) {
             if (user.id) {
-                axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj )
                 .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
                 })
                 .then(response => {
                     onAddCarrito(response.data)
+                    precioTotal(response.data)
                 })
                 .catch(err => {
                     console.log("ESTO ES UN ERROR", err)
@@ -66,18 +77,20 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 }
                 localStorage.setItem('carrito', JSON.stringify(arrayProductos))
                 onAddCarrito(arrayProductos)
+                precioTotal(arrayProductos)
             }
         } else if (e.target.value <= 0) { // Minimo uno, si quiere puede sacar el producto (funcion eliminar)
             e.target.value = 1
 
             if (user.id) {
                 obj.cantidad = 1
-                axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj )
                 .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
                 })
                 .then(response => {
                     onAddCarrito(response.data)
+                    precioTotal(response.data)
                 })
                 .catch(err => {
                     console.log("ESTO ES UN ERROR", err)
@@ -91,6 +104,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 }
                 localStorage.setItem('carrito', JSON.stringify(arrayProductos))
                 onAddCarrito(arrayProductos)
+                precioTotal(arrayProductos)
             }
         } else {
             alert("No hay suficiente stock")
@@ -98,12 +112,13 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
 
             if (user.id) {
                 obj.cantidad = stock
-                axios.put(`http://localhost:3001/user/cart/${user.userId}`, obj )
+                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj )
                 .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
                 })
                 .then(response => {
                     onAddCarrito(response.data)
+                    precioTotal(response.data)
                 })
                 .catch(err => {
                     console.log("ESTO ES UN ERROR", err)
@@ -117,20 +132,21 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 }
                 localStorage.setItem('carrito', JSON.stringify(arrayProductos))
                 onAddCarrito(arrayProductos)
+                precioTotal(arrayProductos)
             }
         }
 
-        precioTotal()
     }
 
     function eliminar(e, producto) {
         if (user.id) {
-            axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.userId}`)
+            axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.id}`)
             .then(response => {
-                return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                return axios.get(`http://localhost:3001/user/cart/${user.id}`)
             })
             .then(response => {
                 onAddCarrito(response.data)
+                precioTotal(response.data)
             })
             .catch(err => {
                 console.log("ESTO ES UN ERROR", err)
@@ -148,19 +164,20 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
             console.log("DESPUES DE BORRAR: ", arrayProductos)
             localStorage.setItem('carrito', JSON.stringify(arrayProductos))
             onAddCarrito(arrayProductos)
+            precioTotal(arrayProductos)
         }
 
-        precioTotal()
     }
 
     function vaciarCarrito() {
         if (user.id) {
-            axios.delete(`http://localhost:3001/user/cart/${user.userId}`)
+            axios.delete(`http://localhost:3001/user/cart/${user.id}`)
             .then(response => {
-                return axios.get(`http://localhost:3001/user/cart/${user.userId}`)
+                return axios.get(`http://localhost:3001/user/cart/${user.id}`)
             })
             .then(response => {
                 onAddCarrito(response.data)
+                precioTotal(response.data)
             })
             .catch(err => {
                 console.log("ESTO ES UN ERROR", err)
@@ -168,9 +185,9 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
         } else {
             localStorage.setItem('carrito', [])
             onAddCarrito([])
+            // setTotal("0")
+            precioTotal([])
         }
-        setTotal("0")
-        precioTotal()
     }
     
 
