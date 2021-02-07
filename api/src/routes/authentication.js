@@ -1,3 +1,4 @@
+
 const server = require("express").Router();
 const passport = require("passport");
 const sequelize = require("sequelize");
