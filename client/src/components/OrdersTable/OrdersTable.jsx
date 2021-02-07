@@ -21,13 +21,19 @@ const mapDispatchToProps = (dispatch) => {
 
 function OrdersTable(props) {
     var {orders, onOrdersLoad} = props
-    var estado = props.match.params.status
+    var estado;
+    if(props.match){
+        estado = props.match.params.status
+    } 
     console.log("Status: ", estado)
     
     useEffect(() => {
-        axios.get("http://localhost:3001/user/orders" + (!estado ? "" : `/${estado}`)).then(r => {
+        axios.get("http://localhost:3001/user/orders" + (!estado ? "" : `/${estado}`))
+        .then(r => {
             onOrdersLoad(r.data)
-        }).catch(e => console.log("Error: ", e))
+            console.log(r.data)
+        })
+        .catch(e => console.log("Error: ", e))
     }, [estado, onOrdersLoad])
 
     return (
