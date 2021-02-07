@@ -60,4 +60,20 @@ server.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+// S67 : Crear ruta /promote
+server.post("/promote/:id", (req, res)=> {
+  var id = req.params.id
+  User.update(
+    {admin: true},
+    {where: { id}}
+  )
+  .then(response => {
+    res.send("usuario ascendido a admin")
+  })
+  .catch(err => {
+    console.log("este error", err)
+    res.status(400)
+  })
+})
+
 module.exports = server;
