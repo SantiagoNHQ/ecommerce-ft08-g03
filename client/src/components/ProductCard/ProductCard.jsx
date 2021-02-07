@@ -41,7 +41,7 @@ export function ProductCard (props) {
             axios.post(`http://localhost:3001/user/${props.user.id}/cart`, {data: obj} )
             .then(res => {
                 console.log('Todo Okey: ', res)
-                return axios.get(`http://localhost:3001/user/cart/${props.user.userId}`)
+                return axios.get(`http://localhost:3001/user/cart/${props.user.id}`)
             })
             .then(res =>{
                 console.log("ESTOS SON TODOS LOS ELEMENTOS DEL CARRITO", res.data)
@@ -75,7 +75,7 @@ export function ProductCard (props) {
             props.onAddCarrito(objs)
         }
     }
-
+ 
     function editar(e) {
         e.preventDefault()
         
@@ -97,7 +97,7 @@ export function ProductCard (props) {
     } */
 
     return (
-        <Link to={ '/detalle/' + props.id } >
+        <Link className='linkCard' to={ '/detalle/' + props.id } >
             <div className='card'>
                 <div className='titulo'>
                 <h1 className='titulo'>{props.nombre}</h1> 

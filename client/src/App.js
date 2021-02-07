@@ -21,6 +21,7 @@ import { addCarrito } from "./redux/actions";
 import Login from "./components/Login/Login";
 import NoAccess from "./components/NoAccess/NoAccess"
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
+import Perfil from "./components/Perfil/Perfil";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 function App(props) {
@@ -96,6 +97,7 @@ function App(props) {
         {/* USER ROUTES! */}
         <Route exact path = "/user/carrito"       component = {Carrito} /> {/* Funciona también para guest*/}
         <Route exact path = "/user/products"      component = {ProductCards} /> {/* pero algo había que poner, no? */}
+        <Route exact path = "/user/perfil"      component = {Perfil} />
         {/*                                                    categoria = {"Vinos"} */}
 
         {/* GUEST ROUTES! */}

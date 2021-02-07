@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { Category, Product } = require("../db");
+// const { isAdmin, isUser, isGuest, isUserOrAdmin } = require("./checkUserState");
 
 //  *** S18 : Crear ruta para crear/agregar Categoría ***
 server.post("/add", (req, res, next) => {
@@ -34,7 +35,7 @@ server.delete("/delete", (req, res, next) => {
     });
 });
 
-//  *** Este modelo devuelve todas las categorias creadas ***
+//  *** Esta ruta devuelve todas las categorias creadas ***
 server.get("/", (req, res, next) => {
   Category.findAll()
     .then((category) => {
