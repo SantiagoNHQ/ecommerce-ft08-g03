@@ -6,8 +6,9 @@ const routes = require("./routes/index.js");
 const busboy = require("connect-busboy");
 const session = require("express-session");
 const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
 const { User } = require("./db");
+const Sequelize = require("sequelize");
 
 // const cors = require("cors");
 
@@ -48,16 +49,25 @@ server.use((req, res, next) => {
 // done debe enviar el resultado del proceso de autenticacion.
 
 passport.use(
-  new Strategy(function (username, password, done) {
+  new LocalStrategy(function (username, password, done) {
     User.findOne({
+      attributes: [
+        [
+          Sequelize.fn(
+            "PGP_SYM_DECRYPT",
+            Sequelize.cast(Sequelize.col("clave"), "bytea"),
+            "CLAVE_TEST"
+          ),
+          "clave"
+        ], "id", "nombre", "apellido", "nombreDeUsuario", "email", "admin", "createdAt", "updatedAt"
+      ],
       where: {
-        nombreDeUsuario: username,
-        clave: password,
-      },
+        nombreDeUsuario: username
+      }
     })
       .then((res) => {
-        console.log("LINEA 54 APP");
-        if (res) {
+        console.log("LINEA 54 APP ", res);
+        if (res.clave === password) {
           console.log("ESTO ES LA RESPUESTA", res.dataValues);
           return done(null, res.dataValues);
         } else {
@@ -76,7 +86,6 @@ passport.serializeUser(function (user, done) {
 });
 
 //deserializacion
-
 passport.deserializeUser(function (id, done) {
   //aqui hay que buscar el usuario con el id en la base de datos.
   User.findOne({

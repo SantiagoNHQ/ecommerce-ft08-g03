@@ -16,9 +16,10 @@ export default function EditarProducto(props) {
             setCards((state) => ({productos: res.data}))
         })
     }
+
     useEffect(() => { 
         product()
-    })
+    }, [])
 
     function submitEliminar(p) {
         console.log(" ELIMINAR: ", p)

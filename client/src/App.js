@@ -17,7 +17,7 @@ import Carrito from "./components/Carrito/Carrito";
 // import NavSelect from "./components/NavSelect/NavSelect";
 import axios from "axios";
 import { connect } from "react-redux";
-import { addCarrito } from "./redux/actions";
+import { addCarrito, setUser } from "./redux/actions";
 import Login from "./components/Login/Login";
 import NoAccess from "./components/NoAccess/NoAccess"
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
@@ -63,9 +63,18 @@ function App(props) {
         console.log("ERROR", response);
       });
   }
+
+  function estaLogueado() {
+    axios.get("http://localhost:3001/auth/me").then(r => {
+      console.log("RESPUESTA EN APP LINEA 69: ", r)
+      props.onAddUser(r)
+    })
+      .catch(e => console.log("Error al chequear estado de user: ", e))
+  }
   
   useEffect(() => {
     avoidWarnings()
+    estaLogueado()
   });
 
   return (
@@ -128,6 +137,9 @@ const mapDispatchToProps = (dispatch) => {
     onAddCarrito: (text) => {
       dispatch(addCarrito(text));
     },
+    onAddUser: (user) => {
+      dispatch(setUser(user))
+    }
   };
 };
 

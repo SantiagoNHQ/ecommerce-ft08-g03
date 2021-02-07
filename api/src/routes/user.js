@@ -20,7 +20,7 @@ server.post("/", (req, res) => {
     nombre,
     nombreDeUsuario,
     email,
-    clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/,
+    clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'),
     apellido,
   })
     .then((response) => {
@@ -95,7 +95,7 @@ server.get(
 );
 
 // S37 : Crear ruta para eliminar Usuario
-server.delete("users/:id", (req, res) => {
+server.delete("/:id", (req, res) => { // /user/:id
   const id = req.params.id;
 
   User.destroy({
