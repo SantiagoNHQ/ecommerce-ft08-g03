@@ -9,7 +9,8 @@ const {
 } = require("../db");
 const Sequelize = require("sequelize");
 const { Model } = require("sequelize");
-const { isAdmin, isUser, isGuest, isUserOrAdmin } = require('./checkUserState')
+const { isAdmin, isUser, isGuest, isUserOrAdmin } = require('./checkUserState');
+const { response } = require("express");
 
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
@@ -354,5 +355,27 @@ server.put("/orders/:id", (req, res) => {
       res.status(404).json(err);
     });
 });
+
+
+// S70 : Crear Ruta para password reset
+// PUT /user/:id/passwordReset
+server.put("/:id/passwordReset", (req, res) => {
+  var id = req.params.id
+  var password = req.body.password
+  User.update(
+    {clave: password},
+    {where: {
+      id
+    }}
+  )
+  .then(response => {
+    res.send("Contraseña cambiada correctamente")
+  })
+  .catch(err => {
+    console.log("no se pudo cambiar la contraseña", err)
+    res.status(400)
+  })
+
+})
 
 module.exports = server;
