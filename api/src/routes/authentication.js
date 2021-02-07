@@ -16,6 +16,30 @@ server.get("/", (req, res) => {
   // Si no iniciamos sesion redireccionamos a /login.
 });
 
+//  *** S65 : Crear ruta /me ***
+//  Esta ruta tiene que devolver el usuario que está logeado, o 401 si no está logeado.
+//  http://www.passportjs.org/docs/
+//  https://stackoverflow.com/questions/18739725/how-to-know-if-user-is-logged-in-with-passport-js
+//  loggedIn: Middleware para que en get/me llegue el usuario.
+function loggedIn(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    // res.redirect('/login');
+    next();
+    console.log("Usuario no logeado");
+  }
+}
+
+server.get("/me", loggedIn, (req, res) => {
+  console.log(req.user);
+  if (req.isAuthenticated()) {
+    res.json(req.user);
+  } else {
+    res.status(401).json("No está logeado");
+  }
+});
+
 //  Mostrar el formulario de Login.
 server.get("/login", (req, res) => {
   res.render("Login");
@@ -31,7 +55,6 @@ server.post("/login", passport.authenticate("local"), function (req, res) {
 });
 
 // S64: Crear ruta de logout.
-
 server.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
