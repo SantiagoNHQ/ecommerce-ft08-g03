@@ -3,6 +3,7 @@ import './Carrito.css'
 import {connect} from 'react-redux' 
 import {addCarrito} from "../../redux/actions";
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 export function Carrito ({carrito, user, onAddCarrito, products}) {
     const [total, setTotal] = useState(0)
@@ -189,6 +190,15 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
             precioTotal([])
         }
     }
+    let history = useHistory()
+    function comprar() {
+        if(user.id) {
+
+        } else {
+            alert("Debe registarse para continuar")
+            history.push("/user/nuevo");
+        }
+    }
     
 
     return(
@@ -212,7 +222,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
         
                 {carrito[0] && <h1>Total: ${total}</h1>}
-
+                {carrito[0] && <div onClick={comprar} className='vaciar'><button> Terminar Compra </button></div>}
         </div>
     )
 }
