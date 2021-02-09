@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { ordersLoad } from "../../redux/actions";
+import swal from "sweetalert";
 
 const mapStateToProps = (state) => {
     return {
@@ -52,10 +53,18 @@ function OrdenUser(props) {
     function subirReview (e, data) {
         axios.post("http://localhost:3001/product/"+data.productId+"/review", review )
         .then(respuesta => {
-            alert("Gracias por su opinion")
+            swal({
+                title: "Gracias por dejarnos su opinion!!",
+                icon: "success",
+              });
         })
         .catch(respuesta => {
             console.log("HUBO UN ERROR AL CARGAR REVIEW")
+            swal({
+                title: "Ya hay un review suya para este producto",
+                text: "Gracias por compartir su opinion.",
+                icon: "info",
+              });
         })
     }
 

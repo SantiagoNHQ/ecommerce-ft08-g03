@@ -327,7 +327,7 @@ server.delete("/delete/:productId/:userId", (req, res) => {
   console.log("AAAAAAAAAA", productId);
   console.log("bbbbbbbbbbbbbb", userId);
   Orderline.destroy({
-    where: { productId, userId, estado: "carrito" },
+    where: { productId, userId },
   })
     .then((response) => {
       console.log("Objeto a eliminar: ", response);

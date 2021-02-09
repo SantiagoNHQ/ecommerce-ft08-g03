@@ -5,6 +5,7 @@ import axios from 'axios';
 import "./NuevoUsuario.css";
 import {connect} from 'react-redux'
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert"
 
 function NuevoUsuario(props) {
     let history = useHistory()
@@ -15,15 +16,23 @@ function NuevoUsuario(props) {
         e.preventDefault()
         if(state.coinciden) {
             axios.post("http://localhost:3001/user/", {data: state, user: props.user})
-                .then(res => {
-                    history.push("/");
-                    window.location.reload(true);
+                .then(res => {            
+                    swal({
+                        title: "Cuenta creada con exito!!",
+                        text: "Ahora podra iniciar sesion.",
+                        icon: "success",
+                  });
+                    history.push("/user/ingresar");
                 })
                 .catch (err => {
                     console.log("mal", err)
                 })
         } else {
-            alert("Las contraseñas no coinciden")
+            swal({
+                title: "Las contraseñas no coinciden",
+                text: "Verifiquelas para continuar",
+                icon: "error",
+              });
         }
     }
 
