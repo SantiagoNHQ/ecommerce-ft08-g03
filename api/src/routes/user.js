@@ -1,4 +1,3 @@
-
 const server = require("express").Router();
 const {
   Product,
@@ -378,5 +377,33 @@ server.put("/:id/passwordReset", (req, res) => {
   })
 
 })
+
+// para mostrart todas las ordenes de los usuarios que esten con estatus completas
+server.get("/:id/orders/completas", (req, res) => {
+  const userId = req.params.id;
+  var orden;
+    Orden.findAll(
+      {where: {estado: "completa", userId}}
+    )
+    .then((response) => {
+      console.log("Respuestaaaaaaaaaaaaa1: ", response[0].id);
+      orden = response[0].id
+      return Orderline.findAll( {
+        where: {ordenId: orden}
+      })
+      .then((response) => {
+        console.log("Respuestaaaaaaaaaaaaa2: ", response);
+        res.status(200).json(response)
+      })
+      .catch((err) => {
+        console.log("Soy un err2: ", err);
+        res.status(400).send(err);
+      });
+    })
+    .catch((err) => {
+      console.log("Soy un err1: ", err);
+      res.status(400).send(err);
+    });
+});
 
 module.exports = server;

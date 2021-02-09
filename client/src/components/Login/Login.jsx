@@ -4,6 +4,7 @@ import "./Login.css";
 import { connect } from 'react-redux'
 import { setUser } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert"
 
 const mapStateToProps = (state) => {
     return {
@@ -37,7 +38,11 @@ function NuevoUsuario(props) {
         })
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)
-            alert("No logueado")
+            swal({
+                title: "No logueado",
+                text: "Intente nuevamente o cree un cuenta",
+                icon: "error",
+              });
         })
     }
 

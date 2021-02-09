@@ -3,6 +3,8 @@ import './Carrito.css'
 import {connect} from 'react-redux' 
 import {addCarrito} from "../../redux/actions";
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import swal from 'sweetalert';
 
 export function Carrito ({carrito, user, onAddCarrito, products}) {
     const [total, setTotal] = useState(0)
@@ -107,7 +109,10 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 precioTotal(arrayProductos)
             }
         } else {
-            alert("No hay suficiente stock")
+            swal({
+                title: "No hay suficiente stock",
+                icon: "warning",
+              });
             e.target.value = stock
 
             if (user.id) {
@@ -135,7 +140,6 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 precioTotal(arrayProductos)
             }
         }
-
     }
 
     function eliminar(e, producto) {
@@ -188,6 +192,23 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
             // setTotal("0")
             precioTotal([])
         }
+        swal({
+            title: "Tu carrito se ha vaciado!!",
+            icon: "success",
+          });
+    }
+    let history = useHistory()
+    function comprar() {
+        if(user.id) {
+
+        } else {
+            swal({
+                title: "Debe registarse para continuar",
+                text: "...sera redirigido automaticamente",
+                icon: "info",
+              });
+            history.push("/user/nuevo");
+        }
     }
     
 
@@ -212,7 +233,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
         
                 {carrito[0] && <h1>Total: ${total}</h1>}
-
+                {carrito[0] && <div onClick={comprar} className='vaciar'><button> Terminar Compra </button></div>}
         </div>
     )
 }
