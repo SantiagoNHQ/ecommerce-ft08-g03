@@ -35,7 +35,9 @@ export function DetalleProducto (props) {
             })
     }
 
+
     useEffect(() => avoidWarnings(), [])
+
 
     return (
         <div>

@@ -9,7 +9,7 @@ export default function EditarProducto(props) {
 
     function product () {
         // console.log("Get: " + "http://localhost:3001/product/"+props.id)
-        axios.get("http://localhost:3001/product/"+props.id)
+        axios.get("http://localhost:3001/product/"+ props.id)
         .then(res => {
             console.log("Data de respuesta: ", res.data)
             //setCards({...cards, productos: res.data})
@@ -19,7 +19,9 @@ export default function EditarProducto(props) {
 
     useEffect(() => { 
         product()
+
     }, [])
+
 
     function submitEliminar(p) {
         console.log(" ELIMINAR: ", p)
