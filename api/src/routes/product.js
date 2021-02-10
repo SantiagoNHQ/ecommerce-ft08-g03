@@ -287,7 +287,7 @@ server.delete("/product/:id/review/:idReview", (req, res) => {
 //  *** S54 : Crear ruta para crear/agregar Review ***
 server.post("/:id/review", (req, res) => {
   var resp2;
-  const productId = req.params.id; //id del usuario que agrega el review
+  const productId = req.params.id; //id del producto
   const { descripcion, calificacion, userId } = req.body;
 
   Review.findOne({

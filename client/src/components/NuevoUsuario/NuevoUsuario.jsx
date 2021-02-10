@@ -5,6 +5,8 @@ import axios from 'axios';
 import "./NuevoUsuario.css";
 import {connect} from 'react-redux'
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
+import {addCarrito} from "../../redux/actions";
 
 function NuevoUsuario(props) {
     let history = useHistory()
@@ -13,17 +15,46 @@ function NuevoUsuario(props) {
     function submit(e) {
         console.log("Probando: ", state)
         e.preventDefault()
-        if(state.coinciden) {
+        if (state.coinciden) {
             axios.post("http://localhost:3001/user/", {data: state, user: props.user})
-                .then(res => {
-                    history.push("/");
-                    window.location.reload(true);
+                .then(res => {     
+                    console.log("esta es la respuesta con el user", res.data.userId)       
+                    swal({
+                        title: "Cuenta creada con exito!!",
+                        text: "Ahora podra iniciar sesion.",
+                        icon: "success",
+                  });
+                  var store = JSON.parse(localStorage.getItem("carrito"))
+                  console.log("soy store", store)
+                  store && store.map(pos => {
+                      var obj = {
+                          cantidad: pos.cantidad,
+                          precio: pos.precio,
+                          productId: pos.productId,
+                          nombre: pos.nombre,
+                      }
+                      console.log("mi obj", obj)
+                      axios.post("http://localhost:3001/user/"+ res.data.userId + "/cart", {data: obj})
+                      .then(res => {
+                          console.log("producto agregado", res)
+                      })
+                      .catch(err => {
+                          console.log("esto es un error",err)
+                      })
+                  })
+                  localStorage.removeItem("carrito");
+                  props.onAddCarrito([])
+                  history.push("/user/ingresar");
                 })
                 .catch (err => {
                     console.log("mal", err)
                 })
         } else {
-            alert("Las contraseñas no coinciden")
+            swal({
+                title: "Las contraseñas no coinciden",
+                text: "Verifiquelas para continuar",
+                icon: "error",
+              });
         }
     }
 
@@ -65,8 +96,16 @@ function NuevoUsuario(props) {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        carrito: state.carrito
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onAddCarrito: (text) => {
+        dispatch(addCarrito(text))
+        }
     }
 }
 
-export default connect(mapStateToProps)(NuevoUsuario)
+export default connect(mapStateToProps, mapDispatchToProps)(NuevoUsuario)
