@@ -76,5 +76,18 @@ server.post("/promote/:id", (req, res)=> {
     res.status(400)
   })
 })
+// google
+
+server.get('/google',
+  passport.authenticate('google', { scope: ['profile'] })
+);
+
+server.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user', successRedirect: "http://localhost:3000/products" }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    console.log("googleeeeeeee")
+    res.redirect('http://localhost:3000/');
+  });
 
 module.exports = server;

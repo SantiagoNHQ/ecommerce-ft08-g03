@@ -34,7 +34,7 @@ function NuevoUsuario(props) {
             console.log("RESPONDIÓ", res)
             var user = res.data
             props.onSetUser(user)
-            history.push("/");
+            // history.push("/");
         })
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)
@@ -58,9 +58,14 @@ function NuevoUsuario(props) {
         }
     } 
 
+    function google(e) {
+        e.preventDefault()
+        window.open("http://localhost:3001/auth/google")
+    }
     return (
         <div className = 'formulario'>
-           
+           <a href="http://localhost:3001/auth/google">Log In with Google</a>
+            <button onClick={google}>google</button>
             <form onSubmit={submit} className='iniciarSesion' >
                 <h1>Iniciar Sesion</h1>
                 <input key="username" type="text" placeholder="Nombre de Usuario" onChange={cambios} name="username" />

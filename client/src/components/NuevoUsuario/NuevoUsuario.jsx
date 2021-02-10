@@ -26,22 +26,24 @@ function NuevoUsuario(props) {
                   });
                   var store = JSON.parse(localStorage.getItem("carrito"))
                   console.log("soy store", store)
-                  store && store.map(pos => {
-                      var obj = {
-                          cantidad: pos.cantidad,
-                          precio: pos.precio,
-                          productId: pos.productId,
-                          nombre: pos.nombre,
-                      }
-                      console.log("mi obj", obj)
-                      axios.post("http://localhost:3001/user/"+ res.data.userId + "/cart", {data: obj})
-                      .then(res => {
-                          console.log("producto agregado", res)
-                      })
-                      .catch(err => {
-                          console.log("esto es un error",err)
-                      })
-                  })
+                    if (store){
+                        store.map(pos => {
+                            var obj = {
+                                cantidad: pos.cantidad,
+                                precio: pos.precio,
+                                productId: pos.productId,
+                                nombre: pos.nombre,
+                            }
+                            console.log("mi obj", obj)
+                            axios.post("http://localhost:3001/user/"+ res.data.userId + "/cart", {data: obj})
+                            .then(res => {
+                                console.log("producto agregado", res)
+                            })
+                            .catch(err => {
+                                console.log("esto es un error",err)
+                            })
+                        })
+                    } 
                   localStorage.removeItem("carrito");
                   props.onAddCarrito([])
                   history.push("/user/ingresar");

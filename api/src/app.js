@@ -7,6 +7,7 @@ const busboy = require("connect-busboy");
 const session = require("express-session");
 const passport = require("passport");
 const Strategy = require("passport-local").Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { User } = require("./db");
 
 // const cors = require("cors");
@@ -70,6 +71,37 @@ passport.use(
       });
   })
 );
+
+// google 
+passport.use(new GoogleStrategy({
+    clientID: "251069234537-59kr9jpq5u373bf7vqjmd7sdc402natl.apps.googleusercontent.com",
+    clientSecret: "1tYNhiesTPO5VkByGreDHsp0",
+    callbackURL: "http://localhost:3001/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ where: {googleId: profile.id}})
+    .then((response) => {
+      var [user, create] = response
+           done(null, user);
+    })
+    .catch(err => {
+        console.log("GOOGLE ERROR", err)
+        done(err)
+    })
+  }
+))
+
+// function(accessToken, refreshToken, profile, done) {
+//   User.findOrCreate({ where: {googleId: profile.id}})
+//     .then((err, user) => {
+//      return done(err, user);
+//     })
+//   .catch(err => {
+//       console.log("GOOGLE ERROR", err)
+//   }
+//   );
+// }
+// ;
 // serializacion
 passport.serializeUser(function (user, done) {
   done(null, user.id);
