@@ -21,7 +21,7 @@ server.post("/", (req, res) => {
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {
-          res.status(200).send("Usuario creado correctamente.");
+          res.status(200).json(response);
         })
         .catch((err) => {
           console.log("Error linea 24: ", err);
@@ -278,7 +278,7 @@ server.post("/:userId/cart", (req, res) => {
         //  Busca el producto en el modelo Producto.
         Orderline.create({
           //Crea el Orderline con el producto, userId y orderId.
-          cantidad: 1, // Seteamos a 1 para correr la ruta.
+          cantidad: req.body.data.cantidad ? req.body.data.cantidad : 1, // Seteamos a 1 para correr la ruta.
           precio: req.body.data.precio, //product.precio,
           productId: req.body.data.productId, //product.id,
           ordenId: ordenA,
@@ -294,7 +294,7 @@ server.post("/:userId/cart", (req, res) => {
           if (!orderline) {
             Orderline.create({
               precio: req.body.data.precio, //product.precio,
-              cantidad: 1,
+              cantidad: req.body.data.cantidad ? req.body.data.cantidad : 1,
               productId: req.body.data.productId, //product.id,
               ordenId: ordenA,
               userId: req.params.userId,

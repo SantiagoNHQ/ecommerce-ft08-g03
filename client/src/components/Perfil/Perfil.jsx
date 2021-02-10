@@ -25,6 +25,7 @@ function Perfil(props) {
     useEffect(() => {
         axios.get("http://localhost:3001/auth/me")
         .then(r => {
+            console.log("esto recivo", r)
             props.onSetUser(r)
         })
         .catch(e => console.log("Error: ", e))
