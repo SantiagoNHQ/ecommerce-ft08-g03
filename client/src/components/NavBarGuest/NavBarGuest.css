@@ -16,19 +16,21 @@ body {
   /* background-color: rgba(158, 22, 22, 0.733); */
   justify-content: space-between;
   height: 50px;
-  background-color: rgba(158, 22, 22, 0.733);;
+  background-color: rgba(158, 22, 22, 0.733);
 }
 
 .divLinksGuest {
-  font-family: "Abel", sans-serif;
-  margin-left: 10px;
+  /* font-family: "Abel", sans-serif; */
+  /* font-family: "Lobster Two", cursive; */
+  font-family: "Amatic SC", cursive;
+  margin-left: 15px;
 }
 
 .divLinksGuest a {
-  font-size: 1.3em;
+  font-size: 1.35em;
   color: white;
   text-decoration: none;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .divNavbarGuest a:hover {

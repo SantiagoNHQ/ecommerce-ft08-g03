@@ -1,6 +1,7 @@
 import React,{ useState } from "react";
 import axios from "axios";
-import "./Finalizarcompra.css";
+import "./FinalizarCompra.css";
+import {useHistory} from 'react-router-dom';
 
 
 //Crear form para direccion de envio y boton de confirmar compra
@@ -9,17 +10,27 @@ import "./Finalizarcompra.css";
 
 export default function finalizarCompra(props){
     function FormAdress () {
-
+        let history = useHistory()
+        const [state, setState] = useState({/* nombre:"", descripcion:"" */})
     };
+
+    // function NuevoUsuario(props) {
+        
+    // };
+
     function submitEnter (e) {
         if (e.key === 'Enter'){
             submit(e)
         }
     };
 
+    function submit(e) {
+        // history.push("/user/finalizarcompra")
+    }
+
     return (
-        <div>
-            <form>
+        <div className='formulario'>
+            <form onSubmit={submit} className='finalizarCompra'>
                 <h1>Añadir una direccion</h1>
                 <input key="calle" type="text" placeholder="Calle" name="calle"/>
                 <input key="numero" type="text" placeholder="Número" name="numero"/>
@@ -28,7 +39,7 @@ export default function finalizarCompra(props){
                 <input key="codigoPostal" type="text" placeholder="Código Postal" name="codigoPostal" />
                 <input key="pais" type="text" placeholder="País" name="pais" />
                 <input key="email" onKeyPress={submitEnter} type="email" placeholder="Correo electrónico" name="email" />
-                <input key="boton" type="submit" value="Finalizar Compra" />
+                <input  className='botonfinalizarCompra' key="boton" type="submit" value="Finalizar compra" />
             </form>
         </div>
     )

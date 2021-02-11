@@ -172,3 +172,12 @@
   font-size: 4em;
   font-family: "Lobster", cursive;
 }
+
+.divContactos {
+  display: flex;
+}
+
+.divContactos p {
+  font-size: 1.5em;
+  margin-left: 25px;
+}
