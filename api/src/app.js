@@ -75,27 +75,17 @@ passport.use(
       // ],
       where: {
         nombreDeUsuario: username,
-        // clave: bcrypt.hashSync("bacon", 8),
       },
     })
       .then((res) => {
-        // var hash = res.dataValues.clave;
-        console.log("password :", password);
-        console.log("hash: ", res.dataValues.clave);
-        // var comp = bcrypt.compareSync("bacon", hash); // true
+        // console.log("password :", password);
+        // console.log("hash: ", res.dataValues.clave);
         if (bcrypt.compareSync(password, res.dataValues.clave)) {
           console.log("ESTO ES LA RESPUESTA", res.dataValues.clave);
           return done(null, res.dataValues);
         } else {
           return done(null, false);
         }
-        // console.log("LINEA 54 APP");
-        // if (res) {
-        //   console.log("ESTO ES LA RESPUESTA", res.dataValues.clave);
-        //   return done(null, res.dataValues);
-        // } else {
-        //   return done(null, false);
-        // }
       })
       .catch((err) => {
         console.log("ERRORRRRRRRRRRRRRR LINEA 63");

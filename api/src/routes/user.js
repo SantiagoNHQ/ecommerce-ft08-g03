@@ -91,14 +91,15 @@ server.delete("users/:id", (req, res) => {
 server.put("/:id", (req, res) => {
   const id = req.params.id;
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
-
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(clave, salt);
   User.update(
     {
       nombre,
       apellido,
       nombreDeUsuario,
       email,
-      clave: bcrypt.hashSync("clave", 8),
+      clave: hash,
     },
     {
       where: {
