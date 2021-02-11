@@ -85,8 +85,12 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
         <img src="https://lossaboresdemexico.com/wp-content/uploads/2014/10/IMG_0340.jpg" alt="img" />
           {/* <img src="https://lh3.googleusercontent.com/proxy/Vkk8iUJudQOkQDYnonYaArEXazcuGN7OXQVG4NKgPrVayyMzGbj76F71TxaG4bTGkdwzVEDIcPR_LFr0wlWSffwaw3gH5KStyhw" alt="img" /> */}
           <div className='div-texto-dada'>
-            <h1>Linea Dada</h1>
-            <p>Consegui todos los Dada aqui</p>
+            <h1>Contactanos</h1>
+            <div className='divContactos'>
+            <p>wearewine@drinks.com</p>
+            <p>/</p>
+            <p>351-7452896</p>
+            </div>
           </div>
         </div>
       </div>

@@ -176,3 +176,11 @@
 .linkCard {
   text-decoration-line: none;
 }
+.divContactos {
+  display: flex;
+}
+
+.divContactos p {
+  font-size: 1.5em;
+  margin-left: 25px;
+}

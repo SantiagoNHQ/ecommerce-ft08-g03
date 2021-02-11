@@ -21,7 +21,7 @@ body {
 }
 
 .divLinksUser {
-  font-family: "Abel", sans-serif;
+  font-family: "Amatic SC", cursive;
   margin-left: 10px;
 }
 
@@ -29,7 +29,7 @@ body {
   font-size: 1.3em;
   color: white;
   text-decoration: none;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .divNavbarUser a:hover {
