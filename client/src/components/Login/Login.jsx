@@ -15,6 +15,7 @@ export default function NuevoUsuario(props) {
         })
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)
+            console.log("ESTADO: ", state)
             swal({
                 title: "No logueado",
                 text: "Intente nuevamente o cree un cuenta",
@@ -22,6 +23,22 @@ export default function NuevoUsuario(props) {
               });
         })
     }
+
+    // function sendEmail (e) {
+    //     e.preventDefault()
+    //     var email = [e.target.value]
+    //     console.log(email)
+    //     axios.post('/http://localhost:3001/auth/send-email', email)
+    //     .then(res => {
+    //         console.log("Todo ok...")
+    //     }).catch(err => {
+    //         console.log("Todo mal", err.message)
+    //     })
+    // }
+
+
+
+
 
    function cambios (e) {
         e.preventDefault()
