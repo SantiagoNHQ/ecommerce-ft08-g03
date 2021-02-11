@@ -16,18 +16,16 @@ var bcrypt = require("bcryptjs");
 
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
-  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
-  //console.log("Body: ", req.body);
-
-
-
+  var { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(clave, salt);
+  console.log("Body: ", req.body);
   User.create({
     nombre,
     nombreDeUsuario,
     email,
-
-    clave: bcrypt.hashSync("bacon", 8),
-
+    // clave: bcrypt.hashSync(clave, 8),
+    clave: hash,
     apellido,
   })
     .then((response) => {
@@ -49,18 +47,7 @@ server.post("/", (req, res) => {
 // S36 : Crear Ruta que retorne todos los Usuarios
 server.get("/", (req, res) => {
   User.findAll()
-    // User.findAll({
-    //   attributes: [
-    //     [
-    //       Sequelize.fn(
-    //         "PGP_SYM_DECRYPT",
-    //         Sequelize.cast(Sequelize.col("clave"), "bytea"),
-    //         "CLAVE_TEST"
-    //       ),
-    //       "clave",
-    //     ],
-    //   ],
-    // })
+
     .then((response) => {
       res.status(200).json(response);
     })
@@ -93,14 +80,15 @@ server.delete("users/:id", (req, res) => {
 server.put("/:id", (req, res) => {
   const id = req.params.id;
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
-
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(clave, salt);
   User.update(
     {
       nombre,
       apellido,
       nombreDeUsuario,
       email,
-      clave: bcrypt.hashSync("bacon", 8),
+      clave: hash,
     },
     {
       where: {
@@ -118,34 +106,9 @@ server.put("/:id", (req, res) => {
     });
 });
 
-
-// S36 : Crear Ruta que retorne todos los Usuarios
-server.get(
-  "/",
-  /*isAdmin,*/ (req, res) => {
-    User.findAll({
-      attributes: [
-        [
-          Sequelize.fn(
-            "PGP_SYM_DECRYPT",
-            Sequelize.cast(Sequelize.col("clave"), "bytea"),
-            "CLAVE_TEST"
-          ),
-          "clave",
-        ],
-      ],
-    })
-      .then((response) => {
-        res.status(200).json(response);
-      })
-      .catch((response) => {
-        res.send(response);
-      });
-  }
-);
-
 // S37 : Crear ruta para eliminar Usuario
-server.delete("/:id", (req, res) => { // /user/:id
+server.delete("/:id", (req, res) => {
+  // /user/:id
   const id = req.params.id;
 
   User.destroy({
@@ -162,7 +125,6 @@ server.delete("/:id", (req, res) => { // /user/:id
       send.res(response);
     });
 });
-
 
 // S40 : Crear Ruta para vaciar el carrito
 /*  DELETE /users/:idUser/cart/ */
@@ -425,7 +387,7 @@ server.put("/:id/passwordReset", (req, res) => {
   var id = req.params.id;
   var password = req.body.password;
   User.update(
-    { clave: bcrypt.hashSync("bacon", 8) },
+    { clave: bcrypt.hashSync("clave", 8) },
     {
       where: {
         id,
@@ -445,23 +407,21 @@ server.put("/:id/passwordReset", (req, res) => {
 server.get("/:id/orders/completas", (req, res) => {
   const userId = req.params.id;
   var orden;
-    Orden.findAll(
-      {where: {estado: "completa", userId}}
-    )
+  Orden.findAll({ where: { estado: "completa", userId } })
     .then((response) => {
       console.log("Respuestaaaaaaaaaaaaa1: ", response[0].id);
-      orden = response[0].id
-      return Orderline.findAll( {
-        where: {ordenId: orden}
+      orden = response[0].id;
+      return Orderline.findAll({
+        where: { ordenId: orden },
       })
-      .then((response) => {
-        console.log("Respuestaaaaaaaaaaaaa2: ", response);
-        res.status(200).json(response)
-      })
-      .catch((err) => {
-        console.log("Soy un err2: ", err);
-        res.status(400).send(err);
-      });
+        .then((response) => {
+          console.log("Respuestaaaaaaaaaaaaa2: ", response);
+          res.status(200).json(response);
+        })
+        .catch((err) => {
+          console.log("Soy un err2: ", err);
+          res.status(400).send(err);
+        });
     })
     .catch((err) => {
       console.log("Soy un err1: ", err);

@@ -1,4 +1,3 @@
-
 const server = require("express").Router();
 const passport = require("passport");
 const sequelize = require("sequelize");
@@ -49,35 +48,38 @@ server.post("/login", passport.authenticate("local"), function (req, res) {
 // S64: Crear ruta de logout.
 server.get("/logout", (req, res) => {
   req.logout();
-  res.send("sesion cerrada")
+  res.send("sesion cerrada");
 });
 
 // S67 : Crear ruta /promote
-server.post("/promote/:id", (req, res)=> {
-  var id = req.params.id
-  User.update(
-    {admin: true},
-    {where: { id}}
-  )
-  .then(response => {
-    res.send("usuario ascendido a admin")
-  })
-  .catch(err => {
-    console.log("este error", err)
-    res.status(400)
-  })
-})
+server.post("/promote/:id", (req, res) => {
+  var id = req.params.id;
+  User.update({ admin: true }, { where: { id } })
+    .then((response) => {
+      res.send("usuario ascendido a admin");
+    })
+    .catch((err) => {
+      console.log("este error", err);
+      res.status(400);
+    });
+});
 // google
 
-server.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
+server.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-server.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user', successRedirect: 'http://localhost:3000/' })/* ,
+server.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "http://localhost:3000/user",
+    successRedirect: "http://localhost:3000/",
+  }) /* ,
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('http://localhost:3000/');
-  } */);
+  } */
+);
 
 module.exports = server;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {useState, useEffect} from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ReviewsDiv= styled.div`
 font-family: "Poiret One", cursive;
@@ -60,4 +60,17 @@ export function Reviews (props) {
             }
         </ReviewsDiv>
     )
+
+    // return (
+    //     <div>
+    //         {!review[0] && <h3>No hay reviews para este producto.</h3>}
+    //         {review && review.map((pos) => 
+    //             <div>
+    //                 <h1>descripcion: {pos.descripcion}</h1>
+    //                 <h1>calificacion: {pos.calificacion}</h1>
+    //             </div>
+    //             ) 
+    //         }
+    //     </div>
+    // )
 }

@@ -19,51 +19,63 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { addCarrito, setUser } from "./redux/actions";
 import Login from "./components/Login/Login";
-import NoAccess from "./components/NoAccess/NoAccess"
+import NoAccess from "./components/NoAccess/NoAccess";
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 import Perfil from "./components/Perfil/Perfil";
 import OrdenUser from "./components/OrdenUser/OrdenUser";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 function App(props) {
-
   function checkLogged() {
     if (props.user.id) return;
 
-    axios.get("http://localhost:3001/auth/me", {
-      withCredentials: true
-    }).then(r => {
-      console.log("Respuesta del /me: ", r.data)
-      props.onAddUser(r.data)
-    }).catch(e => console.log("Error del /me: ", e))
+    axios
+      .get("http://localhost:3001/auth/me", {
+        withCredentials: true,
+      })
+      .then((r) => {
+        console.log("Respuesta del /me: ", r.data);
+        props.onAddUser(r.data);
+      })
+      .catch((e) => console.log("Error del /me: ", e));
   }
 
   function checkAdminRoutes(id) {
-    if (!props.user.admin) id = -1
+    if (!props.user.admin) id = -1;
 
     switch (id) {
-      case 0: return <FormProduct />
-      case 1: return <FormCategory />
-      case 2: return <OrdersTable />
-      case 3: return <EditarProducto id={props.editProduct} />
-      case 4: return <OrdersTable />
-      case 5: return <EditarProducto />
+      case 0:
+        return <FormProduct />;
+      case 1:
+        return <FormCategory />;
+      case 2:
+        return <OrdersTable />;
+      case 3:
+        return <EditarProducto id={props.editProduct} />;
+      case 4:
+        return <OrdersTable />;
+      case 5:
+        return <EditarProducto />;
 
-      default: return <NoAccess access = "administradores" />
+      default:
+        return <NoAccess access="administradores" />;
     }
   }
 
   function checkGuestRoutes(id) {
-    if (props.user.id) id = -1
+    if (props.user.id) id = -1;
 
     switch (id) {
-      case 0: return <NuevoUsuario />
-      case 1: return <Login />
+      case 0:
+        return <NuevoUsuario />;
+      case 1:
+        return <Login />;
 
-      default: return <NoAccess access = "invitados" />
+      default:
+        return <NoAccess access="invitados" />;
     }
   }
-  
+
   function avoidWarnings() {
     if (props.logged !== true) return;
 
@@ -76,10 +88,10 @@ function App(props) {
         console.log("ERROR", response);
       });
   }
-  
+
   useEffect(() => {
-    avoidWarnings()
-    checkLogged()
+    avoidWarnings();
+    checkLogged();
   }, []);
 
   return (
@@ -95,34 +107,56 @@ function App(props) {
             // return <NavSelect />; // ESTO ERA PA TESTEAR EL ADMIN/USER/GUEST VIEW HARDCODED
           }}
         />
-
         {/* HOME! */}
         <Route exact path="/" component={Home} />
-
         {/* ADMIN ROUTES! */}
-        <Route exact path = "/admin/formProduct"  component = {() => checkAdminRoutes(0)} />
-        <Route exact path = "/admin/formCategory" component = {() => checkAdminRoutes(1)} />
-        <Route exact path = "/admin/ordenes"      component = {() => checkAdminRoutes(2)} />
-        <Route exact path = "/admin/product/edit" component = {() => checkAdminRoutes(3)} />
-        <Route path = "/admin/ordenes/:status"    component = {() => checkAdminRoutes(4)} />
-        <Route path = "/admin/products/editar"    component = {() => checkAdminRoutes(5)} />
-
+        <Route
+          exact
+          path="/admin/formProduct"
+          component={() => checkAdminRoutes(0)}
+        />
+        <Route
+          exact
+          path="/admin/formCategory"
+          component={() => checkAdminRoutes(1)}
+        />
+        <Route
+          exact
+          path="/admin/ordenes"
+          component={() => checkAdminRoutes(2)}
+        />
+        <Route
+          exact
+          path="/admin/product/edit"
+          component={() => checkAdminRoutes(3)}
+        />
+        <Route
+          path="/admin/ordenes/:status"
+          component={() => checkAdminRoutes(4)}
+        />
+        <Route
+          path="/admin/products/editar"
+          component={() => checkAdminRoutes(5)}
+        />
         {/* USER ROUTES! */}
-        <Route exact path = "/user/carrito"       component = {Carrito} /> {/* Funciona también para guest*/}
-        <Route exact path = "/user/products"      component = {ProductCards} /> {/* pero algo había que poner, no? */}
-        <Route exact path = "/user/perfil"      component = {Perfil} />
-        <Route exact path = "/user/ordenes"      component = {OrdenUser} />
+        <Route exact path="/user/carrito" component={Carrito} />{" "}
+        {/* Funciona también para guest*/}
+        <Route exact path="/user/products" component={ProductCards} />{" "}
+        {/* pero algo había que poner, no? */}
+        <Route exact path="/user/perfil" component={Perfil} />
+        <Route exact path="/user/ordenes" component={OrdenUser} />
         {/*                                                    categoria = {"Vinos"} */}
-
         {/* GUEST ROUTES! */}
-        <Route exact path = "/user/nuevo"         component = {() => checkGuestRoutes(0)} />
-        <Route exact path = "/user/ingresar"      component = {() => checkGuestRoutes(1)} />
-        
+        <Route exact path="/user/nuevo" component={() => checkGuestRoutes(0)} />
+        <Route
+          exact
+          path="/user/ingresar"
+          component={() => checkGuestRoutes(1)}
+        />
         {/* OTHER ROUTES... */}
-        <Route path = "/detalle/:id"              component = {DetalleProducto} />
-        <Route path = "/products/:id"             component = {Product} />
+        <Route path="/detalle/:id" component={DetalleProducto} />
+        <Route path="/products/:id" component={Product} />
         {/* <Route path="/seleccionar" component={NavSelect} /> // ESTO ERA PA TESTEAR EL ADMIN/USER/GUEST VIEW HARDCODED */}
-        
         <Route path="/user/product/:id" component={Product} />
       </React.Fragment>
     </BrowserRouter>
@@ -135,7 +169,7 @@ const mapStateToProps = (state) => {
     logged: state.logged,
     user: state.user,
     carrito: state.carrito,
-    editProduct: state.editarProducto
+    editProduct: state.editarProducto,
   };
 };
 
@@ -144,7 +178,7 @@ const mapDispatchToProps = (dispatch) => {
     onAddCarrito: (text) => {
       dispatch(addCarrito(text));
     },
-    onAddUser: (user) => dispatch(setUser(user))
+    onAddUser: (user) => dispatch(setUser(user)),
   };
 };
 

@@ -7,11 +7,9 @@ const busboy = require("connect-busboy");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const { User } = require("./db");
-
 var bcrypt = require("bcryptjs");
-const Sequelize = require("sequelize");
 
 // const cors = require("cors");
 
@@ -49,7 +47,6 @@ server.use((req, res, next) => {
   next();
 });
 
-
 server.use(passport.initialize());
 server.use(passport.session());
 // configuramos el comportamiento de la estrategia de autenticacion.
@@ -58,39 +55,37 @@ server.use(passport.session());
 passport.use(
   new LocalStrategy(function (username, password, done) {
     User.findOne({
-      attributes: [
-        [
-          Sequelize.fn(
-            "PGP_SYM_DECRYPT",
-            Sequelize.cast(Sequelize.col("clave"), "bytea"),
-            "CLAVE_TEST"
-          ),
-          "clave"
-        ], "id", "nombre", "apellido", "nombreDeUsuario", "email", "admin", "createdAt", "updatedAt"
-      ],
+      // attributes: [
+      //   [
+      //     Sequelize.fn(
+      //       "PGP_SYM_DECRYPT",
+      //       Sequelize.cast(Sequelize.col("clave"), "bytea"),
+      //       "CLAVE_TEST"
+      //     ),
+      //     "clave",
+      //   ],
+      //   "id",
+      //   "nombre",
+      //   "apellido",
+      //   "nombreDeUsuario",
+      //   "email",
+      //   "admin",
+      //   "createdAt",
+      //   "updatedAt",
+      // ],
       where: {
-
         nombreDeUsuario: username,
-        // clave: bcrypt.hashSync("bacon", 8),
       },
     })
       .then((res) => {
-        // var hash = res.dataValues.clave;
-        console.log("hash: ", res.dataValues.clave);
-        // var comp = bcrypt.compareSync("bacon", hash); // true
-        if (bcrypt.compareSync("bacon", res.dataValues.clave)) {
+        // console.log("password :", password);
+        // console.log("hash: ", res.dataValues.clave);
+        if (bcrypt.compareSync(password, res.dataValues.clave)) {
           console.log("ESTO ES LA RESPUESTA", res.dataValues.clave);
           return done(null, res.dataValues);
         } else {
           return done(null, false);
         }
-        // console.log("LINEA 54 APP");
-        // if (res) {
-        //   console.log("ESTO ES LA RESPUESTA", res.dataValues.clave);
-        //   return done(null, res.dataValues);
-        // } else {
-        //   return done(null, false);
-        // }
       })
       .catch((err) => {
         console.log("ERRORRRRRRRRRRRRRR LINEA 63");
@@ -99,35 +94,41 @@ passport.use(
   })
 );
 
-// google 
-passport.use(new GoogleStrategy({
-    clientID: "251069234537-59kr9jpq5u373bf7vqjmd7sdc402natl.apps.googleusercontent.com",
-    clientSecret: "1tYNhiesTPO5VkByGreDHsp0",
-    callbackURL: "http://localhost:3001/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    /* User.findOne({
+// google
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID:
+        "251069234537-59kr9jpq5u373bf7vqjmd7sdc402natl.apps.googleusercontent.com",
+      clientSecret: "1tYNhiesTPO5VkByGreDHsp0",
+      callbackURL: "http://localhost:3001/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      /* User.findOne({
       where: {
 
       }
     }) */
-    User.findOrCreate({ where: {
-      googleId: profile.id,
-      email: profile._json.email,
-      nombre: profile._json.given_name,
-      apellido: profile._json.family_name
-    }})
-    .then((response) => {
-      var [user, create] = response
-      console.log("Perfil user: ", profile)
-      done(null, user);
-    })
-    .catch(err => {
-        console.log("GOOGLE ERROR", err)
-        done(err)
-    })
-  }
-))
+      User.findOrCreate({
+        where: {
+          googleId: profile.id,
+          email: profile._json.email,
+          nombre: profile._json.given_name,
+          apellido: profile._json.family_name,
+        },
+      })
+        .then((response) => {
+          var [user, create] = response;
+          console.log("Perfil user: ", profile);
+          done(null, user);
+        })
+        .catch((err) => {
+          console.log("GOOGLE ERROR", err);
+          done(err);
+        });
+    }
+  )
+);
 
 // function(accessToken, refreshToken, profile, done) {
 //   User.findOrCreate({ where: {googleId: profile.id}})
