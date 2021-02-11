@@ -13,9 +13,8 @@ export default function NavBar(props) {
                     <Link to="/user/perfil">Mi Perfil</Link>
 
                 </nav>
-            </div>
-            
-            <div>
+            </div>            
+            <div className="SearchBar">
                 <SearchBar history={props.history} />
             </div> {/* La propiedad history solo la reciben los hijos directos de Route, por eso la paso por param! ;)*/}
         </div>

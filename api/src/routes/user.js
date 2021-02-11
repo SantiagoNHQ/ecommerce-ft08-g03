@@ -1,4 +1,3 @@
-
 const server = require("express").Router();
 const {
   Product,
@@ -10,15 +9,21 @@ const {
 } = require("../db");
 const Sequelize = require("sequelize");
 const { Model } = require("sequelize");
-const { isAdmin, isUser, isGuest, isUserOrAdmin } = require('./checkUserState');
+const { isAdmin, isUser, isGuest, isUserOrAdmin } = require("./checkUserState");
 const { response } = require("express");
+var bcrypt = require("bcryptjs");
 
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
-  const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+  var { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
   console.log("Body: ", req.body);
-
-  User.create({ nombre, nombreDeUsuario, email, clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/, apellido })
+  User.create({
+    nombre,
+    nombreDeUsuario,
+    email,
+    clave: bcrypt.hashSync("bacon", 8),
+    apellido,
+  })
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {
@@ -37,14 +42,19 @@ server.post("/", (req, res) => {
 
 // S36 : Crear Ruta que retorne todos los Usuarios
 server.get("/", (req, res) => {
-  User.findAll({
-    attributes: [
-      [
-        Sequelize.fn('PGP_SYM_DECRYPT', Sequelize.cast(Sequelize.col('clave'), 'bytea'), 'CLAVE_TEST'),
-        'clave'
-      ]
-    ]
-  })
+  User.findAll()
+    // User.findAll({
+    //   attributes: [
+    //     [
+    //       Sequelize.fn(
+    //         "PGP_SYM_DECRYPT",
+    //         Sequelize.cast(Sequelize.col("clave"), "bytea"),
+    //         "CLAVE_TEST"
+    //       ),
+    //       "clave",
+    //     ],
+    //   ],
+    // })
     .then((response) => {
       res.status(200).json(response);
     })
@@ -55,7 +65,7 @@ server.get("/", (req, res) => {
 
 // S37 : Crear ruta para eliminar Usuario
 
-server.delete("users/:id",  (req, res) => {
+server.delete("users/:id", (req, res) => {
   const id = req.params.id;
 
   User.destroy({
@@ -84,7 +94,7 @@ server.put("/:id", (req, res) => {
       apellido,
       nombreDeUsuario,
       email,
-      clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'),
+      clave: bcrypt.hashSync("bacon", 8),
     },
     {
       where: {
@@ -357,26 +367,26 @@ server.put("/orders/:id", (req, res) => {
     });
 });
 
-
 // S70 : Crear Ruta para password reset
 // PUT /user/:id/passwordReset
 server.put("/:id/passwordReset", (req, res) => {
-  var id = req.params.id
-  var password = req.body.password
+  var id = req.params.id;
+  var password = req.body.password;
   User.update(
-    {clave: password},
-    {where: {
-      id
-    }}
+    { clave: bcrypt.hashSync("bacon", 8) },
+    {
+      where: {
+        id,
+      },
+    }
   )
-  .then(response => {
-    res.send("Contraseña cambiada correctamente")
-  })
-  .catch(err => {
-    console.log("no se pudo cambiar la contraseña", err)
-    res.status(400)
-  })
-
-})
+    .then((response) => {
+      res.send("Contraseña cambiada correctamente");
+    })
+    .catch((err) => {
+      console.log("no se pudo cambiar la contraseña", err);
+      res.status(400);
+    });
+});
 
 module.exports = server;

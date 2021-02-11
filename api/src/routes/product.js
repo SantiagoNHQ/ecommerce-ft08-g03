@@ -1,5 +1,11 @@
 const server = require("express").Router();
-const { Product, Category, ProductAndCategory, Review } = require("../db");
+const {
+  Product,
+  Category,
+  ProductAndCategory,
+  Review,
+  User,
+} = require("../db");
 const Sequelize = require("sequelize");
 // const Review = require("../models/Review");
 // const { isAdmin, isUser, isGuest, isUserOrAdmin } = require("./checkUserState");
@@ -328,9 +334,8 @@ server.post("/:id/review", (req, res) => {
 server.get("/:id/review/", (req, res) => {
   const id = req.params.id;
   Review.findAll({
-    where: {
-      productId: id,
-    }
+    where: { productId: id },
+    include: { model: User },
   })
     .then((response) => {
       console.log("ENTREEEEEEEEEEEEEEEEEEEE", response);

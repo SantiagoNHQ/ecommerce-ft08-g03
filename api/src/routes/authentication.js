@@ -1,6 +1,7 @@
 const server = require("express").Router();
 const passport = require("passport");
 const sequelize = require("sequelize");
+var bcrypt = require("bcryptjs");
 
 const {
   User,
@@ -47,7 +48,6 @@ server.get("/login", (req, res) => {
 
 // Recibo el email y contraseña para loguearse.
 // /auth/login/
-
 server.post("/login", passport.authenticate("local"), function (req, res) {
   console.log("inicio de sesion exitoso");
   res.status(200).json(req.user);
@@ -61,19 +61,16 @@ server.get("/logout", (req, res) => {
 });
 
 // S67 : Crear ruta /promote
-server.post("/promote/:id", (req, res)=> {
-  var id = req.params.id
-  User.update(
-    {admin: true},
-    {where: { id}}
-  )
-  .then(response => {
-    res.send("usuario ascendido a admin")
-  })
-  .catch(err => {
-    console.log("este error", err)
-    res.status(400)
-  })
-})
+server.post("/promote/:id", (req, res) => {
+  var id = req.params.id;
+  User.update({ admin: true }, { where: { id } })
+    .then((response) => {
+      res.send("usuario ascendido a admin");
+    })
+    .catch((err) => {
+      console.log("este error", err);
+      res.status(400);
+    });
+});
 
 module.exports = server;
