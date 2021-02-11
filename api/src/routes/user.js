@@ -1,4 +1,5 @@
 const server = require("express").Router();
+const passport = require("passport");
 const {
   Product,
   Category,
@@ -15,9 +16,16 @@ const { response } = require("express");
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
-  console.log("Body: ", req.body);
+  //console.log("Body: ", req.body);
 
-  User.create({ nombre, nombreDeUsuario, email, clave /*:Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST')*/, apellido })
+
+  User.create({
+    nombre,
+    nombreDeUsuario,
+    email,
+    clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'),
+    apellido,
+  })
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {
@@ -100,6 +108,52 @@ server.put("/:id", (req, res) => {
       res.status(404).json(err);
     });
 });
+
+
+// S36 : Crear Ruta que retorne todos los Usuarios
+server.get(
+  "/",
+  /*isAdmin,*/ (req, res) => {
+    User.findAll({
+      attributes: [
+        [
+          Sequelize.fn(
+            "PGP_SYM_DECRYPT",
+            Sequelize.cast(Sequelize.col("clave"), "bytea"),
+            "CLAVE_TEST"
+          ),
+          "clave",
+        ],
+      ],
+    })
+      .then((response) => {
+        res.status(200).json(response);
+      })
+      .catch((response) => {
+        res.send(response);
+      });
+  }
+);
+
+// S37 : Crear ruta para eliminar Usuario
+server.delete("/:id", (req, res) => { // /user/:id
+  const id = req.params.id;
+
+  User.destroy({
+    where: {
+      id,
+    },
+  })
+    .then((response) => {
+      console.log("Usuario eliminado correctamente");
+      send.res(response);
+    })
+    .catch((response) => {
+      console.log("No se puede eliminar el usuario");
+      send.res(response);
+    });
+});
+
 
 // S40 : Crear Ruta para vaciar el carrito
 /*  DELETE /users/:idUser/cart/ */

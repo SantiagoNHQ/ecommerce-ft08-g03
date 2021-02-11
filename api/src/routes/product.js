@@ -356,7 +356,7 @@ server.put("/:id/review/:idReview", (req, res) => {
 
   Review.update(
     // {nom: req.body.nom },
-    { descripcion: descripcion, calificacion: calificacion },
+    { descripcion, calificacion },
     { where: { productId: id, idReview: idR } }
   )
     .then((answer) => {
