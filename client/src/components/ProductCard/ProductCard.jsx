@@ -4,6 +4,7 @@ import {Link, useHistory} from "react-router-dom";
 import "./ProductCard.css"
 import {connect} from 'react-redux'
 import { addCarrito, changeEditProduct } from "../../redux/actions";
+import swal from "sweetalert"
 
 
 //  *** S10 : Crear Componente ProductCard ***
@@ -36,7 +37,10 @@ export function ProductCard (props) {
             cantidad: 1
         }
         if(props.stock <= 0){
-            alert("Este producto no tiene disponibilidad actualmente")
+            swal({
+                title: "No contamos con stock de este producto",
+                icon: "error",
+              });
         } else if (props.user.id) { // Si es un usuario
         // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
             axios.post(`http://localhost:3001/user/${props.user.id}/cart`, {data: obj} )

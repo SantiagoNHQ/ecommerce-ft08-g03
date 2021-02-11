@@ -12,7 +12,6 @@ export default function NavBarGuest(props) {
                     <Link to="/user/carrito">Carrito</Link>
                     <Link to="/user/nuevo">Registrarse</Link>
                     <Link to="/user/ingresar">Logearse</Link>
-
                 </nav>
             </div>
             

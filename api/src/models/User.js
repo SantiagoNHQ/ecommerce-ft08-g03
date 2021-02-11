@@ -9,20 +9,20 @@ module.exports = (sequelize) => {
   sequelize.define("user", {
     nombre: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     apellido: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     nombreDeUsuario: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       unique: true,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       unique: true,
       validate: {
         isEmail: true,
@@ -30,11 +30,14 @@ module.exports = (sequelize) => {
     },
     clave: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      // allowNull: false,
     },
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    googleId: {
+      type: DataTypes.TEXT
     }
   });
 };
