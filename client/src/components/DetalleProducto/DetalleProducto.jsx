@@ -86,17 +86,10 @@ export function DetalleProducto (props) {
             })            
     }
 
-    // function imagen() {
-    //     if (!producto.img || !(producto.img.includes("http") || producto.img.includes("www"))) {
-    //         setProducto ((state) => ({...state, img: "http://localhost:3001/upload/" + producto.img}))
-    //     } 
-    // }
 
-    useEffect(() => { 
-        avoidWarnings()
-        // imagen()
-        
-    })
+
+    useEffect(() => avoidWarnings(), [])
+
 
     return (
         <DivContN1>

@@ -6,9 +6,12 @@ const routes = require("./routes/index.js"); // En index.js se concentran todas 
 const busboy = require("connect-busboy");
 const session = require("express-session");
 const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { User } = require("./db");
+
 var bcrypt = require("bcryptjs");
+const Sequelize = require("sequelize");
 
 // const cors = require("cors");
 
@@ -45,13 +48,28 @@ server.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   next();
 });
+
+
+server.use(passport.initialize());
+server.use(passport.session());
 // configuramos el comportamiento de la estrategia de autenticacion.
 // done debe enviar el resultado del proceso de autenticacion.
 
 passport.use(
-  new Strategy(function (username, password, done) {
+  new LocalStrategy(function (username, password, done) {
     User.findOne({
+      attributes: [
+        [
+          Sequelize.fn(
+            "PGP_SYM_DECRYPT",
+            Sequelize.cast(Sequelize.col("clave"), "bytea"),
+            "CLAVE_TEST"
+          ),
+          "clave"
+        ], "id", "nombre", "apellido", "nombreDeUsuario", "email", "admin", "createdAt", "updatedAt"
+      ],
       where: {
+
         nombreDeUsuario: username,
         // clave: bcrypt.hashSync("bacon", 8),
       },
@@ -80,13 +98,54 @@ passport.use(
       });
   })
 );
+
+// google 
+passport.use(new GoogleStrategy({
+    clientID: "251069234537-59kr9jpq5u373bf7vqjmd7sdc402natl.apps.googleusercontent.com",
+    clientSecret: "1tYNhiesTPO5VkByGreDHsp0",
+    callbackURL: "http://localhost:3001/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    /* User.findOne({
+      where: {
+
+      }
+    }) */
+    User.findOrCreate({ where: {
+      googleId: profile.id,
+      email: profile._json.email,
+      nombre: profile._json.given_name,
+      apellido: profile._json.family_name
+    }})
+    .then((response) => {
+      var [user, create] = response
+      console.log("Perfil user: ", profile)
+      done(null, user);
+    })
+    .catch(err => {
+        console.log("GOOGLE ERROR", err)
+        done(err)
+    })
+  }
+))
+
+// function(accessToken, refreshToken, profile, done) {
+//   User.findOrCreate({ where: {googleId: profile.id}})
+//     .then((err, user) => {
+//      return done(err, user);
+//     })
+//   .catch(err => {
+//       console.log("GOOGLE ERROR", err)
+//   }
+//   );
+// }
+// ;
 // serializacion
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
 //deserializacion
-
 passport.deserializeUser(function (id, done) {
   //aqui hay que buscar el usuario con el id en la base de datos.
   User.findOne({
@@ -101,8 +160,6 @@ passport.deserializeUser(function (id, done) {
       return done(err);
     });
 });
-server.use(passport.initialize());
-server.use(passport.session());
 
 server.use((req, res, next) => {
   console.log(req.session);
