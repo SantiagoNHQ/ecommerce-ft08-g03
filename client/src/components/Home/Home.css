@@ -15,9 +15,9 @@
   margin-top: 50px;
   color: rgba(255, 255, 255, 0.822);
   font-size: 10vw;
-  /* font-family: "Great Vibes", cursive; */
+  font-family: "Great Vibes", cursive;
   /* font-family: "Lobster Two", cursive; */
-  font-family: "Amatic SC", cursive;
+  /* font-family: "Amatic SC", cursive; */
 }
 .textos-header h2 {
   color: white;

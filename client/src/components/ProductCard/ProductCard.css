@@ -39,7 +39,6 @@
   color: black;
   padding: 0px;
   font-family: "Noto Serif", serif;
-  text-decoration: none;
 }
 .stock {
   margin-top: 15px;
@@ -64,11 +63,11 @@
   color: rgba(185, 30, 30, 0.774);
 }
 
-/* .titulo {
+.titulo {
   display: flex;
   align-items: center;
   justify-content: space-around;
-} */
+}
 /* BOTON */
 .boton-editar {
   background-image: url("https://c0.klipartz.com/pngpicture/529/757/gratis-png-iconos-de-la-computadora-tornillo-de-tuerca-thumbnail.png");
@@ -172,8 +171,4 @@
   margin-bottom: 80px;
   font-size: 4em;
   font-family: "Lobster", cursive;
-}
-
-.linkCard {
-  text-decoration: none;
 }

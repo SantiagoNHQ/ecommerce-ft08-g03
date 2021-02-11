@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import { addCarrito, changeEditProduct } from "../../redux/actions";
 import swal from "sweetalert"
 
+
 //  *** S10 : Crear Componente ProductCard ***
 export function ProductCard (props) {
     const [stock, setStock] = useState({stock: "", img: props.img})
@@ -101,7 +102,7 @@ export function ProductCard (props) {
     } */
 
     return (
-        <Link className='linkCard' to={ '/detalle/' + props.id } >
+        <Link /*className='linkCard'*/ to={ '/detalle/' + props.id } >
             <div className='card'>
                 <div className='titulo'>
                 <h1 className='titulo'>{props.nombre}</h1> 

@@ -2,13 +2,15 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const routes = require("./routes/index.js");
+const routes = require("./routes/index.js"); // En index.js se concentran todas las rutas de routes
 const busboy = require("connect-busboy");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { User } = require("./db");
+
+var bcrypt = require("bcryptjs");
 const Sequelize = require("sequelize");
 
 // const cors = require("cors");
@@ -67,17 +69,28 @@ passport.use(
         ], "id", "nombre", "apellido", "nombreDeUsuario", "email", "admin", "createdAt", "updatedAt"
       ],
       where: {
-        nombreDeUsuario: username
-      }
+
+        nombreDeUsuario: username,
+        // clave: bcrypt.hashSync("bacon", 8),
+      },
     })
       .then((res) => {
-        console.log("LINEA 54 APP ", res);
-        if (res.clave === password) {
-          console.log("ESTO ES LA RESPUESTA", res.dataValues);
+        // var hash = res.dataValues.clave;
+        console.log("hash: ", res.dataValues.clave);
+        // var comp = bcrypt.compareSync("bacon", hash); // true
+        if (bcrypt.compareSync("bacon", res.dataValues.clave)) {
+          console.log("ESTO ES LA RESPUESTA", res.dataValues.clave);
           return done(null, res.dataValues);
         } else {
           return done(null, false);
         }
+        // console.log("LINEA 54 APP");
+        // if (res) {
+        //   console.log("ESTO ES LA RESPUESTA", res.dataValues.clave);
+        //   return done(null, res.dataValues);
+        // } else {
+        //   return done(null, false);
+        // }
       })
       .catch((err) => {
         console.log("ERRORRRRRRRRRRRRRR LINEA 63");

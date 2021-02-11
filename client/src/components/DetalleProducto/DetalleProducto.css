@@ -1,0 +1,48 @@
+.nivel1 {
+  height: 1200px;
+  width: 80em;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0px auto;
+}
+
+.detalleProducto {
+  height: 600px;
+  display: flexbox;
+  margin-top: 20px;
+  column-count: 2;
+  flex-direction: initial;
+
+  margin-bottom: 15px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.cardProducto {
+  align-items: center;
+  margin-top: 20px;
+}
+
+.divimagen {
+  /* align-items: center; */
+  height: auto;
+  width: auto;
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  /* margin: 0px auto; */
+  justify-content: space-around;
+}
+
+.divimagen img {
+  margin: 0px auto;
+  width: 50%;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.reviewsClass {
+  display: flex;
+  /* margin-top: 100px; */
+}
