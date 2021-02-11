@@ -47,18 +47,7 @@ server.post("/", (req, res) => {
 // S36 : Crear Ruta que retorne todos los Usuarios
 server.get("/", (req, res) => {
   User.findAll()
-    // User.findAll({
-    //   attributes: [
-    //     [
-    //       Sequelize.fn(
-    //         "PGP_SYM_DECRYPT",
-    //         Sequelize.cast(Sequelize.col("clave"), "bytea"),
-    //         "CLAVE_TEST"
-    //       ),
-    //       "clave",
-    //     ],
-    //   ],
-    // })
+
     .then((response) => {
       res.status(200).json(response);
     })
@@ -116,32 +105,6 @@ server.put("/:id", (req, res) => {
       res.status(404).json(err);
     });
 });
-
-// S36 : Crear Ruta que retorne todos los Usuarios
-server.get(
-  "/",
-  /*isAdmin,*/ (req, res) => {
-    User.findAll()
-      // User.findAll({
-      //   attributes: [
-      //     [
-      //       Sequelize.fn(
-      //         "PGP_SYM_DECRYPT",
-      //         Sequelize.cast(Sequelize.col("clave"), "bytea"),
-      //         "CLAVE_TEST"
-      //       ),
-      //       "clave",
-      //     ],
-      //   ],
-      // })
-      .then((response) => {
-        res.status(200).json(response);
-      })
-      .catch((response) => {
-        res.send(response);
-      });
-  }
-);
 
 // S37 : Crear ruta para eliminar Usuario
 server.delete("/:id", (req, res) => {
