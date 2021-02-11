@@ -11,13 +11,9 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const { User } = require("./db");
 var bcrypt = require("bcryptjs");
 
-// const cors = require("cors");
-
 require("./db.js");
 
 const server = express();
-
-// server.use(cors());
 
 server.name = "API";
 server.use(express.urlencoded({ extended: true }));
@@ -55,24 +51,7 @@ server.use(passport.session());
 passport.use(
   new LocalStrategy(function (username, password, done) {
     User.findOne({
-      // attributes: [
-      //   [
-      //     Sequelize.fn(
-      //       "PGP_SYM_DECRYPT",
-      //       Sequelize.cast(Sequelize.col("clave"), "bytea"),
-      //       "CLAVE_TEST"
-      //     ),
-      //     "clave",
-      //   ],
-      //   "id",
-      //   "nombre",
-      //   "apellido",
-      //   "nombreDeUsuario",
-      //   "email",
-      //   "admin",
-      //   "createdAt",
-      //   "updatedAt",
-      // ],
+
       where: {
         nombreDeUsuario: username,
       },

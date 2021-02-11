@@ -86,10 +86,6 @@ export function DetalleProducto (props) {
             })            
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b5b723a609af9d865a5611a4c508dccfd99d4e4f
 
     useEffect(() => avoidWarnings(), [])
 
