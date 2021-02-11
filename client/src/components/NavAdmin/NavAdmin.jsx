@@ -25,8 +25,19 @@ export default function NavAdmin(props) {
 import "./NavAdmin.css"
 import SearchBar from '../SearchBar/SearchBar'
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 export default function NavAdmin(props) {
+
+    function salir(){
+        axios.get("http://localhost:3001/auth/logout", {withCredentials: true})
+        .then(respuesta =>{
+            window.location.replace("http://localhost:3000/")
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
     return (
         <div className='divNavbarAdmin'>
             <div className="divLinksAdmin">
@@ -41,7 +52,7 @@ export default function NavAdmin(props) {
 
                 </nav>
             </div>
-            
+            <button onClick={salir}>Salir</button>
             <div style={{marginRight: "10px"}}>
                 <SearchBar history={props.history} />
             </div> {/* La propiedad history solo la reciben los hijos directos de Route, por eso la paso por param! ;)*/}
