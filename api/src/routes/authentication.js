@@ -22,17 +22,8 @@ server.get("/", (req, res) => {
 //  http://www.passportjs.org/docs/
 //  https://stackoverflow.com/questions/18739725/how-to-know-if-user-is-logged-in-with-passport-js
 //  loggedIn: Middleware para que en get/me llegue el usuario.
-function loggedIn(req, res, next) {
-  if (req.user) {
-    next();
-  } else {
-    // res.redirect('/login');
-    next();
-    console.log("Usuario no logeado");
-  }
-}
 
-server.get("/me", loggedIn, (req, res) => {
+server.get("/me", (req, res) => {
   console.log(req.user);
   if (req.isAuthenticated()) {
     res.json(req.user);
@@ -76,5 +67,17 @@ server.post("/promote/:id", (req, res)=> {
     res.status(400)
   })
 })
+// google
+
+server.get('/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+server.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user', successRedirect: 'http://localhost:3000/' })/* ,
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('http://localhost:3000/');
+  } */);
 
 module.exports = server;

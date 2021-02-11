@@ -17,7 +17,7 @@ import Carrito from "./components/Carrito/Carrito";
 // import NavSelect from "./components/NavSelect/NavSelect";
 import axios from "axios";
 import { connect } from "react-redux";
-import { addCarrito } from "./redux/actions";
+import { addCarrito, setUser } from "./redux/actions";
 import Login from "./components/Login/Login";
 import NoAccess from "./components/NoAccess/NoAccess"
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
@@ -26,6 +26,17 @@ import OrdenUser from "./components/OrdenUser/OrdenUser";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 function App(props) {
+
+  function checkLogged() {
+    if (props.user.id) return;
+
+    axios.get("http://localhost:3001/auth/me", {
+      withCredentials: true
+    }).then(r => {
+      console.log("Respuesta del /me: ", r.data)
+      props.onAddUser(r.data)
+    }).catch(e => console.log("Error del /me: ", e))
+  }
 
   function checkAdminRoutes(id) {
     if (!props.user.admin) id = -1
@@ -68,7 +79,8 @@ function App(props) {
   
   useEffect(() => {
     avoidWarnings()
-  });
+    checkLogged()
+  }, []);
 
   return (
     <BrowserRouter>
@@ -132,6 +144,7 @@ const mapDispatchToProps = (dispatch) => {
     onAddCarrito: (text) => {
       dispatch(addCarrito(text));
     },
+    onAddUser: (user) => dispatch(setUser(user))
   };
 };
 

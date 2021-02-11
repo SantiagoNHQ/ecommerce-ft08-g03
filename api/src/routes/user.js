@@ -1,4 +1,5 @@
 const server = require("express").Router();
+const passport = require("passport");
 const {
   Product,
   Category,
@@ -15,7 +16,7 @@ const { response } = require("express");
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
   const { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
-  console.log("Body: ", req.body);
+  //console.log("Body: ", req.body);
 
 
   User.create({
@@ -25,7 +26,6 @@ server.post("/", (req, res) => {
     clave: Sequelize.fn('PGP_SYM_ENCRYPT', clave, 'CLAVE_TEST'),
     apellido,
   })
-
     .then((response) => {
       Orden.create({ userId: response.dataValues.id })
         .then((response) => {

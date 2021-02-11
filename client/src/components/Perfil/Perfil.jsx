@@ -1,8 +1,6 @@
-import {useEffect, useState} from 'react'
 import axios from 'axios'
-import { connect, useStore } from 'react-redux'
-import { ordersLoad, setUser } from "../../redux/actions";
-import { useHistory } from "react-router-dom";
+import { connect } from 'react-redux'
+//import { useHistory } from "react-router-dom";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,32 +9,18 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onSetUser: (user) => {
-            dispatch(setUser(user))
-        }
-    }
-}
-
 function Perfil(props) {
-    let history = useHistory()
-    
-    useEffect(() => {
-        axios.get("http://localhost:3001/auth/me")
-        .then(r => {
-            console.log("esto recivo", r)
-            props.onSetUser(r)
-        })
-        .catch(e => console.log("Error: ", e))
-    }, [])
+    //let history = useHistory()
 
     function salir(){
-        axios.get("http://localhost:3001/auth/logout")
+        axios.get("http://localhost:3001/auth/logout", {
+            withCredentials: true
+        })
         .then(r => {
             console.log(r)
-            props.onSetUser({})
-            history.push("/");
+            //props.onSetUser({})
+            //history.push("/");
+            window.location.replace("http://localhost:3000/")
         })
         .catch(err => {
             console.log(err)
@@ -66,6 +50,6 @@ function Perfil(props) {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Perfil)
+export default connect(mapStateToProps)(Perfil)
 
 
