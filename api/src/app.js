@@ -55,24 +55,24 @@ server.use(passport.session());
 passport.use(
   new LocalStrategy(function (username, password, done) {
     User.findOne({
-      attributes: [
-        [
-          Sequelize.fn(
-            "PGP_SYM_DECRYPT",
-            Sequelize.cast(Sequelize.col("clave"), "bytea"),
-            "CLAVE_TEST"
-          ),
-          "clave",
-        ],
-        "id",
-        "nombre",
-        "apellido",
-        "nombreDeUsuario",
-        "email",
-        "admin",
-        "createdAt",
-        "updatedAt",
-      ],
+      // attributes: [
+      //   [
+      //     Sequelize.fn(
+      //       "PGP_SYM_DECRYPT",
+      //       Sequelize.cast(Sequelize.col("clave"), "bytea"),
+      //       "CLAVE_TEST"
+      //     ),
+      //     "clave",
+      //   ],
+      //   "id",
+      //   "nombre",
+      //   "apellido",
+      //   "nombreDeUsuario",
+      //   "email",
+      //   "admin",
+      //   "createdAt",
+      //   "updatedAt",
+      // ],
       where: {
         nombreDeUsuario: username,
         // clave: bcrypt.hashSync("bacon", 8),
@@ -80,9 +80,10 @@ passport.use(
     })
       .then((res) => {
         // var hash = res.dataValues.clave;
+        console.log("password :", password);
         console.log("hash: ", res.dataValues.clave);
         // var comp = bcrypt.compareSync("bacon", hash); // true
-        if (bcrypt.compareSync("bacon", res.dataValues.clave)) {
+        if (bcrypt.compareSync(password, res.dataValues.clave)) {
           console.log("ESTO ES LA RESPUESTA", res.dataValues.clave);
           return done(null, res.dataValues);
         } else {

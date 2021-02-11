@@ -17,12 +17,15 @@ var bcrypt = require("bcryptjs");
 // S34 : Crear Ruta para creación de Usuario
 server.post("/", (req, res) => {
   var { nombre, apellido, nombreDeUsuario, email, clave } = req.body.data;
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(clave, salt);
   console.log("Body: ", req.body);
   User.create({
     nombre,
     nombreDeUsuario,
     email,
-    clave: bcrypt.hashSync("bacon", 8),
+    // clave: bcrypt.hashSync(clave, 8),
+    clave: hash,
     apellido,
   })
     .then((response) => {
@@ -95,7 +98,7 @@ server.put("/:id", (req, res) => {
       apellido,
       nombreDeUsuario,
       email,
-      clave: bcrypt.hashSync("bacon", 8),
+      clave: bcrypt.hashSync("clave", 8),
     },
     {
       where: {
@@ -117,18 +120,19 @@ server.put("/:id", (req, res) => {
 server.get(
   "/",
   /*isAdmin,*/ (req, res) => {
-    User.findAll({
-      attributes: [
-        [
-          Sequelize.fn(
-            "PGP_SYM_DECRYPT",
-            Sequelize.cast(Sequelize.col("clave"), "bytea"),
-            "CLAVE_TEST"
-          ),
-          "clave",
-        ],
-      ],
-    })
+    User.findAll()
+      // User.findAll({
+      //   attributes: [
+      //     [
+      //       Sequelize.fn(
+      //         "PGP_SYM_DECRYPT",
+      //         Sequelize.cast(Sequelize.col("clave"), "bytea"),
+      //         "CLAVE_TEST"
+      //       ),
+      //       "clave",
+      //     ],
+      //   ],
+      // })
       .then((response) => {
         res.status(200).json(response);
       })
@@ -419,7 +423,7 @@ server.put("/:id/passwordReset", (req, res) => {
   var id = req.params.id;
   var password = req.body.password;
   User.update(
-    { clave: bcrypt.hashSync("bacon", 8) },
+    { clave: bcrypt.hashSync("clave", 8) },
     {
       where: {
         id,
