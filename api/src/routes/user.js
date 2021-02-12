@@ -457,5 +457,21 @@ server.post("/send", (req, res) => {
     }   
   }); 
 });
+// Ruta para cargar datos de la compra
+server.post('/compra/:id', (req, res) => {
+  const id = req.params.id;
+  const {calle, numero, localidad, provincia, codigoPostal} = req.body;
+
+  User.update(
+    { calle, numero, localidad, provincia, codigoPostal },
+    { where: {id},
+  })
+  .then(update => {
+    res.status(200).send(update);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+})
 
 module.exports = server;

@@ -38,6 +38,21 @@ module.exports = (sequelize) => {
     },
     googleId: {
       type: DataTypes.TEXT
+    },
+    calle: {
+      type: DataTypes.TEXT
+    },
+    numero: {
+      type: DataTypes.NUMBER
+    },
+    localidad: {
+      type: DataTypes.TEXT
+    },
+    provincia: {
+      type: DataTypes.TEXT
+    },
+    codigoPostal: {
+      type: DataTypes.NUMBER
     }
   });
 };
