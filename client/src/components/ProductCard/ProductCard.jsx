@@ -102,7 +102,7 @@ export function ProductCard (props) {
     } */
 
     return (
-        <Link /*className='linkCard'*/ to={ '/detalle/' + props.id } >
+        <Link className='linkCard' to={ '/detalle/' + props.id } >
             <div className='card'>
                 <div className='titulo'>
                 <h1 className='titulo'>{props.nombre}</h1> 

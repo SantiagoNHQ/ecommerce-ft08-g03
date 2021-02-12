@@ -1,15 +1,17 @@
 const server = require("express").Router();
-const {Orden} = require("../db")
+const { Orden } = require("../db");
 
 const mercadopago = require("mercadopago");
 const { response } = require("express");
 
-const {ACCESS_TOKEN}= process.env;
+const { ACCESS_TOKEN } = process.env;
 
 mercadopago.configure({
-    access_token: ACCESS_TOKEN
+  access_token: ACCESS_TOKEN,
 });
 
+server.post("/", (req, res, next) => {
+  console.log("ACA ESTOYYYY", req.body);
 
 server.post("/:id", (req, res, next)=> {
     console.log("ACA ESTOYYYY", req.body)
@@ -46,18 +48,20 @@ server.post("/:id", (req, res, next)=> {
         }
     };
 
-    mercadopago.preferences.create(preference)
+  mercadopago.preferences
+    .create(preference)
 
-    .then(response => {
-        console.info("respondio")
-        global.id = response.body.id;
-        console.log(response.body);
-        res.json({id: global.id})
+    .then((response) => {
+      console.info("respondio");
+      global.id = response.body.id;
+      console.log(response.body);
+      res.json({ id: global.id });
     })
-    .catch(err => {
-        console.log(err)
-    })
-})
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 
 server.get("/pagos", (req, res)=> {
     console.info("en la ruta pagos ", req)
@@ -83,6 +87,6 @@ server.get("/pagos", (req, res)=> {
          return res.redirect("http://localhost:3000/error")
     })  
 
-
 })
+
 module.exports = server;
