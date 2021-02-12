@@ -149,7 +149,7 @@ function App(props) {
         <Route exact path="/user/perfil" component={Perfil} />
         <Route exact path="/user/ordenes" component={OrdenUser} />
 
-        <Route exact path="/user/mercadopago" component={mercadoPago} />
+        <Route exact path="/user/pagar" component={mercadoPago} />
         {/*                                                    categoria = {"Vinos"} */}
         <Route exact path="/user/finalizarcompra" component={FinalizarCompra} />
         {/* GUEST ROUTES! */}
