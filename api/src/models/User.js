@@ -43,7 +43,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT
     },
     numero: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },
     localidad: {
       type: DataTypes.TEXT
@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT
     },
     codigoPostal: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     }
   });
 };

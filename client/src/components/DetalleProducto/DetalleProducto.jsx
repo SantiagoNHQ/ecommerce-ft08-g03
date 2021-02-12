@@ -71,15 +71,19 @@ const DivContDescrip = styled.div`
 
 //  *** S10 : Crear Componente ProductCard ***
 
-export function DetalleProducto(props) {
+function DetalleProducto(props) {
     var id = props.match.params.id
-    const [producto, setProducto] = useState()
+    const [producto, setProducto] = useState(null)
+    const [imagen, setImagen] = useState(null)
 
     function avoidWarnings() {
         if (!producto) axios.get(`http://localhost:3001/product/${id}`)
             .then(response => {
                 console.log(response)
                 setProducto(response.data)
+                if (!response.data.img || !(response.data.img.includes("http") || response.data.img.includes("www"))) {
+                    setImagen("http://localhost:3001/upload/" + response.data.img)
+                } else setImagen(response.data.img)
             })
             .catch(err => {
                 console.log("ERROR")
@@ -98,7 +102,7 @@ export function DetalleProducto(props) {
                         <DivContTitImg>
                             <Title>{producto.nombre}</Title>
                             <DivCenter>
-                                <Imagen alt={producto.nombre} src={producto.img}></Imagen>
+                                <Imagen alt={producto.nombre} src={imagen}></Imagen>
                             </DivCenter>
                         </DivContTitImg>
                         <DivContDescrip>
