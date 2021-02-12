@@ -431,6 +431,7 @@ server.get("/:id/orders/completas", (req, res) => {
 
 // Ruta para cargar datos de la compra
 server.post('/compra/:id', (req, res) => {
+  console.log("SOY BODYY", req.body)
   const id = req.params.id;
   const {calle, numero, localidad, provincia, codigoPostal} = req.body;
 
