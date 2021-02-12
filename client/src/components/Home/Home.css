@@ -20,19 +20,20 @@
   /* font-family: "Amatic SC", cursive; */
 }
 .textos-header h2 {
+  font-size: 3em;
   color: white;
   font-family: "Poiret One", cursive;
 }
 
 .textos-header span {
-  color: #c41919d8;
+  color: #690a0ad8;
 }
 /* HEADER */
 header {
   height: 500px;
   margin-top: -25px;
-  background-size: auto;
-  background-attachment: fixed;
+  background-size:cover;
+  background-attachment:fixed;
   /* justify-content: space-around; */
   position: relative;
   background-image: linear-gradient(

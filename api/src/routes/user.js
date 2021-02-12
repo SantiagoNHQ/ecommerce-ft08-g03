@@ -429,6 +429,34 @@ server.get("/:id/orders/completas", (req, res) => {
     });
 });
 
+server.post("/send", (req, res) => {   
+  // const userEmail = req.body.email;   
+  var transporte = nodemailer.createTransport({     
+    host: "smtp.ethereal.email",     
+    post: 587,     
+    secure: false,     
+    auth: {       
+      user: "murl.mccullough38@ethereal.email",       
+      pass: "qVFWX1Rb58BsxZ6MtB",     
+    },   
+  });   
+  console.log("TRANSPORTE: ", transporte);   
+  console.log("OPCIONES: ", mailOptions);   
+  var mailOptions = {     
+    from: "WeAreWine",     
+    to: "ben@gmail.com",     
+    subject: "Enviado desde nodemailer",     
+    text: "Este es el texto del email",   
+  };    
+  transporte.sendMail(mailOptions, (error, info) => {     
+    if (error) {       
+      res.status(500).send(error.message);     
+    } else {       
+      console.log("Email enviado correctamente.");       
+      res.status(200).json(req.body);     
+    }   
+  }); 
+});
 // Ruta para cargar datos de la compra
 server.post('/compra/:id', (req, res) => {
   console.log("SOY BODYY", req.body)

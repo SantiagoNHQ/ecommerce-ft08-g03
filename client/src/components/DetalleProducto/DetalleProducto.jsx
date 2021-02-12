@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, {useState, useEffect} from "react";
-import {connect} from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
 import { Reviews } from "../Reviews/Reviews";
 
 //  En este componente vamos a trabajar con styled-component
@@ -26,11 +26,11 @@ background-size: 100% 100%;
 // background-color: #faebd7;
 
 `
-const DivContColumns=styled.div`
+const DivContColumns = styled.div`
     display: flex;
     align-items: center;
 `;
-const DivContTitImg=styled.div`
+const DivContTitImg = styled.div`
     margin: 1rem;
 `;
 const DivCenter = styled.div`
@@ -53,7 +53,7 @@ const Imagen = styled.img`
 
 `;
 
-const DivContDescrip=styled.div`
+const DivContDescrip = styled.div`
     margin: 1rem;
     width: 70%;
     font-size: 1.2em;
@@ -69,19 +69,23 @@ const DivContDescrip=styled.div`
 
 //  *** S10 : Crear Componente ProductCard ***
 
-export function DetalleProducto (props) {
+function DetalleProducto(props) {
     var id = props.match.params.id
-    const [producto, setProducto] = useState()
+    const [producto, setProducto] = useState(null)
+    const [imagen, setImagen] = useState(null)
 
     function avoidWarnings() {
         if (!producto) axios.get(`http://localhost:3001/product/${id}`)
-            .then (response => {
+            .then(response => {
                 console.log(response)
                 setProducto(response.data)
+                if (!response.data.img || !(response.data.img.includes("http") || response.data.img.includes("www"))) {
+                    setImagen("http://localhost:3001/upload/" + response.data.img)
+                } else setImagen(response.data.img)
             })
             .catch(err => {
-                console.log ("ERROR")
-            })            
+                console.log("ERROR")
+            })
     }
 
     useEffect(() => avoidWarnings(), [])
@@ -94,15 +98,15 @@ export function DetalleProducto (props) {
                 {producto &&
                     <DivContColumns>
                         <DivContTitImg>
-                            <Title>{producto.nombre}</Title> 
+                            <Title>{producto.nombre}</Title>
                             <DivCenter>
-                            <Imagen  alt={producto.nombre} src={producto.img}></Imagen>
-                            </DivCenter>             
+                                <Imagen alt={producto.nombre} src={imagen}></Imagen>
+                            </DivCenter>
                         </DivContTitImg>
                         <DivContDescrip>
                             {/* <h4 className='precioP'><span>$</span>{producto.precio}</h4> */}
                             {/* <h3 className='stock'><span>Stock:</span> {producto.stock}</h3>  */}
-                            <h3>{producto.descripcion}</h3> 
+                            <h3>{producto.descripcion}</h3>
                             {/* <h3><span>elaboracion:</span> {producto.elaboracion}</h3>
                             <h3><span>origen:</span> {producto.origen}</h3>
                             <h3><span>tipo:</span> {producto.tipo}</h3>
@@ -110,8 +114,8 @@ export function DetalleProducto (props) {
                         </DivContDescrip>
                     </DivContColumns>
                 }
-                <Reviews id={id}/>
-            </DivContN2>     
+                <Reviews id={id} />
+            </DivContN2>
             {/* <ReviewsDiv> */}
             {/* </ReviewsDiv> */}
         </DivContN1>
