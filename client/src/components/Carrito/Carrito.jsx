@@ -201,7 +201,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     function comprar() {
         if(user.id) {
             // console.log()
-            history.push("/user/finalizarcompra");
+            history.push("/user/pagar");
         } else {
             swal({
                 title: "Debe registarse para continuar",

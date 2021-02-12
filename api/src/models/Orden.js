@@ -16,17 +16,17 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: "carrito" // (carrito, creada, procesando, cancelada, completa)
     },
-    // paymentid: {
-    //   Type: DataTypes.INTEGER,
-    //   defaultValue: 0
-    // },
-    // paymentstatus: {
-    //   Type: DataTypes.STRING,
-    //   defaultValue: ""
-    // },
-    // merchantorderid: {
-    //   Type: DataTypes.BIGINT,
-    //   defaultValue: 0
-    // }
+    paymentid: {
+      type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    paymentstatus: {
+      type: DataTypes.STRING,
+        defaultValue: ""
+    },
+    merchantorderid: {
+      type: DataTypes.STRING,
+        defaultValue: 0
+    }
   })
 };
