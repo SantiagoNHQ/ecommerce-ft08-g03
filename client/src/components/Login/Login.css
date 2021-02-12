@@ -53,3 +53,7 @@ h1 {
   height: 25px;
   border-radius: 50px;
 }
+
+.iniciarSesion h1 {
+  color: white;
+}
