@@ -42,6 +42,11 @@ h1 {
   font-size: 0.8em;
 }
 
+.iniciarSesion button {
+  background: #dd4b39;
+  color: white;
+}
+
 .botonLogin {
   margin-top: 40px;
   width: 100px;
