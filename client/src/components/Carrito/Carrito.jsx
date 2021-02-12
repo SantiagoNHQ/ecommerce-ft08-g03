@@ -200,7 +200,8 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     let history = useHistory()
     function comprar() {
         if(user.id) {
-
+            // console.log()
+            history.push("/user/finalizarcompra");
         } else {
             swal({
                 title: "Debe registarse para continuar",

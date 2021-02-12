@@ -23,6 +23,7 @@ import NoAccess from "./components/NoAccess/NoAccess";
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 import Perfil from "./components/Perfil/Perfil";
 import OrdenUser from "./components/OrdenUser/OrdenUser";
+import FinalizarCompra from "./components/FinalizarCompra/FinalizarCompra";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 function App(props) {
@@ -146,6 +147,7 @@ function App(props) {
         <Route exact path="/user/perfil" component={Perfil} />
         <Route exact path="/user/ordenes" component={OrdenUser} />
         {/*                                                    categoria = {"Vinos"} */}
+        <Route exact path="/user/finalizarcompra" component={FinalizarCompra} />
         {/* GUEST ROUTES! */}
         <Route exact path="/user/nuevo" component={() => checkGuestRoutes(0)} />
         <Route
