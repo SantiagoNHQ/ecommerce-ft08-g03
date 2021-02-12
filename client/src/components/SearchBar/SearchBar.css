@@ -11,28 +11,31 @@ body {
 /* NAVBAR */
 
 .boton {
-  margin-top: -5px;
   color: black;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background-color: white;
+  outline: none;
 }
 
 /* SEARCHBAR */
 .buscador {
   display: flex;
   align-items: center;
+  margin-right: 30px;
 }
 
 .input {
   border: none;
-  background-color: #9e2e2e;
+  background-color: #792d2d;
   outline: none;
-  color: white;
-  font-size: 18px;
+  color: rgba(255, 255, 255, 0.678);
+  font-size: 20px;
   border-radius: 20px;
   height: 40px;
+  width: 250px;
+  margin-right: -39px;
 }
 
 .multiselect {
