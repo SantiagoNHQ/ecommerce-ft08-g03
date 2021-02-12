@@ -6,6 +6,7 @@ const categoryRouter = require("./category");
 const userRouter = require("./user");
 const fileUpload = require("./fileUpload");
 const authentication = require("./authentication");
+const mercadoPago = require("./mercadoPago");
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/category", categoryRouter);
 router.use("/user", userRouter);
 router.use("/upload", fileUpload);
 router.use("/auth", authentication);
+router.use("/mercadopago", mercadoPago);
 
 module.exports = router;
