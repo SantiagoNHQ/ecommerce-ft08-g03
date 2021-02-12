@@ -24,6 +24,8 @@ import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 import Perfil from "./components/Perfil/Perfil";
 import OrdenUser from "./components/OrdenUser/OrdenUser";
 import mercadoPago from "./components/MercadoPago/MercadoPago";
+import FinalizarCompra from "./components/FinalizarCompra/FinalizarCompra";
+
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 function App(props) {
@@ -149,6 +151,7 @@ function App(props) {
 
         <Route exact path="/user/mercadopago" component={mercadoPago} />
         {/*                                                    categoria = {"Vinos"} */}
+        <Route exact path="/user/finalizarcompra" component={FinalizarCompra} />
         {/* GUEST ROUTES! */}
         <Route exact path="/user/nuevo" component={() => checkGuestRoutes(0)} />
         <Route
