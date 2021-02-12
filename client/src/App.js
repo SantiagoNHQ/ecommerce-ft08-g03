@@ -23,6 +23,7 @@ import NoAccess from "./components/NoAccess/NoAccess";
 import DetalleProducto from "./components/DetalleProducto/DetalleProducto";
 import Perfil from "./components/Perfil/Perfil";
 import OrdenUser from "./components/OrdenUser/OrdenUser";
+import mercadoPago from "./components/MercadoPago/MercadoPago";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 function App(props) {
@@ -145,6 +146,8 @@ function App(props) {
         {/* pero algo había que poner, no? */}
         <Route exact path="/user/perfil" component={Perfil} />
         <Route exact path="/user/ordenes" component={OrdenUser} />
+
+        <Route exact path="/user/mercadopago" component={mercadoPago} />
         {/*                                                    categoria = {"Vinos"} */}
         {/* GUEST ROUTES! */}
         <Route exact path="/user/nuevo" component={() => checkGuestRoutes(0)} />
