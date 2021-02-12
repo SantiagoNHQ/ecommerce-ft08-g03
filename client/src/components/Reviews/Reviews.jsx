@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 
-const ReviewsDiv= styled.div`
+const ReviewsDiv = styled.div`
 font-family: "Poiret One", cursive;
 color: maroon;
 padding: 10px;
@@ -26,51 +26,38 @@ margin-bottom: 5px;
 
 
 //  *** S10 : Crear Componente ProductCard ***
-export function Reviews (props) {
+export function Reviews(props) {
     const [review, setReview] = useState([])
 
     let avoidWarnings = () => {
-        axios.get("http://localhost:3001/product/"+props.id+"/review")
-            .then (response => {
+        axios.get("http://localhost:3001/product/" + props.id + "/review")
+            .then(response => {
                 console.log("Hola es Armando :", response.data);
                 setReview(response.data)
             })
             .catch(err => {
-                console.log ("ERROR")
+                console.log("ERROR")
             })
     }
 
     useEffect(() => {
         avoidWarnings()
-    },[])
-    
+    }, [])
+
 
     return (
         <ReviewsDiv>
             {!review[0] && <h3>No hay reviews para este producto.</h3>}
             <h2 >Lo que opinan los clientes...</h2>
-            <hr></hr> 
-            {review && review.map((pos) => 
+            <hr></hr>
+            {review && review.map((pos) =>
                 <DivA>
                     <Reviewsp>-{pos.user.nombre} {pos.user.apellido}: {pos.descripcion}</Reviewsp>
                     <Reviewsp>-calificacion: {pos.calificacion} {'estrellas...'}</Reviewsp>
-                    <hr></hr> 
+                    <hr></hr>
                 </DivA>
-                ) 
+            )
             }
         </ReviewsDiv>
     )
-
-    // return (
-    //     <div>
-    //         {!review[0] && <h3>No hay reviews para este producto.</h3>}
-    //         {review && review.map((pos) => 
-    //             <div>
-    //                 <h1>descripcion: {pos.descripcion}</h1>
-    //                 <h1>calificacion: {pos.calificacion}</h1>
-    //             </div>
-    //             ) 
-    //         }
-    //     </div>
-    // )
 }

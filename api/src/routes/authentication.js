@@ -1,8 +1,6 @@
 const server = require("express").Router();
 const passport = require("passport");
-const sequelize = require("sequelize");
 const nodemailer = require("nodemailer");
-var bcrypt = require("bcryptjs");
 
 const {
   User,
@@ -84,7 +82,6 @@ server.get(
 );
 
 server.post("/send-email", (req, res) => {
-  // const userEmail = req.body;
   var transporte = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
@@ -97,22 +94,22 @@ server.post("/send-email", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  // console.log("TRANSPORTE: ", transporte);
-  // console.log("OPCIONES: ", mailOptions);
+
   var mailOptions = {
     from: "WeAreWine",
-    to: "armanditous@gmail.com",
+    to: "haguerrerob@gmail.com",
     subject: "Enviado desde nodemailer",
     text: "Este es el texto del email",
   };
 
   transporte.sendMail(mailOptions, (error, info) => {
     if (error) {
-      res.status(500);
-      return console.log(error);
+      console.log(error);
+      res.status(500).send(error.message);
     } else {
       res.status(200);
-      return console.log("Email enviado correctamente.", info.messageId);
+      console.log("Email enviado correctamente.");
+      res.status(200).jsonp(info);
     }
   });
 });
