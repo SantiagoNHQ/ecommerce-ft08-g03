@@ -10,16 +10,15 @@ import styled from 'styled-components'
 const DivContN1 = styled.div`
 display: flex;
 justify-content: center;
-height: 1200px;
+height: 900px;
 background-color: white;
-background-image: url("https://i.postimg.cc/VNGVXRjF/wood-4466.jpg");
+background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/3YNTSVQ5WBH5DHQNAMHI6XD2C4.jpg");
 background-repeat: no-repeat;
 background-size: 100% 100%;
-// opacity: 0.6;
 `
 const DivContN2 = styled.div`
 margin-top: 2%;
-width: 60%;
+width: 80%;
 // border: 1px solid black;
 // background-image: url("https://i.postimg.cc/VNGVXRjF/wood-4466.jpg");
 background-repeat: no-repeat;
@@ -51,7 +50,6 @@ const Imagen = styled.img`
     width: 80%;
     height: 60%; 
     // border: 1px solid black;
-    opacity: 0.6;
 
 `;
 

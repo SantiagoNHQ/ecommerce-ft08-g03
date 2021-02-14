@@ -101,14 +101,16 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
 
       <div className='nuevo-div'>
         <div className='div-img-dada'>
-        <img src="https://lossaboresdemexico.com/wp-content/uploads/2014/10/IMG_0340.jpg" alt="img" />
-          {/* <img src="https://lh3.googleusercontent.com/proxy/Vkk8iUJudQOkQDYnonYaArEXazcuGN7OXQVG4NKgPrVayyMzGbj76F71TxaG4bTGkdwzVEDIcPR_LFr0wlWSffwaw3gH5KStyhw" alt="img" /> */}
+        <img src="https://image.flaticon.com/icons/png/512/88/88271.png" alt="img" />
           <div className='div-texto-dada'>
             <h1>Contactanos</h1>
+              <div className='divReserva'>
+            <p>Reserve su plaza para visitas guiadas por nuestros campos de cultivos y cata de nuestra mejor reserva</p>
+            </div>
             <div className='divContactos'>
-            <p>wearewine@drinks.com</p>
+            <p>wearewine<span>@</span>drinks.com</p>
             <p>/</p>
-            <p>351-7452896</p>
+            <p>(<span>351</span>) 173-4965</p>
             </div>
           </div>
         </div>
