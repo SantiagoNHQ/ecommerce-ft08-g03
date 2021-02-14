@@ -90,8 +90,7 @@ function SearchBar({search, onSearchChange, onSearchClick}) { // search = state.
                     </select>
                 </div>
             </div>
-        </form>
-        <button className='boton' onClick={ submit }></button>
+        </form> */}
         </div>
 )
 }

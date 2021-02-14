@@ -1,8 +1,6 @@
 const server = require("express").Router();
 const passport = require("passport");
-const sequelize = require("sequelize");
 const nodemailer = require("nodemailer");
-var bcrypt = require("bcryptjs");
 
 const {
   User,
@@ -82,6 +80,7 @@ server.get(
     res.redirect('http://localhost:3000/');
   } */
 );
+
 
 server.get("/send-email/:email", (req, res) => {
   const email = req.params.email
