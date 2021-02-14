@@ -10,9 +10,9 @@ mercadopago.configure({
   access_token: ACCESS_TOKEN,
 });
 
+
 server.post("/:id", (req, res, next) => {
   console.log("ACA ESTOYYYY", req.body);
-
   const id_orden = req.params.id;
   console.log("SOYY ORDEN ID", id_orden);
 
