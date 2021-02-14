@@ -83,8 +83,10 @@ server.get(
   } */
 );
 
-server.post("/send-email", (req, res) => {
-  // const userEmail = req.body;
+server.get("/send-email/:email", (req, res) => {
+  const email = req.params.email
+  // console.log("SOY TU BODY", req.body)
+  // const {mailOptions} = req.body
   var transporte = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
@@ -97,21 +99,21 @@ server.post("/send-email", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  // console.log("TRANSPORTE: ", transporte);
-  // console.log("OPCIONES: ", mailOptions);
+  console.log("TRANSPORTE: ", transporte);
   var mailOptions = {
     from: "WeAreWine",
-    to: "armanditous@gmail.com",
+    to: email,
     subject: "Enviado desde nodemailer",
     text: "Este es el texto del email",
   };
-
+  console.log("OPCIONES: ", mailOptions);
+ console.log("SOY MAILOPTIONS", mailOptions)
   transporte.sendMail(mailOptions, (error, info) => {
     if (error) {
-      res.status(500);
+      res.status(200).send(error);
       return console.log(error);
     } else {
-      res.status(200);
+      res.status(200).json(info.messageId)
       return console.log("Email enviado correctamente.", info.messageId);
     }
   });

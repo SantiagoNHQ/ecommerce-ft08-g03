@@ -22,7 +22,8 @@ export function MercadoPago(props){
   var obj = carrito.map(i => ({
     title: i.nombre,
     unit_price: i.precio,
-    quantity: i.cantidad
+    quantity: i.cantidad,
+    ordenId: i.ordenId
   }))
   console.log("OBJJJJ", obj)
   var obj1= {data: obj}
@@ -40,10 +41,10 @@ export function MercadoPago(props){
     })
   },[])
   
-  const productos = [
-    {title: "producto 1", quantity: 5, price: 10},
-    {title: "producto 2", quantity: 3, price: 5}
-  ]
+  // const productos = [
+  //   {title: "producto 1", quantity: 5, price: 10},
+  //   {title: "producto 2", quantity: 3, price: 5}
+  // ]
 
   return (
     <div>
