@@ -53,6 +53,18 @@ module.exports = (sequelize) => {
     },
     codigoPostal: {
       type: DataTypes.INTEGER
-    }
+    },
+    numeroDeTarjeta: {
+      type: DataTypes.INTEGER,
+    },
+    nombreT: {
+      type: DataTypes.STRING,
+    },
+    fechaDeExpiracion: {
+      type: DataTypes.STRING,
+    },
+    codigoDeSeguridad: {
+      type: DataTypes.INTEGER,
+    },
   });
 };

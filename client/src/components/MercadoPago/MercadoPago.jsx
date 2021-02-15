@@ -23,13 +23,15 @@ export function MercadoPago(props) {
   var obj = carrito.map(i => ({
     title: i.nombre,
     unit_price: i.precio,
-    quantity: i.cantidad
+    quantity: i.cantidad,
+    ordenId: i.ordenId
   }))
   console.log("OBJJJJ", obj)
   var obj1 = { data: obj }
 
   console.log("OBJJJJ1", obj1)
   console.log("ORDEN IDDD", props.carrito[0].ordenId)
+<<<<<<< HEAD
   useEffect(() => {
     axios.post("http://localhost:3001/mercadopago/" + carrito[0].ordenId, obj1)
       .then(data => {
@@ -45,6 +47,23 @@ export function MercadoPago(props) {
     { title: "producto 1", quantity: 5, price: 10 },
     { title: "producto 2", quantity: 3, price: 5 }
   ]
+=======
+  useEffect(()=> {
+    axios.post("http://localhost:3001/mercadopago/"+carrito[0].ordenId, obj1)
+    .then(data => {
+      setDatos(data.data)
+      console.info("contenido de data:", data)
+    })
+    .catch(err =>{
+      console.error(err)
+    })
+  },[])
+  
+  // const productos = [
+  //   {title: "producto 1", quantity: 5, price: 10},
+  //   {title: "producto 2", quantity: 3, price: 5}
+  // ]
+>>>>>>> 2b454e0a1564982cde4e7f45e47391844deb1bc4
 
   return (
     <div>

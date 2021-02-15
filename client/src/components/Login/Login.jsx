@@ -62,7 +62,8 @@ export default function NuevoUsuario(props) {
                 <input key="username" type="text" placeholder="Nombre de Usuario" onChange={cambios} name="username" />
                 <input key="password" onKeyPress={submitEnter} type="password" placeholder="Contraseña" onChange={cambios} name="password" />
                 <input className='botonLogin' type="submit" key="boton" value="Entrar" />
-                <button onClick={google}>Entrar con Google</button>
+                <span>o continue con</span>
+                <button className='botonGoogle' onClick={google}><span className="../img/search.png"></span><span>Google</span></button>
             </form>
         </div>
     )

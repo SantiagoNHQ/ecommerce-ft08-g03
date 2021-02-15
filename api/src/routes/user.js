@@ -476,4 +476,29 @@ server.post('/compra/:id', (req, res) => {
     })
 })
 
+// Ruta para cargar datos de la tarjeta
+server.post("/tarjeta/:id", (req, res) => {
+  console.log("SOY BODYY", req.body)
+  const id = req.params.id;
+  const {numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad, ordenId} = req.body;
+
+  User.update(
+    { numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad },
+    { where: {id},
+  })
+  .then(update => {
+    return Orden.update(
+      {estado: "creada"},
+      {where: {id: ordenId}}
+  )})
+  .then(respuesta => {
+    console.log("ALLLLLLLLLLGOOOO")
+    res.send(respuesta);
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+})
+
 module.exports = server;

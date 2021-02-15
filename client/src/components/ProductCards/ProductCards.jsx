@@ -1,5 +1,5 @@
 // import React, { useEffect, useState } from "react";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./ProductCards.css";
 import ProductCard from "../ProductCard/ProductCard.jsx"
 import axios from "axios";
@@ -25,8 +25,9 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
   //const [cards , setCards] = useState([]) ahora es products
   console.log("Productos: ", products)
 
-  useEffect(() => {
+  const [state, setState] = useState()
 
+  useEffect(() => {
     /* axios.get(`http://localhost:3001/product`)
     .then(r => setCards(r.data)).catch(e => console.log("ERROR: ", e)) */
     let ruta = ""
@@ -36,7 +37,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
     axios.get(ruta /* + !search ? `` : `/busqueda/${search}` */
     ).then(r => {
       // Iterar sobre r y filtrar por categoría
-
+      
       if (categoria) {
         axios.get("http://localhost:3001/category").then(rr => {
           // Data es la categoria
@@ -44,7 +45,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
           data = data.filter(v => categoria === v.nombre)[0].id
           console.log("Id cat: ", data)
           console.log("R: ", r)
-
+          
           r = r.data.filter(v => {
             for (var i = 0; i < v.categories.length; i++) {
               if (v.categories[i].id === data) return true
@@ -57,15 +58,33 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
         }).catch(err => console.log("Axios err: ", err))
         
       }
-
+      
       //setCards(r.data)
       onProductsLoad(r.data)
     }).catch(e => console.log("NO RESOLVIÓ: ", e))
+    axios.get("http://localhost:3001/category/")
+    .then(respuesta => {
+        setState(respuesta.data)
+        console.log("CATEGORIAS", respuesta.data)
+    })
   }, [categoria, search, onProductsLoad])
 
   return  (
     <div /*className='div-general-app'*/>
       <div className='divcards'>
+      {/* <form>
+            <div >
+                <div  >
+                    {state && state.map(pos => {
+                             <div>
+                                <option value={pos.nombre}>{pos.nombre}</option>
+                            </div>
+
+                    }
+                    )}
+                </div>
+            </div>
+        </form> */}
       {
         (categoria || search) && <div>Filtrando por: <br/>
         - Busqueda: {search} <br/>

@@ -15,8 +15,8 @@ body {
   align-items: center;
   /* background-color: rgba(158, 22, 22, 0.733); */
   justify-content: space-between;
-  height: 50px;
-  background-color: rgba(158, 22, 22, 0.733);
+  height: 57px;
+  background: linear-gradient(50deg, #723232, #ac3737);
 }
 
 .divLinksGuest {
