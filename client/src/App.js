@@ -31,7 +31,6 @@ import FinalizarCompra from "./components/FinalizarCompra/FinalizarCompra";
 function App(props) {
   function checkLogged() {
     if (props.user.id) return;
-
     axios
       .get("http://localhost:3001/auth/me", {
         withCredentials: true,
@@ -97,13 +96,14 @@ function App(props) {
     checkLogged();
   }, []);
 
+  
+
   return (
     <BrowserRouter>
       <React.Fragment>
         {/* NAVBAR! */}
         <Route
-          path="/"
-          component={() => {
+          path="/" component={() => {
             if (props.user.admin) return <NavAdmin />;
             else if (props.user.id) return <NavBar />;
             else return <NavBarGuest />;

@@ -9,6 +9,7 @@ const {
   ProductAndCategory,
   Review,
 } = require("../db");
+const { singularize } = require("sequelize");
 // urlecoded sirve para leer los datos de los inputs, cosa que express por si solo no lo hace
 
 server.get("/", (req, res) => {
@@ -80,6 +81,7 @@ server.get(
     res.redirect('http://localhost:3000/');
   } */
 );
+
 
 server.post("/send-email", (req, res) => {
   var transporte = nodemailer.createTransport({

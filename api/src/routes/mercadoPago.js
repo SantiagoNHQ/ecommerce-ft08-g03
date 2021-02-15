@@ -10,9 +10,6 @@ mercadopago.configure({
   access_token: ACCESS_TOKEN,
 });
 
-server.post("/", (req, res, next) => {
-  console.log("ACA ESTOYYYY", req.body);
-
 server.post("/:id", (req, res, next)=> {
     console.log("ACA ESTOYYYY", req.body)
 
@@ -87,6 +84,6 @@ server.get("/pagos", (req, res)=> {
          return res.redirect("http://localhost:3000/error")
     })  
 
-})
+});
 
 module.exports = server;

@@ -1,16 +1,16 @@
-import React, {useState, useEffect}  from 'react';
+import React, { useState, useEffect } from 'react';
 import './Carrito.css'
-import {connect} from 'react-redux' 
-import {addCarrito} from "../../redux/actions";
+import { connect } from 'react-redux'
+import { addCarrito } from "../../redux/actions";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import swal from 'sweetalert';
 
-export function Carrito ({carrito, user, onAddCarrito, products}) {
+export function Carrito({ carrito, user, onAddCarrito, products }) {
     const [total, setTotal] = useState(0)
 
-    console.log("mi carrito", carrito )
-    console.log("productso", products )
+    console.log("mi carrito", carrito)
+    console.log("productso", products)
 
     function precioTotal(c) {
         var suma = 0
@@ -20,7 +20,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     }
 
     function loadProducts() {
-        
+
         if (!user.id) {
             let aC = localStorage.getItem('carrito')
             if (aC) {
@@ -40,12 +40,12 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
         }
         // precioTotal()
     }
-        
+
     useEffect(() => {
         loadProducts()
     }, [user])
-    
-    function editar (e, producto) { // producto.id = ID
+
+    function editar(e, producto) { // producto.id = ID
         // precioTotal()
         var stock;
         products.forEach(pos => {
@@ -53,23 +53,23 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 stock = pos.stock
             }
         })
-        var obj= {
+        var obj = {
             cantidad: e.target.value,
             productId: producto.productId
         }
-        if (e.target.value > 0 && e.target.value <= stock ) {
+        if (e.target.value > 0 && e.target.value <= stock) {
             if (user.id) {
-                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj )
-                .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
-                })
-                .then(response => {
-                    onAddCarrito(response.data)
-                    precioTotal(response.data)
-                })
-                .catch(err => {
-                    console.log("ESTO ES UN ERROR", err)
-                })
+                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj)
+                    .then(response => {
+                        return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                    })
+                    .then(response => {
+                        onAddCarrito(response.data)
+                        precioTotal(response.data)
+                    })
+                    .catch(err => {
+                        console.log("ESTO ES UN ERROR", err)
+                    })
             } else {
                 let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
                 for (let i = 0; i < arrayProductos.length; i++) {
@@ -86,17 +86,17 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
 
             if (user.id) {
                 obj.cantidad = 1
-                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj )
-                .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
-                })
-                .then(response => {
-                    onAddCarrito(response.data)
-                    precioTotal(response.data)
-                })
-                .catch(err => {
-                    console.log("ESTO ES UN ERROR", err)
-                })
+                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj)
+                    .then(response => {
+                        return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                    })
+                    .then(response => {
+                        onAddCarrito(response.data)
+                        precioTotal(response.data)
+                    })
+                    .catch(err => {
+                        console.log("ESTO ES UN ERROR", err)
+                    })
             } else {
                 let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
                 for (let i = 0; i < arrayProductos.length; i++) {
@@ -112,22 +112,22 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
             swal({
                 title: "No hay suficiente stock",
                 icon: "warning",
-              });
+            });
             e.target.value = stock
 
             if (user.id) {
                 obj.cantidad = stock
-                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj )
-                .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
-                })
-                .then(response => {
-                    onAddCarrito(response.data)
-                    precioTotal(response.data)
-                })
-                .catch(err => {
-                    console.log("ESTO ES UN ERROR", err)
-                })
+                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj)
+                    .then(response => {
+                        return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                    })
+                    .then(response => {
+                        onAddCarrito(response.data)
+                        precioTotal(response.data)
+                    })
+                    .catch(err => {
+                        console.log("ESTO ES UN ERROR", err)
+                    })
             } else {
                 let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
                 for (let i = 0; i < arrayProductos.length; i++) {
@@ -145,16 +145,16 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     function eliminar(e, producto) {
         if (user.id) {
             axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.id}`)
-            .then(response => {
-                return axios.get(`http://localhost:3001/user/cart/${user.id}`)
-            })
-            .then(response => {
-                onAddCarrito(response.data)
-                precioTotal(response.data)
-            })
-            .catch(err => {
-                console.log("ESTO ES UN ERROR", err)
-            })
+                .then(response => {
+                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                })
+                .then(response => {
+                    onAddCarrito(response.data)
+                    precioTotal(response.data)
+                })
+                .catch(err => {
+                    console.log("ESTO ES UN ERROR", err)
+                })
         } else {
             let arrayProductos = JSON.parse(localStorage.getItem('carrito'))
             console.log("ANTES DE BORRAR: ", arrayProductos)
@@ -176,16 +176,16 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     function vaciarCarrito() {
         if (user.id) {
             axios.delete(`http://localhost:3001/user/cart/${user.id}`)
-            .then(response => {
-                return axios.get(`http://localhost:3001/user/cart/${user.id}`)
-            })
-            .then(response => {
-                onAddCarrito(response.data)
-                precioTotal(response.data)
-            })
-            .catch(err => {
-                console.log("ESTO ES UN ERROR", err)
-            })
+                .then(response => {
+                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                })
+                .then(response => {
+                    onAddCarrito(response.data)
+                    precioTotal(response.data)
+                })
+                .catch(err => {
+                    console.log("ESTO ES UN ERROR", err)
+                })
         } else {
             localStorage.setItem('carrito', [])
             onAddCarrito([])
@@ -195,11 +195,11 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
         swal({
             title: "Tu carrito se ha vaciado!!",
             icon: "success",
-          });
+        });
     }
     let history = useHistory()
     function comprar() {
-        if(user.id) {
+        if (user.id) {
             // console.log()
             history.push("/user/pagar");
         } else {
@@ -207,50 +207,50 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                 title: "Debe registarse para continuar",
                 text: "...sera redirigido automaticamente",
                 icon: "info",
-              });
+            });
             history.push("/user/nuevo");
         }
     }
-    
 
-    return(
+
+    return (
         <div className='divCarrito'>
-                <h1>Carrito de compras</h1>
+            <h1>Carrito de compras</h1>
 
-                {carrito && carrito.map(producto => <div className='divProducto'>
-                    <div className='divNombre'>
+            {carrito && carrito.map(producto => <div key={producto.id} className='divProducto'>
+                <div className='divNombre'>
                     <h3>{producto.nombre}</h3>
-                    </div>
-                    <span>Precio Unidad: <span className='precio'>${producto.precio}</span></span>
-                    <div className='cantidad'>
+                </div>
+                <span>Precio Unidad: <span className='precio'>${producto.precio}</span></span>
+                <div className='cantidad'>
                     <span>Cantidad: </span>
-                    <input key={producto.id*-1} type="number" onChange={(e, product = producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
-                    </div>
-                    <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
-                    <div className='divBoton'>
-                    <img alt="imagen de producto" src='https://www.vhv.rs/dpng/d/446-4464515_trashcan-trash-can-clipart-png-garbage-can-clipart.png' className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} ></img>
-                    </div>
-                </div>)}
-                {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
-        
-                {carrito[0] && <h1>Total: ${total}</h1>}
-                {carrito[0] && <div onClick={comprar} className='vaciar'><button> Terminar Compra </button></div>}
+                    <input key={producto.id * -1} type="number" onChange={(e, product = producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad" />
+                </div>
+                <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
+                <div className='divBoton'>
+                    <img alt="imagen de producto" src='https://www.vhv.rs/dpng/d/446-4464515_trashcan-trash-can-clipart-png-garbage-can-clipart.png' className='eliminar' onClick={(e, product = producto) => eliminar(e, product)} ></img>
+                </div>
+            </div>)}
+            {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
+
+            {carrito[0] && <h1>Total: ${total}</h1>}
+            {carrito[0] && <div onClick={comprar} className='vaciar'><button> Terminar Compra </button></div>}
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-       carrito: state.carrito,
-       user: state.user,
-       products: state.products
+        carrito: state.carrito,
+        user: state.user,
+        products: state.products
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onAddCarrito: (text) => {
-        dispatch(addCarrito(text))
+            dispatch(addCarrito(text))
         }
     }
 }
