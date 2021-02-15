@@ -62,6 +62,18 @@ server.post("/promote/:id", (req, res) => {
       res.status(400);
     });
 });
+// S67: eliminar admin
+server.post("/promoteF/:id", (req, res) => {
+  var id = req.params.id;
+  User.update({ admin: false }, { where: { id } })
+    .then((response) => {
+      res.send("usuario ya no es admin");
+    })
+    .catch((err) => {
+      console.log("este error", err);
+      res.status(400);
+    });
+});
 // google
 
 server.get(
