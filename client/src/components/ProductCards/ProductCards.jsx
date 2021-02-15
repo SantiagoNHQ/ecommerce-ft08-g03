@@ -9,7 +9,8 @@ import { productsLoad } from "../../redux/actions";
 const mapStateToProps = (state) => {
   return {
       search: state.searchFilter,
-      products: state.products
+      products: state.products,
+      filtrarCategoria: state.filtrarCategoria
   }
 }
 
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-function ProductCards({search, products, categoria, onProductsLoad}) {
+function ProductCards({search, products, filtrarCategoria, onProductsLoad}) {
   //const [cards , setCards] = useState([]) ahora es products
   console.log("Productos: ", products)
 
@@ -38,23 +39,25 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
     ).then(r => {
       // Iterar sobre r y filtrar por categoría
       
-      if (categoria) {
-        axios.get("http://localhost:3001/category").then(rr => {
+      if (filtrarCategoria) {
+        axios.get("http://localhost:3001/product/categoria/"+filtrarCategoria)
+        .then(rr => {
           // Data es la categoria
           let data = rr.data
-          data = data.filter(v => categoria === v.nombre)[0].id
-          console.log("Id cat: ", data)
-          console.log("R: ", r)
+          // data = data.filter(v => categoria === v.nombre)[0].id
+          // console.log("Id cat: ", data)
+          // console.log("R: ", r)
           
-          r = r.data.filter(v => {
-            for (var i = 0; i < v.categories.length; i++) {
-              if (v.categories[i].id === data) return true
-            }
-            return false
-          })
-          console.log("R filtrado por categoria: ", r)
+          // r = r.data.filter(v => {
+          //   for (var i = 0; i < v.categories.length; i++) {
+          //     if (v.categories[i].id === data) return true
+          //   }
+          //   return false
+          // })
+          console.log("R filtrado por categoria: ", rr.data[0].products)
+          // HAY QUE ACCEDER A .PRODUCTS
           //setCards(r)
-          onProductsLoad(r)
+          onProductsLoad(rr.data[0].products)
         }).catch(err => console.log("Axios err: ", err))
         
       }
@@ -67,7 +70,7 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
         setState(respuesta.data)
         console.log("CATEGORIAS", respuesta.data)
     })
-  }, [categoria, search, onProductsLoad])
+  }, [filtrarCategoria, search, onProductsLoad])
 
   return  (
     <div /*className='div-general-app'*/>
@@ -85,11 +88,11 @@ function ProductCards({search, products, categoria, onProductsLoad}) {
                 </div>
             </div>
         </form> */}
-      {
+      {/* {
         (categoria || search) && <div>Filtrando por: <br/>
         - Busqueda: {search} <br/>
         - Categoria: {categoria} </div>
-      }
+      } */}
       {
         products && products.map(p => 
           <div key={p.id} /*className='div-productos'*/>

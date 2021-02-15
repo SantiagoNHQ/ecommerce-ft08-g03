@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
+    console.log("SOY FORM PRODUCT",categoria)
 
     useEffect(() => {
         axios.get("http://localhost:3001/category/")

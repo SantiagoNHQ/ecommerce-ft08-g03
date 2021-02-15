@@ -25,6 +25,7 @@ import Perfil from "./components/Perfil/Perfil";
 import OrdenUser from "./components/OrdenUser/OrdenUser";
 import mercadoPago from "./components/MercadoPago/MercadoPago";
 import FinalizarCompra from "./components/FinalizarCompra/FinalizarCompra";
+import UsuariosAdmin from "./components/UsuariosAdmin/UsuariosAdmin";
 
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
@@ -59,6 +60,8 @@ function App(props) {
         return <OrdersTable />;
       case 5:
         return <EditarProducto />;
+      case 6 :
+        return <UsuariosAdmin />;
 
       default:
         return <NoAccess access="administradores" />;
@@ -140,6 +143,11 @@ function App(props) {
         <Route
           path="/admin/products/editar"
           component={() => checkAdminRoutes(5)}
+          />
+          <Route
+          exact
+          path="/admin/usuarios"
+          component={() => checkAdminRoutes(6)}
         />
         {/* USER ROUTES! */}
         <Route exact path="/user/carrito" component={Carrito} />{" "}

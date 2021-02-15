@@ -49,6 +49,7 @@ export default function NavAdmin(props) {
                     <Link to="/admin/formCategory">Agregar categoria</Link>
                     {/* <Link style={{marginRight: "10px"}} to="/admin/categorias">Editar/borrar categoria</Link> */}
                     <Link to="/admin/ordenes">Ver ordenes</Link>
+                    <Link to="/admin/usuarios">Usuarios</Link>
 
                 </nav>
             </div>
