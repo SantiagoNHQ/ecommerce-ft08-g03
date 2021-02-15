@@ -1,36 +1,66 @@
 * {
-    box-sizing: border-box;
-    padding: 0%
+  box-sizing: border-box;
+  padding: 0%;
 }
 
-.formularios {
-    display: flex;
-    flex-direction: row;
-    padding: 5px;
-    margin-bottom: 10px;
-    justify-content: space-around;
+.divAgregarProducto {
+  background-image: url("../img/vinos2.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 72px;
+  justify-content: space-around;
 }
 
-.formularios h3 {
-    text-align: center;
-    font-size: 20px;
-    color: White;
+.agregarProducto h3 {
+  text-align: center;
+  font-size: 2em;
+  color: White;
+  font-family: "Lobster Two", cursive;
+  padding: 0px;
+  margin: 20px;
 }
 
 .agregarProducto {
-    width: 700px;
-    background-color: rgba(158, 22, 22, 0.733);
-    display: flex;
-    flex-direction: column;
-    padding: 2px;
-    border-color: solid black 10px;
-    border-radius: 10px;
-    margin-right: 15px;
-    padding: 10px;
-    justify-content: space-around;
+  width: 900px;
+  margin-top: 60px;
+  background-color: rgba(158, 22, 22, 0.733);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 10px;
+  justify-content: space-evenly;
 }
 .agregarProducto input {
-    border-color: solid black 5px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  border: none;
+  border-radius: 10px;
+  margin: 0px 20px 15px 20px;
+  height: 30px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
 }
+
+.divBotonAP {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.botonAP {
+  width: 120px;
+  font-size: 1.9em;
+  background: linear-gradient(50deg, #ffffff, #d8262625);
+  font-family: "Great Vibes", cursive;
+}
+
+.botonAP:hover {
+  width: 125px;
+  font-size: 1em;
+}
+
+/* font-family: "Great Vibes", cursive; */
+/* font-family: "Lobster Two", cursive; */
+/* font-family: "Amatic SC", cursive; */
+/* font-family: "Poiret One", cursive; */
