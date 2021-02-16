@@ -214,6 +214,7 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
     
 
     return(
+        <div className='divGeneralCarrito'>
         <div className='divCarrito'>
                 <h1>Carrito de compras</h1>
 
@@ -221,20 +222,27 @@ export function Carrito ({carrito, user, onAddCarrito, products}) {
                     <div className='divNombre'>
                     <h3>{producto.nombre}</h3>
                     </div>
+                    <div className='spanPrecios'>
                     <span>Precio Unidad: <span className='precio'>${producto.precio}</span></span>
+                    </div>
                     <div className='cantidad'>
                     <span>Cantidad: </span>
                     <input key={producto.id*-1} type="number" onChange={(e, product = producto) => editar(e, product)} placeholder={producto.cantidad} name="cantidad"/> 
                     </div>
+                    <div className='spanPrecios'>
                     <span>Precio Total: <span className='precioTotal'>${producto.precio * producto.cantidad}</span></span>
+                    </div>
                     <div className='divBoton'>
                     <img alt="imagen de producto" src='https://www.vhv.rs/dpng/d/446-4464515_trashcan-trash-can-clipart-png-garbage-can-clipart.png' className='eliminar' onClick={(e, product= producto) => eliminar(e, product)} ></img>
                     </div>
                 </div>)}
                 {carrito[0] && <div onClick={vaciarCarrito} className='vaciar'><button> vaciar carrito </button></div>}
         
-                {carrito[0] && <h1>Total: ${total}</h1>}
-                {carrito[0] && <div onClick={comprar} className='vaciar'><button> Terminar Compra </button></div>}
+                {carrito[0] && <div className='montoTotal'>
+                                    <h1><span>Total:</span>${total}</h1>
+                                </div>}
+                {carrito[0] && <div onClick={comprar} className='vaciar'><button> Finalizar Compra </button></div>}
+        </div>
         </div>
     )
 }

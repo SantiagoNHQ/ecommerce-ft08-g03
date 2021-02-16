@@ -23,14 +23,15 @@ export default function FormCategory(props) {
     }
 
     return (
-        <div className = 'formulario'>
+        <div className = 'divAgregarCategoria'>
             
             <form className = 'agregarCategoria' onSubmit={ submit }>
-                <h1>AGREGAR CATEGORIA</h1>
-                <input key="nombre" type="text" onChange={cambios} placeholder="nombre" name="nombre"/>
-                <input key="descripcion" type="text" onChange={cambios} placeholder="descripcion" name="descripcion"/> 
-                
-                <input type="submit" key="boton" />
+                <h1>Agregar Categoria</h1>
+                <input key="nombre" type="text" onChange={cambios} placeholder="Nombre" name="nombre"/>
+                <input key="descripcion" type="text" onChange={cambios} placeholder="Descripcion" name="descripcion"/> 
+                <div className='divBotonAC'>
+                <input className='botonAC' type="submit" key="boton" />
+                </div>
                 
             </form>
         </div>

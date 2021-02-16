@@ -2,23 +2,30 @@
   box-sizing: border-box;
 }
 
+.divGeneralCarrito {
+  background-image: url("../img/Fondo.jpg");
+  height: 900px;
+}
+
 .divCarrito {
   display: inline-block;
   align-items: center;
-  background-color: #9e2e2e;
+  background-color: rgba(158, 22, 22, 0.733);
   width: 100%;
   color: white;
   margin-top: 150px;
   padding: 25px;
   border-radius: 20px;
 }
-h1 {
+.divCarrito h1 {
   display: flex;
   justify-content: center;
   font-family: "Lobster Two", cursive;
   font-size: 3em;
   margin-top: 2px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  margin-bottom: 20px;
+  color: white;
 }
 
 .divNombre {
@@ -55,6 +62,7 @@ h1 {
   margin-left: 80px;
   font-family: "Bebas Neue", cursive;
   font-size: 1.1em;
+  margin-top: 0;
 }
 
 .cantidad span {
@@ -63,18 +71,20 @@ h1 {
 
 .divProducto .precio {
   color: #9e2e2e;
-  margin-left: 15px;
+  margin-left: 12px;
+  font-size: 1.2em;
 }
 
 .divProducto .precioTotal {
   color: #9e2e2e;
-  margin-left: 15px;
+  margin-left: 12px;
+  font-size: 1.2em;
 }
 
 .divCarrito input {
   font-family: "Great Vibes", cursive;
   color: #9e2e2e;
-  font-size: 5em;
+  font-size: 2em;
   width: 85px;
   border: none;
   background-color: white;
@@ -86,10 +96,10 @@ h1 {
   align-items: center;
   justify-content: space-around;
   background-color: white;
-  height: 100%;
   font-size: 1.2em;
   margin-bottom: 15px;
   width: 100%;
+  height: 80px;
   border-radius: 10px;
 }
 .divProducto:hover {
@@ -124,8 +134,24 @@ h1 {
   border: none;
   font-family: "Lobster Two", cursive;
   font-size: 2em;
+  margin-bottom: 15px;
 }
 .vaciar button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: 0px 9px 9px #b4121200;
+}
+
+.spanPrecios {
+  margin: 0px;
+}
+
+.montoTotal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.montoTotal h1 {
+  font-size: 3.5em;
+  margin-right: 100px;
 }

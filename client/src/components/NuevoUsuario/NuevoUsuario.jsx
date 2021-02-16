@@ -80,7 +80,7 @@ function NuevoUsuario(props) {
     } 
 
     return (
-        <div className = 'formulario    '>
+        <div className = 'divNuevoUsuario'>
            
             <form className = 'nuevoUsuario' onSubmit={ submit }>
                 <h1>Crear Usuario</h1>
@@ -90,7 +90,9 @@ function NuevoUsuario(props) {
                 <input key="email" type="email" onChange={cambios} placeholder="Email..." name="email" />
                 <input key="clave" type="password"  onChange={cambios} placeholder="Contraseña..." name="clave" />
                 <input key="repetirClave" type="password" onKeyPress={ submitEnter } onChange={cambios} placeholder="Repita su contraseña" name="repetirClave" />
-                <input className='botonRegister' type="submit" key="boton" />
+                <div className='divBotonRegister'>
+                <input className='botonRegister' type="submit" key="boton" value='Registrarse'/>
+                </div>
             </form>
         </div>
     )
