@@ -480,26 +480,44 @@ server.post('/compra/:id', (req, res) => {
 server.post("/tarjeta/:id", (req, res) => {
   console.log("SOY BODYY", req.body)
   const id = req.params.id;
-  const { numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad, ordenId } = req.body;
+  const {numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad, ordenId} = req.body.data
+  const {productos} = req.body.stock
 
   User.update(
     { numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad },
-    {
-      where: { id },
-    })
-    .then(update => {
-      return Orden.update(
-        { estado: "creada" },
-        { where: { id: ordenId } }
+    { where: {id},
+  })
+  .then(respuesta => {
+    productos.map(pos => {
+      Product.findOne(
+        {where: {id: pos.id}}
       )
+      .then(response => {
+        var stock = response.dataValues.stock
+        stock = stock - pos.quantity
+        console.log("SOY STOCK QUE VIENE DEL FIND ONE", stock)
+        Product.update(
+          {stock: stock},
+          {where : {id: pos.id}}
+         )
+         .then(respuesta =>{console.log("STOCK CAMBIADO")})
+         .catch(err => {console.log ("error cambio de stock", err)})
+      })
+      .catch(err => {console.log("HUBO PROBLEMAS CON EL FIND ONEE", err)})
     })
-    .then(respuesta => {
-      console.log("ALLLLLLLLLLGOOOO")
-      res.send(respuesta);
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  })
+  .then(respuesta => {
+    return Orden.update(
+      {estado: "creada"},
+      {where: {id: ordenId}}
+  )})
+  .then(respuesta => {
+    console.log("ALLLLLLLLLLGOOOO")
+    res.send(respuesta);
+  })
+  .catch(err => {
+    console.log(err)
+  })
 
 })
 
