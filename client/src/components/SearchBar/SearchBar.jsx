@@ -83,10 +83,11 @@ function SearchBar({ search, onSearchChange, onSearchClick, onCategoria }) { // 
 
     return (
         <div className='buscador'>
-            <input className='input' onKeyPress={submitEnter} placeholder="Buscar..." onChange={buscador} />
-            <form >
-                <select onChange={(e) => categorias(e)} name="categorias">
-                    <option >Todas las categorias </option>
+
+                <input className='input' onKeyPress={ submitEnter } placeholder="Buscar..." onChange={ buscador }/>
+            <form className='formCategorias'>
+                <select onChange={(e)=> categorias(e)} name="categorias">
+                <option >Todas las categorias </option>
                     {state && state.map(pos =>
                         <option key={pos.id} value={pos.nombre}>
                             {pos.nombre}

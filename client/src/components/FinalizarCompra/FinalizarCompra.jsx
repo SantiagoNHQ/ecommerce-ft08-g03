@@ -63,16 +63,16 @@ export function FinalizarCompra(props) {
     }
 
     return (
-        <div className='formulario'>
-            <form onSubmit={submit} className='finalizarCompra'>
+        <div className='divFinalizarCompra'>
+            <form onSubmit={submit} className='direccionDeEnvio'>
 
-                <h1>Direccion de envio</h1>
+                <h1>Direccion de envio</h1> 
                 <input key="calle" onChange={cambios} type="text" placeholder="Calle" name="calle" />
                 <input key="numero" onChange={cambios} type="number" placeholder="Número" name="numero" />
                 <input key="localidad" onChange={cambios} type="text" placeholder="Localidad" name="localidad" />
                 <input key="provincia" onChange={cambios} type="text" placeholder="Provincia" name="provincia" />
-                <input key="codigoPostal" onKeyPress={submitEnter} onChange={cambios} type="number" placeholder="Código Postal" name="codigoPostal" />
-                <input className='botonfinalizarCompra' key="boton" onChange={cambios} type="submit" value="Finalizar compra" />
+                <input key="codigoPostal" onKeyPress={submitEnter} onChange={cambios} type="number" placeholder="Código Postal" name="codigoPostal" />                    
+                <button key="boton" onChange={cambios} type="submit" value="Finalizar Compra"/>
             </form>
         </div>
     )

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { connect } from 'react-redux'
 //import { useHistory } from "react-router-dom";
+import './Perfil.css'
 
 const mapStateToProps = (state) => {
     return {
@@ -28,24 +29,24 @@ function Perfil(props) {
     }
 
     return (
-        <div>
+        <div className='divGeneralPerfil'>
             {props.user &&
-            <div>
+            <div className='divPerfil'>
                 <h3>
-                    nombre: {props.user.nombre} 
+                    <span>Nombre:</span> {props.user.nombre} 
                 </h3>
                 <h3>
-                    apellido: {props.user.apellido} 
+                <span>Apellido:</span> {props.user.apellido} 
                 </h3>
                 <h3>
-                    nombreDeUsuario: {props.user.nombreDeUsuario} 
+                <span>NombreDeUsuario:</span> {props.user.nombreDeUsuario} 
                 </h3>
                 <h3>
-                    email: {props.user.email} 
+                <span>Email:</span> {props.user.email} 
                 </h3>
             </div>
             }
-            <button onClick={salir}>CERRAR SESION</button>
+            <button className='botonPerfil' onClick={salir}>CERRAR SESION</button>
         </div>
     )
 }

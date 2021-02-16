@@ -13,16 +13,16 @@
   width: 300px;
   height: 800px;
   border-radius: 8px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 5px 3px 3px rgba(0, 0, 0, 0.2);
   /* overflow: hidden; */
   margin: 70px 20px;
   text-align: center;
-  transition: all 0.25s;
+  transition: all 0.2s;
 }
 
 .card:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 12px #00000044;
+  box-shadow: 0 16px 16px #00000044;
 }
 
 /* LETRAS */
@@ -33,12 +33,15 @@
 }
 
 .titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 3px;
   flex-wrap: wrap;
-  font-size: 1.2em;
-  /* margin-top: 10px; */
-  color: black;
-  padding: 0px;
-  font-family: "Noto Serif", serif;
+  font-size: 1.4em;
+  font-weight: 100;
+  color: rgb(19, 18, 18);
+  font-family: "Imbue", serif;
 }
 .stock {
   margin-top: 15px;
@@ -63,11 +66,6 @@
   color: rgba(185, 30, 30, 0.774);
 }
 
-.titulo {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
 /* BOTON */
 .boton-editar {
   background-image: url("https://c0.klipartz.com/pngpicture/529/757/gratis-png-iconos-de-la-computadora-tornillo-de-tuerca-thumbnail.png");
@@ -126,7 +124,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(50deg, #723232, #c51818);
+  background: linear-gradient(330deg, #6b3131e1, #b82323df);
   height: 320px;
   width: 100%;
 }
