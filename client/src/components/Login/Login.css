@@ -3,16 +3,18 @@
   padding: 0%;
 }
 
-.formulario {
+.divLogin {
   display: flex;
   flex-direction: row;
   padding: 5px;
   margin-bottom: 10px;
   justify-content: space-around;
-  background-color: beige;
+  background-image: url("../img/mesa.jpg");
+  height: 800px;
 }
 
 .iniciarSesion {
+  margin-top: 40px;
   width: 500px;
   background-color: rgba(158, 22, 22, 0.733);
   display: flex;
@@ -22,35 +24,43 @@
   padding: 15px;
   justify-content: space-around;
   align-items: center;
+  height: 400px;
 }
 
-h1 {
+.iniciarSesion h1 {
   margin-bottom: 40px;
   text-align: center;
   font-size: 2.8em;
-  color: black;
+  color: white;
 }
 
 .iniciarSesion input {
   border: none;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  /* color: rgba(158, 22, 22, 0.733); */
-  background-color: white;
+  border-radius: 10px;
+  margin: 0px 20px 15px 20px;
   height: 30px;
-  width: 215px;
+  font-family: "Courier New", Courier, monospace;
   font-size: 0.8em;
+  width: 250px;
 }
 
-.botonLogin {
-  margin-top: 40px;
-  width: 100px;
-  height: 25px;
-  border-radius: 50px;
+.divBotonLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-.iniciarSesion h1 {
-  color: white;
+.divBotonLogin .botonLogin {
+  width: 110px;
+  font-size: 1em;
+  background: linear-gradient(50deg, #ffffff, #d8262625);
+  font-family: "Courier New", Courier, monospace;
+}
+
+.botonLogin:hover {
+  width: 115px;
+  font-size: 1.1em;
 }
 
 span {
@@ -60,13 +70,40 @@ span {
 }
 
 .botonGoogle {
-  background-color: white;
+  width: 160px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.657);
   border: none;
-  width: 150px;
-  height: 30px;
+  border-radius: 10px;
+  font-family: "Newsreader", serif;
+  font-size: 1.8em;
+  font-weight: bold;
+  outline: none;
 }
 
-.botonGoogle span {
-  color: black;
-  margin-left: 45px;
+.botonGoogle:hover {
+  font-size: 1.92em;
+}
+
+.spanG {
+  color: blue;
+}
+.spanO {
+  color: red;
+}
+.spanO2 {
+  color: rgb(224, 224, 22);
+}
+.spanG2 {
+  color: blue;
+}
+.spanL {
+  color: green;
+}
+.spanE {
+  color: red;
+}
+
+.imagenGoogle {
+  background-color: black;
 }
