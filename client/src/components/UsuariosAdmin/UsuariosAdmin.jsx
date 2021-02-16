@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import swal from "sweetalert";
+import './UsuariosAdmin.css';
 
 
 
@@ -45,14 +46,14 @@ export default function UsuariosAdmin(props) {
         })
     }
     return (
-        <div>
+        <div className='divGeneralUsuarios'>
             {users && users.map(pos => 
-                <div>
-                    <h3>ID de usuario: {pos.id}</h3>
-                    <h3>Usuario: {pos.nombre} {pos.apellido}</h3>
-                    <h3>Email: {pos.email}</h3>
-                    <h3>Admin: {(pos.admin)? "SI" : "No"}</h3>
-                    {(pos.admin) ?<button onClick={(e)=> deleteAdmin(e, pos.id)}>Eliminar Admin</button>: <button onClick={(e)=> addAdmin(e, pos.id)}>Hacer Admin</button>}
+                <div className='divUsuarios'>
+                    <h3><span>ID de usuario:</span>{pos.id}</h3>
+                    <h3><span>Usuario:</span>{pos.nombre} {pos.apellido}</h3>
+                    <h3><span>Email:</span>{pos.email}</h3>
+                    <h3><span>Admin:</span> {(pos.admin)? "SI" : "No"}</h3>
+                    {(pos.admin) ?<button onClick={(e)=> deleteAdmin(e, pos.id)}>Eliminar Admin</button>: <button onClick={(e)=> addAdmin(e, pos.id)}>Hacer Admin</button>}                  
                 </div>
     
             )}

@@ -1,0 +1,45 @@
+.divGeneralUsuarios {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.divUsuarios {
+  /* background-color: rgba(158, 22, 22, 0.733); */
+  background-color: white;
+  width: 450px;
+  border-radius: 10px;
+  margin: 30px;
+  padding: 10px;
+}
+
+.divUsuarios h3 {
+  color: rgba(158, 22, 22, 0.733);
+  font-family: "Asap Condensed", sans-serif;
+  font-size: 1.5em;
+}
+
+.divUsuarios span {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
+  color: black;
+  margin-left: 10px;
+}
+
+.divGeneralUsuarios button {
+  color: white;
+  margin-left: 35%;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
+  outline: none;
+  border-radius: 6px;
+  width: 152px;
+  height: 33px;
+  border: none;
+  background: linear-gradient(50deg, #615656, #d82121c9);
+}
+
+.divGeneralUsuarios button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 5px #00000044;
+}
