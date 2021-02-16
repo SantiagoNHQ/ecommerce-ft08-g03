@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Orden } = require("../db");
+const { Orden, Orderline, Product } = require("../db");
 
 const mercadopago = require("mercadopago");
 const { response } = require("express");
@@ -66,6 +66,41 @@ server.get("/pagos", (req, res) => {
   const externalreference = req.query.external_reference;
   const merchantorderid = req.query.merchant_order_id;
   console.log("EXTERNAL RFERENCE ", externalreference);
+
+  var carrito; 
+
+  Orderline.findAll({
+    where: {ordenId: externalreference}
+  })
+  .then(respuesta => {
+    carrito = respuesta
+    console.log("ESTO ME LLEGA AL CARRITO DESPUES DEL FIND ONE", carrito)
+
+    carrito.map(pos => {
+      var ids = pos.productId
+      console.log("ESTO ES IDS....................", ids)
+      // console.log("ESTO ES REPSUETA.ORDERLINE.DATAVALUES", pos.orderline.dataValues)
+      Product.findOne(
+        {where: {id: ids}
+      })
+      .then(response => {
+        var stock = response.stock
+        stock = stock - pos.cantidad
+        console.log("SOY STOCK QUE VIENE DEL FIND ONE", stock)
+        Product.update(
+          {stock: stock},
+          {where : {id: pos.productId}}
+         )
+         .then(respuesta =>{console.log("STOCK CAMBIADO")})
+         .catch(err => {console.log ("error cambio de stock", err)})
+      })
+      .catch(err => {console.log("HUBO PROBLEMAS CON EL FIND ONEE", err)})
+    })
+
+  })
+  .catch(err => { console.log("ERROR PARGO MERCADOPAGO EN FINDONE", err)})
+
+ 
 
   Orden.update(
     { estado: "creada", paymentid, paymentstatus, merchantorderid },
