@@ -3,7 +3,7 @@ import "./SearchBar.css";
 // import axios from 'axios';
 import { connect } from 'react-redux'
 import { searchChange, searchClick, categoriesFilter } from "../../redux/actions";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import axios from "axios";
 
 
@@ -21,25 +21,25 @@ const mapDispatchToProps = (dispatch) => {
         onSearchClick: (text) => {
             dispatch(searchClick(text))
         },
-        onCategoria: (text)=> {
+        onCategoria: (text) => {
             dispatch(categoriesFilter(text))
         }
     }
 }
 
 //  *** S7 : Crear Componente Search Bar ***
-function SearchBar({search, onSearchChange, onSearchClick, onCategoria}) { // search = state.search && dispatch = setState
-    const [list, setList] = useState (false)
+function SearchBar({ search, onSearchChange, onSearchClick, onCategoria }) { // search = state.search && dispatch = setState
+    const [list, setList] = useState(false)
     const [state, setState] = useState()
     let history = useHistory()
 
     useEffect(() => {
         axios.get("http://localhost:3001/category/")
-        .then(respuesta => {
-            setState(respuesta.data)
-            console.log("CATEGORIAS", respuesta.data)
-        })
-    },[])
+            .then(respuesta => {
+                setState(respuesta.data)
+                console.log("CATEGORIAS", respuesta.data)
+            })
+    }, [])
 
     // function showCheckboxes() {
     //     var checkboxes = document.getElementById("checkboxes");
@@ -52,17 +52,17 @@ function SearchBar({search, onSearchChange, onSearchClick, onCategoria}) { // se
     //     }
     // }
 
-    function buscador (e) {
+    function buscador(e) {
         e.preventDefault()
         // setInput (e.target.value)
         onSearchChange(e.target.value)
     }
-    function submitEnter (e) {
-        if (e.key === 'Enter'){
+    function submitEnter(e) {
+        if (e.key === 'Enter') {
             submit(e)
-    }        
+        }
     }
-    function submit (e) {
+    function submit(e) {
         //llamado a la api que retorne los poductos por nombre
         //pasar e.target.value por params
         /* axios.get("http://localhost:3001/product/busqueda/" + search)
@@ -75,36 +75,26 @@ function SearchBar({search, onSearchChange, onSearchClick, onCategoria}) { // se
         onSearchClick(search)
         history.push("/user/products")
     }
-    function categorias(e){
+    function categorias(e) {
         console.log("hola", e.target.value)
         onCategoria(e.target.value)
-        
+
     }
-    
+
     return (
         <div className='buscador'>
-            <input className='input' onKeyPress={ submitEnter } placeholder="Buscar..." onChange={ buscador }/>
+            <input className='input' onKeyPress={submitEnter} placeholder="Buscar..." onChange={buscador} />
             <form >
-                <select onChange={(e)=> categorias(e)} name="categorias">
-                <option >Todas las categorias </option>
+                <select onChange={(e) => categorias(e)} name="categorias">
+                    <option >Todas las categorias </option>
                     {state && state.map(pos =>
                         <option key={pos.id} value={pos.nombre}>
-                        {pos.nombre}
+                            {pos.nombre}
                         </option>
                     )}
                 </select>
-            </form> 
+            </form>
         </div>
-)
+    )
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
-{/* <div className="overSelect"></div>
-</div>
-<div id="checkboxes">
-<label htlmfor="one">
-    <input type="checkbox" id="one" />First checkbox
-</label>
-<label htlmfor="two">
-    <input type="checkbox" id="two" />Second checkbox</label>
-<label htlmfor="three">
-    <input type="checkbox" id="three" />Third checkbox</label> */}

@@ -144,7 +144,7 @@ server.get("/:id", (req, res) => {
     .then((response) => {
       console.log("Response: ", response);
       console.log("ID: ", id);
-      res.json(response);
+      res.json(response.dataValues);
     })
     .catch((err) => {
       console.log(err);
@@ -191,9 +191,9 @@ server.post("/", (req, res, next) => {
           categoriasAgregadas.forEach((v) => {
             console.log(
               "Agrego la categoría NOMBRE: " +
-                v.dataValues.nombre +
-                "ID: " +
-                v.dataValues.id
+              v.dataValues.nombre +
+              "ID: " +
+              v.dataValues.id
             );
             data.addCategory(v.dataValues.id);
           });
@@ -221,6 +221,7 @@ server.put("/", (req, res, next) => {
     elaboracion,
     origen,
     img,
+    categories
   } = req.body;
   console.log("Editado: ", req.body);
   Product.findOne({
@@ -246,6 +247,28 @@ server.put("/", (req, res, next) => {
           },
         }
       );
+
+      Category.findAll()
+        .then((category) => {
+          /* let categoriasAgregadas = category.filter((v) =>
+            categories.includes(v.dataValues.nombre)
+          );
+          categoriasAgregadas.forEach((v) => {
+            console.log(
+              "Agrego la categoría NOMBRE: " +
+              v.dataValues.nombre +
+              "ID: " +
+              v.dataValues.id
+            );
+            response.addCategory(v.dataValues.id);
+          }); */
+
+          for (var i = 0; i < category.length; i++) {
+            if (categories.includes(category[i].dataValues.nombre)) response.addCategory(category[i].dataValues.id);
+            else response.removeCategory(category[i].dataValues.id);
+          }
+        })
+        .catch("");
     })
     .then((r) => res.status(200).json(r))
     .catch((err) => {
@@ -258,7 +281,7 @@ server.put("/", (req, res, next) => {
 server.delete("/", (req, res) => {
   console.log("BODY: ", req.body);
   Product.destroy({
-    where: { nombre: req.body.nombre },
+    where: { id: req.body.id },
   })
     .then((response) => {
       res.send("Producto eliminado correctamente");
