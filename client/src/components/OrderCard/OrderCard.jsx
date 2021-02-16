@@ -22,7 +22,7 @@ export default function OrderCard({ data }) {
                     text: "Ahora su estado es: " + obj.estado + "!!",
                     icon: "success",
                 });
-                // window.location.reload()
+                window.location.reload()
             })
             .catch(err => {
                 console.log(err)
@@ -31,7 +31,11 @@ export default function OrderCard({ data }) {
 
     return (
         <div>
-            <p>  Numero de orden: {data.id} Nombre del Usuario: {data.user && data.user.nombre} {data.user && data.user.apellido}  |  Estado: {data.estado}  |  Numero de usuario: {data.userId}  |  Correo: {data.user && data.user.email}</p>
+            <p>Numero de orden: {data.id}</p>
+            <p>Id de usuario: {data.userId}</p>
+            <p>Nombre del Usuario: {data.user && data.user.nombre} {data.user && data.user.apellido}</p>
+            <p>Correo: {data.user && data.user.email}</p>
+            <p>Estado: {data.estado}</p>
             <form onSubmit={(e, datas = data.id) => cambioEstado(e, datas)}>
                 <div className="multiselect">
                     <div className="selectBox" /*onClick={showCheckboxes}*/ >

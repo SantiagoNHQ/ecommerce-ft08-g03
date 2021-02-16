@@ -213,7 +213,7 @@ server.get("/cart/:userId", (req, res) => {
 // S44 : Crear ruta que retorne todas las ordenes
 server.get("/orders", (req, res) => {
   Orden.findAll({
-    include: [{ model: User }, { model: Orderline }]
+    include: { model: User }
   })
 
     .then((response) => {
@@ -480,24 +480,26 @@ server.post('/compra/:id', (req, res) => {
 server.post("/tarjeta/:id", (req, res) => {
   console.log("SOY BODYY", req.body)
   const id = req.params.id;
-  const {numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad, ordenId} = req.body;
+  const { numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad, ordenId } = req.body;
 
   User.update(
     { numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad },
-    { where: {id},
-  })
-  .then(update => {
-    return Orden.update(
-      {estado: "creada"},
-      {where: {id: ordenId}}
-  )})
-  .then(respuesta => {
-    console.log("ALLLLLLLLLLGOOOO")
-    res.send(respuesta);
-  })
-  .catch(err => {
-    console.log(err)
-  })
+    {
+      where: { id },
+    })
+    .then(update => {
+      return Orden.update(
+        { estado: "creada" },
+        { where: { id: ordenId } }
+      )
+    })
+    .then(respuesta => {
+      console.log("ALLLLLLLLLLGOOOO")
+      res.send(respuesta);
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
 })
 
