@@ -3,56 +3,60 @@
   padding: 0%;
 }
 
-.formulario {
-  background-image: url("../img/mesa.jpg");
-  height: 745px;
+.divAgregarCategoria {
+  background-image: url("../img/vinos2.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
   display: flex;
   flex-direction: row;
-  padding-left: 15px;
-  margin-bottom: 10px;
+  padding-bottom: 339px;
   justify-content: space-around;
-  align-items: center;
 }
 
 .agregarCategoria {
-  width: 75%;
-  height: 75%;
+  width: 900px;
+  margin-top: 180px;
   background-color: rgba(158, 22, 22, 0.733);
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  border-color: solid black 10px;
-  border-radius: 25px 50px;
-  margin-right: 15px;
+  border-radius: 10px;
   padding: 10px;
-  align-items: center;
+  justify-content: space-evenly;
 }
 
 .agregarCategoria h1 {
   text-align: center;
-  width: 75%;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  margin-top: 20px;
-  font-size: 35px;
+  font-size: 2em;
   color: White;
+  font-family: "Lobster Two", cursive;
+  padding: 0px;
+  margin: 20px;
 }
 
 .agregarCategoria input {
-  border-radius: 5px;
-  margin: 20px;
-  margin-bottom: 10px;
-  padding: 10px;
-  width: 75%;
+  border: none;
+  border-radius: 10px;
+  margin: 0px 20px 15px 20px;
+  height: 30px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
 }
 
-.agregarCategoria input[type="submit"] {
-  width: 35%;
-  border-bottom: 8px solid black;
-  border-right: 7px solid black;
-  border-radius: 12px;
-  font-size: 25px;
-  background-color: brown;
-  color: white;
-  font-weight: bolder;
+.divBotonAC {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.botonAC {
+  width: 120px;
+  font-size: 1.9em;
+  background: linear-gradient(50deg, #ffffff, #d8262625);
+  font-family: "Great Vibes", cursive;
+}
+
+.botonAC:hover {
+  width: 125px;
+  font-size: 1em;
 }

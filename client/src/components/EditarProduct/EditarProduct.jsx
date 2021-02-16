@@ -57,50 +57,51 @@ export default function EditarProducto(props) {
 
 
     return (
-        <div className="div-productos1">
+        <div className="divEditarProductos">
             {
                 cards.productos && 
-                <div className = 'card1'> 
+                <div className = 'edicion'> 
                     <h5>NOMBRE</h5>
-                    <h3 className ="textoEditar">{cards.productos.nombre}</h3>
-                    <input className="inputEditar" key={cards.productos.nombre} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.nombre} */ placeholder="NOMBRE" name="nombre"/>
+                    <h3 className ="textoEditar">Actual: <span>{cards.productos.nombre}</span></h3>
+                    <input className="inputEditar" key={cards.productos.nombre} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.nombre} */ placeholder="Nombre" name="nombre"/>
                    
                     <h5>TIPO</h5>
-                    <h3 className ="textoEditar">{cards.productos.tipo}</h3>
-                    <input className="inputEditar" key={cards.productos.tipo} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.tipo} */ placeholder="tipo" name="tipo"/>
+                    <h3 className ="textoEditar">Actual: <span>{cards.productos.tipo}</span></h3>
+                    <input className="inputEditar" key={cards.productos.tipo} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.tipo} */ placeholder="Tipo" name="tipo"/>
 
                     <h5>EDAD</h5>
-                    <h3 className ="textoEditar">{cards.productos.edad}</h3>
-                    <input className="inputEditar" key={cards.productos.edad} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.edad} */ placeholder="edad" name="edad"/> 
+                    <h3 className ="textoEditar">Actual:<span>{cards.productos.edad}</span></h3>
+                    <input className="inputEditar" key={cards.productos.edad} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.edad} */ placeholder="Edad" name="edad"/> 
 
                     <h5>ELABORACION</h5>
-                    <h3 className ="textoEditar">{cards.productos.elaboracion}</h3>
-                    <input className="inputEditar" key={cards.productos.elaboracion} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.elaboracion} */ placeholder="elaboracion" name="elaboracion"/>
+                    <h3 className ="textoEditar">Actual: <span>{cards.productos.elaboracion}</span></h3>
+                    <input className="inputEditar" key={cards.productos.elaboracion} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.elaboracion} */ placeholder="Elaboracion" name="elaboracion"/>
 
                     <h5>STOCK</h5>
-                    <h3 className ="textoEditar">{cards.productos.stock}</h3>
-                    <input className="inputEditar" key={cards.productos.stock} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.stock} */ placeholder="stock" name="stock"/>
+                    <h3 className ="textoEditar">Actual: <span>{cards.productos.stock}</span></h3>
+                    <input className="inputEditar" key={cards.productos.stock} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.stock} */ placeholder="Stock" name="stock"/>
 
                     <h5>PRECIO</h5>
-                    <h3 className ="textoEditar">{cards.productos.precio}</h3>
-                    <input className="inputEditar" key={cards.productos.precio} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.precio} */ placeholder="precio" name="precio"/> 
+                    <h3 className ="textoEditar">Actual: <span>{cards.productos.precio}</span></h3>
+                    <input className="inputEditar" key={cards.productos.precio} type="number" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.precio} */ placeholder="Precio" name="precio"/> 
 
                     <h5>ORIGEN</h5>
-                    <h3 className ="textoEditar">{cards.productos.origen}</h3>
-                    <input className="inputEditar" key={cards.productos.origen} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.origen} */ placeholder="origen" name="origen"/> 
+                    <h3 className ="textoEditar">Actual: <span>{cards.productos.origen}</span></h3>
+                    <input className="inputEditar" key={cards.productos.origen} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.origen} */ placeholder="Origen" name="origen"/> 
 
                    
 
                     <h5>DESCRIPCION</h5>
-                    <h3 className ="textoEditar">{cards.productos.descripcion}</h3> 
-                    <input className="inputEditar" key={cards.productos.descripcion} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.descripcion} */ placeholder="descripcion" name="descripcion"/> 
+                    <h3 className ="textoEditar">Actual: <span>{cards.productos.descripcion}</span></h3> 
+                    <input className="inputEditar" key={cards.productos.descripcion} type="text" onChange={(e) =>CambiosEditar(e, cards.productos.id)} /* value={cards.productos.descripcion} */ placeholder="Descripcion" name="descripcion"/> 
                    <p></p>
-                    <div>
-                        <img alt="" src={cards.productos.img} className ="div-imagen1"></img> 
+                    <div className='divImagenEditar'>
+                        <img alt="" src={cards.productos.img} className ="imagenEdit"></img> 
                     </div>
-                    
-                    <button className="botoneditar" onClick ={() => submitEliminar(cards.productos.nombre)}>ELIMINAR</button>
-                    <button className="botoneditar" onClick={() =>submitEditar(cards.productos.id)}>EDITAR</button>
+                    <div className='divBotonesEditar'>              
+                        <button className="botonEliminar" onClick ={() => submitEliminar(cards.productos.nombre)}>Eliminar</button>
+                        <button className="botonListo" onClick={() =>submitEditar(cards.productos.id)}>Listo</button>                   
+                    </div>
                 </div>
             }
         </div>

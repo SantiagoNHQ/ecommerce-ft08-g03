@@ -9,6 +9,7 @@ import {
   CHANGE_USER_STATUS,
   CHANGE_EDIT_PRODUCT,
   SET_USER,
+  CATEGORIES_FILTER,
 } from "./constants";
 const initialState = {
   arrayCheckBox: [],
@@ -16,6 +17,8 @@ const initialState = {
   user: {},
   carrito: [],
   logged: null,
+  categoria: null,
+  filtrarCategoria: null,
 };
 
 var variable = (state = initialState, action) => {
@@ -41,6 +44,10 @@ var variable = (state = initialState, action) => {
     case CATEGORIES_LOAD: {
       //state.categoria = action.categories
       return (state = { ...state, categoria: action.categories });
+    }
+    case CATEGORIES_FILTER: {
+      //state.categoria = action.categories
+      return (state = { ...state, filtrarCategoria: action.categories });
     }
     case PRODUCTS_LOAD: {
       return (state = { ...state, products: action.products });

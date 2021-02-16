@@ -11,7 +11,7 @@ export default function NuevoUsuario(props) {
         e.preventDefault()
         axios.post("http://localhost:3001/auth/login", state, {withCredentials: true})
         .then(res => {
-            window.location.replace("http://localhost:3000/")
+            window.location.replace("http://localhost:3002/")
         })
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)
@@ -56,14 +56,23 @@ export default function NuevoUsuario(props) {
         window.open("http://localhost:3001/auth/google")
     }
     return (
-        <div className = 'formulario'>
+        <div className = 'divLogin'>
             <form onSubmit={submit} className='iniciarSesion' >
                 <h1>Iniciar Sesion</h1>
                 <input key="username" type="text" placeholder="Nombre de Usuario" onChange={cambios} name="username" />
                 <input key="password" onKeyPress={submitEnter} type="password" placeholder="Contraseña" onChange={cambios} name="password" />
+                <div className='divBotonLogin'>
                 <input className='botonLogin' type="submit" key="boton" value="Entrar" />
+                </div>
                 <span>o continue con</span>
-                <button className='botonGoogle' onClick={google}><span className="../img/search.png"></span><span>Google</span></button>
+                <button className='botonGoogle' onClick={google}><div className="imagenGoogle"></div>
+                <span className='spanG' >G</span>
+                <span className='spanO' >o</span>
+                <span className='spanO2' >o</span>
+                <span className='spanG2' >g</span>
+                <span className='spanL' >l</span>
+                <span className='spanE' >e</span>
+                </button>
             </form>
         </div>
     )

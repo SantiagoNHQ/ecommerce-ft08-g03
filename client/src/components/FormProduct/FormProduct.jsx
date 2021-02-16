@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
+    console.log("SOY FORM PRODUCT",categoria)
 
     useEffect(() => {
         axios.get("http://localhost:3001/category/")
@@ -114,7 +115,7 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
 
     return (
 
-        <div className = 'formularios'>
+        <div className = 'divAgregarProducto'>
             <form className = 'agregarProducto' onSubmit={ submit } encType="multipart/form-data">
                 <h3>Agregar Producto</h3>
                 <input key="nombre" type="text" onChange={cambios} placeholder="Nombre del producto" id="nombre" name="nombre"/>
@@ -140,8 +141,9 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
                 ||
                 (formulario.file) && <img src={formulario.fileShow} alt="img" style={{width: "200px", height:"200px", marginBottom:"10px"}}/> */}
                 {/* <img src={formulario.file} style={{width: "200px", height:"200px", marginBottom:"10px"}}/> */}
-
-                <input type="submit" key="boton" id="boton" />
+                <div className='divBotonAP'>
+                <input className='botonAP' type="submit" key="boton" id="boton" />
+                </div>
             </form>
 
 

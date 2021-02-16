@@ -1,4 +1,4 @@
-import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO, CHANGE_USER_STATUS, CHANGE_EDIT_PRODUCT, SET_USER } from './constants';
+import { FORM_CHANGE, SEARCH_CHANGE, SEARCH_CLICK, CATEGORIES_LOAD, PRODUCTS_LOAD, ORDERS_LOAD, ADD_CARRITO, CHANGE_USER_STATUS, CHANGE_EDIT_PRODUCT, SET_USER, CATEGORIES_FILTER } from './constants';
 
 export const formChange = (form) => {
     return {
@@ -24,6 +24,13 @@ export const searchClick = (search) => {
 export const categoriesLoad = (categories) => {
     return {
         type: CATEGORIES_LOAD,
+        categories
+    }
+};
+
+export const categoriesFilter = (categories) => {
+    return {
+        type: CATEGORIES_FILTER,
         categories
     }
 };
