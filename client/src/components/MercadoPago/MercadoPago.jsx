@@ -23,7 +23,8 @@ export function MercadoPago(props){
     title: i.nombre,
     unit_price: i.precio,
     quantity: i.cantidad,
-    ordenId: i.ordenId
+    ordenId: i.ordenId,
+    id: i.productId
   }))
   console.log("OBJJJJ", obj)
   var obj1= {data: obj}

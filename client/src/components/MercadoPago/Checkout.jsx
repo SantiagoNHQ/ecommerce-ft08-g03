@@ -10,6 +10,7 @@ export function Checkout({productos, data, user}){
 
     console.log("SOY ORDENID", productos[0].ordenId)
     const [state, setState] = useState({ordenId: productos[0].ordenId})
+    const [stock, setStock] = useState({ordenId: productos[0].ordenId, productos: productos})
 
     useEffect(() => {
         const script = document.createElement("script")
@@ -36,7 +37,7 @@ export function Checkout({productos, data, user}){
 
     function submitTarjeta(e){
         e.preventDefault()
-        axios.post("http://localhost:3001/user/tarjeta/"+ user.id, state)
+        axios.post("http://localhost:3001/user/tarjeta/"+ user.id, {data:state, stock: stock})
         .then(res => {
             console.log("SOY",res)
             history.push("/user/finalizarcompra");

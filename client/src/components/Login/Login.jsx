@@ -11,7 +11,7 @@ export default function NuevoUsuario(props) {
         e.preventDefault()
         axios.post("http://localhost:3001/auth/login", state, {withCredentials: true})
         .then(res => {
-            window.location.replace("http://localhost:3002/")
+            window.location.replace("http://localhost:3000/")
         })
         .catch (err => {
             console.log("Mallllllllllllllllllll", err)
