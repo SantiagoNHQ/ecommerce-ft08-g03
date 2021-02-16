@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+  padding: 0%;
+}
+
+.divFinalizarCompra {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  /* margin-bottom: 10px; */
+  justify-content: space-around;
+}
+
+.finalizarCompra {
+  width: 500px;
+  background: linear-gradient(50deg, #363131e1, #b43030);
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  margin-right: 15px;
+  padding: 15px;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 580px;
+  margin-top: 100px;
+}
+
+.finalizarCompra input {
+  border: none;
+  border-radius: 10px;
+  margin: 10px 20px 15px 20px;
+  height: 30px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
+  width: 250px;
+}
+
+.divBotonCargarDatosTarjeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.divBotonCargarDatosTarjeta .botonCargarDatosTarjeta {
+  width: 160px;
+  font-size: 0.8em;
+  background: linear-gradient(50deg, #ffffff, #d8262625);
+  font-family: "Courier New", Courier, monospace;
+  outline: none;
+}
+
+.botonCargarDatosTarjeta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 2px #00000044;
+  font-size: 0.82em;
+}
+
+.listaProductosAComprar {
+  font-size: 1em;
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+  background: linear-gradient(50deg, #2c2424, #ad3131);
+  width: 340px;
+  border: none;
+  border-radius: 10px;
+  margin-left: 30px;
+}
+
+.listaProductosAComprar ul {
+  margin-left: 25px;
+  margin-bottom: 20px;
+}
+
+#form1 h1 {
+  color: white;
+  font-family: "DM Sans", sans-serif;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.h1Checkout {
+  margin-top: 15px;
+}

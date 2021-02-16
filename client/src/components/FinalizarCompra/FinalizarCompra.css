@@ -1,51 +1,44 @@
-* {
-    box-sizing: border-box;
-    padding: 0%;
-  }
-  
-  .formulario {
-    display: flex;
-    flex-direction: row;
-    padding: 5px;
-    margin-bottom: 10px;
-    justify-content: space-around;
-    background-color: beige;
-  }
-  
-  .finalizarCompra {
-    width: 500px;
-    background-color: rgba(158, 22, 22, 0.733);
-    display: flex;
-    flex-direction: column;
-    border-radius: 15px;
-    margin-right: 15px;
-    padding: 15px;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  h1 {
-    margin-bottom: 40px;
-    text-align: center;
-    font-size: 2.8em;
-    color: black;
-  }
-  
-  .finalizarCompra input {
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    /* color: rgba(158, 22, 22, 0.733); */
-    background-color: white;
-    height: 30px;
-    width: 215px;
-    font-size: 0.8em;
-  }
-  
-  .botonfinalizarCompra {
-    margin-top: 40px;
-    width: 100px;
-    height: 25px;
-    border-radius: 50px;
-  }
-  
+.direccionDeEnvio {
+  width: 500px;
+  background: linear-gradient(50deg, #363131e1, #b43030);
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  margin-right: 15px;
+  padding: 15px;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 10px;
+  margin-top: 100px;
+}
+
+.direccionDeEnvio input {
+  border: none;
+  border-radius: 10px;
+  margin: 10px 20px 15px 20px;
+  height: 30px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
+  width: 250px;
+}
+
+.direccionDeEnvio h1 {
+  color: white;
+}
+
+.direccionDeEnvio button {
+  margin-top: 20px;
+  width: 80px;
+  font-size: 0.8em;
+  height: 25px;
+  background: linear-gradient(50deg, #ffffff, #d8262625);
+  font-family: "Courier New", Courier, monospace;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+
+.direccionDeEnvio button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 2px #00000044;
+}

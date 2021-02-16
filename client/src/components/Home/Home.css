@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-around;
 } */
+
 .textos-header {
   display: flex;
   align-items: center;
@@ -18,11 +19,13 @@
   font-family: "Great Vibes", cursive;
   /* font-family: "Lobster Two", cursive; */
   /* font-family: "Amatic SC", cursive; */
+  margin-bottom: 60px;
 }
 .textos-header h2 {
-  font-size: 3em;
+  font-size: 2.8em;
   color: white;
   font-family: "Poiret One", cursive;
+  margin: 0;
 }
 
 .textos-header span {

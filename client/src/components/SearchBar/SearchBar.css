@@ -19,6 +19,23 @@ body {
   outline: none;
 }
 
+.formCategorias {
+  display: flex;
+  outline: none;
+  margin: 25px;
+  margin-right: 0;
+}
+
+.formCategorias select {
+  background-color: rgba(158, 22, 22, 0);
+  outline: none;
+  color: white;
+  border: none;
+  height: 30px;
+  width: 160px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
 /* SEARCHBAR */
 .buscador {
   display: flex;

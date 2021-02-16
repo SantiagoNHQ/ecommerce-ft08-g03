@@ -1,0 +1,70 @@
+.divGeneralPerfil {
+  width: 460px;
+  border-radius: 10px;
+  margin: 30px;
+  padding: 10px;
+  margin-left: 600px;
+  margin-top: 100px;
+  height: 400px;
+  background: white;
+}
+
+.divPerfil h3 {
+  color: rgba(158, 22, 22, 0.733);
+  font-family: "Asap Condensed", sans-serif;
+  font-size: 1.5em;
+}
+
+.divPerfil span {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
+  color: black;
+  margin-left: 10px;
+}
+
+.botonPerfil {
+  margin-top: 50px;
+  color: white;
+  margin-left: 32%;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.8em;
+  outline: none;
+  border-radius: 6px;
+  width: 152px;
+  height: 33px;
+  border: none;
+  background: linear-gradient(50deg, #615656, #d82121c9);
+}
+
+.botonPerfil:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 5px #00000044;
+}
+
+.divPerfil:before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #fff;
+  z-index: -221;
+}
+
+.divPerfil:after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: #fff;
+  z-index: -212312;
+  filter: blur(1px);
+}
+
+.divPerfil:before,
+.divPerfil:after {
+  background: linear-gradient(5deg, #4e1818a2, #f3f3f365, #4e482883);
+}
