@@ -46,7 +46,7 @@
 .stock {
   margin-top: 15px;
   padding: 0;
-  font-size: 1em;
+  font-size: 0.9em;
   color: rgba(158, 22, 22, 0.733);
 }
 
@@ -56,7 +56,7 @@
 
 .precio {
   color: white;
-  font-size: 1.4em;
+  font-size: 2.4em;
   font-family: "Courier New", Courier, monospace;
   margin: 0;
   padding: 0;
@@ -104,7 +104,7 @@
 }
 
 .div-precio {
-  height: 100px;
+  height: 350px;
   display: flex;
   align-items: center;
   justify-content: center;

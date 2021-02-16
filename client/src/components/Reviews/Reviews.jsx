@@ -34,6 +34,7 @@ export function Reviews(props) {
             .then(response => {
                 console.log("Hola es Armando :", response.data);
                 setReview(response.data)
+
             })
             .catch(err => {
                 console.log("ERROR")
