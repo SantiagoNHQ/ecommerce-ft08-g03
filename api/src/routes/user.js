@@ -213,7 +213,7 @@ server.get("/cart/:userId", (req, res) => {
 // S44 : Crear ruta que retorne todas las ordenes
 server.get("/orders", (req, res) => {
   Orden.findAll({
-    include: { model: User },
+    include: { model: User }
   })
 
     .then((response) => {
@@ -429,74 +429,77 @@ server.get("/:id/orders/completas", (req, res) => {
     });
 });
 
-server.post("/send", (req, res) => {   
+server.post("/send", (req, res) => {
   // const userEmail = req.body.email;   
-  var transporte = nodemailer.createTransport({     
-    host: "smtp.ethereal.email",     
-    post: 587,     
-    secure: false,     
-    auth: {       
-      user: "murl.mccullough38@ethereal.email",       
-      pass: "qVFWX1Rb58BsxZ6MtB",     
-    },   
-  });   
-  console.log("TRANSPORTE: ", transporte);   
-  console.log("OPCIONES: ", mailOptions);   
-  var mailOptions = {     
-    from: "WeAreWine",     
-    to: "ben@gmail.com",     
-    subject: "Enviado desde nodemailer",     
-    text: "Este es el texto del email",   
-  };    
-  transporte.sendMail(mailOptions, (error, info) => {     
-    if (error) {       
-      res.status(500).send(error.message);     
-    } else {       
-      console.log("Email enviado correctamente.");       
-      res.status(200).json(req.body);     
-    }   
-  }); 
+  var transporte = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    post: 587,
+    secure: false,
+    auth: {
+      user: "murl.mccullough38@ethereal.email",
+      pass: "qVFWX1Rb58BsxZ6MtB",
+    },
+  });
+  console.log("TRANSPORTE: ", transporte);
+  console.log("OPCIONES: ", mailOptions);
+  var mailOptions = {
+    from: "WeAreWine",
+    to: "ben@gmail.com",
+    subject: "Enviado desde nodemailer",
+    text: "Este es el texto del email",
+  };
+  transporte.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      console.log("Email enviado correctamente.");
+      res.status(200).json(req.body);
+    }
+  });
 });
 // Ruta para cargar datos de la compra
 server.post('/compra/:id', (req, res) => {
   console.log("SOY BODYY", req.body)
   const id = req.params.id;
-  const {calle, numero, localidad, provincia, codigoPostal} = req.body;
+  const { calle, numero, localidad, provincia, codigoPostal } = req.body;
 
   User.update(
     { calle, numero, localidad, provincia, codigoPostal },
-    { where: {id},
-  })
-  .then(update => {
-    res.status(200).send(update);
-  })
-  .catch(err => {
-    res.status(400).send(err);
-  })
+    {
+      where: { id },
+    })
+    .then(update => {
+      res.status(200).send(update);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
 })
 
 // Ruta para cargar datos de la tarjeta
 server.post("/tarjeta/:id", (req, res) => {
   console.log("SOY BODYY", req.body)
   const id = req.params.id;
-  const {numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad, ordenId} = req.body;
+  const { numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad, ordenId } = req.body;
 
   User.update(
     { numeroDeTarjeta, nombreT, fechaDeExpiracion, codigoDeSeguridad },
-    { where: {id},
-  })
-  .then(update => {
-    return Orden.update(
-      {estado: "creada"},
-      {where: {id: ordenId}}
-  )})
-  .then(respuesta => {
-    console.log("ALLLLLLLLLLGOOOO")
-    res.send(respuesta);
-  })
-  .catch(err => {
-    console.log(err)
-  })
+    {
+      where: { id },
+    })
+    .then(update => {
+      return Orden.update(
+        { estado: "creada" },
+        { where: { id: ordenId } }
+      )
+    })
+    .then(respuesta => {
+      console.log("ALLLLLLLLLLGOOOO")
+      res.send(respuesta);
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
 })
 

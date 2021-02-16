@@ -29,29 +29,29 @@ export function FinalizarCompra(props) {
         e.preventDefault()
         // history.push("/user/finalizarcompra");
 
-        if(state.calle && state.numero && state.localidad && state.provincia && state.codigoPostal) {
-            axios.post(`http://localhost:3001/user/compra/${props.user.id}`, state, {withCredentials: true})
-            .then(respuesta => {
-                swal ({
-                    title: "Compra finalizada con éxito!",
-                    icon: "success"
-                })
-                console.log("SOY EMAIL", props.user.email)
-                var mailOptions = {
-                      from: "WeAreWine",
-                      to: props.user.email,
-                      subject: "Gracias por su compra en WeAreWine",
-                      text: "Este es el texto del email",
-                    }
-                axios.get("http://localhost:3001/auth/send-email/"+ props.user.email)
+        if (state.calle && state.numero && state.localidad && state.provincia && state.codigoPostal) {
+            axios.post(`http://localhost:3001/user/compra/${props.user.id}`, state, { withCredentials: true })
                 .then(respuesta => {
-                    console.log("SI",respuesta)
+                    swal({
+                        title: "Compra finalizada con éxito!",
+                        icon: "success"
+                    })
+                    console.log("SOY EMAIL", props.user.email)
+                    var mailOptions = {
+                        from: "WeAreWine",
+                        to: props.user.email,
+                        subject: "Gracias por su compra en WeAreWine",
+                        text: "Este es el texto del email",
+                    }
+                    axios.get("http://localhost:3001/auth/send-email/" + props.user.email)
+                        .then(respuesta => {
+                            console.log("SI", respuesta)
+                        })
+                        .catch(err => {
+                            console.log("NO", err)
+                        })
                 })
-                .catch(err => {
-                    console.log("NO",err)
-                })
-            })
-            .catch(err => {console.log("SOY",err)})
+                .catch(err => { console.log("SOY", err) })
         } else {
             swal({
                 title: "Faltan llenar campos",
@@ -67,8 +67,8 @@ export function FinalizarCompra(props) {
             <form onSubmit={submit} className='finalizarCompra'>
 
                 <h1>Direccion de envio</h1>
-                <input key="calle" onChange={cambios} type="text" placeholder="Calle" name="calle"/>
-                <input key="numero" onChange={cambios} type="number" placeholder="Número" name="numero"/>
+                <input key="calle" onChange={cambios} type="text" placeholder="Calle" name="calle" />
+                <input key="numero" onChange={cambios} type="number" placeholder="Número" name="numero" />
                 <input key="localidad" onChange={cambios} type="text" placeholder="Localidad" name="localidad" />
                 <input key="provincia" onChange={cambios} type="text" placeholder="Provincia" name="provincia" />
                 <input key="codigoPostal" onKeyPress={submitEnter} onChange={cambios} type="number" placeholder="Código Postal" name="codigoPostal" />
