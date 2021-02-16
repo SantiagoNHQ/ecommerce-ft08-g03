@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import Checkout from "./Checkout"
 import axios from "axios"
 import { connect } from "react-redux"
+import './MercadoPago.css'
 // import state from "sweetalert/typings/modules/state"
 // import { checkout } from "../../../../api/src/app"
 

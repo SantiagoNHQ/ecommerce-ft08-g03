@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
+import './Checkout.css'
 
 export function Checkout({ productos, data, user }) {
     let history = useHistory()
@@ -51,31 +52,33 @@ export function Checkout({ productos, data, user }) {
     return (
         <div>
             <form id="form1">
-                <h4>Checkout</h4>
+                <h1 className='h1Checkout'>Checkout</h1>
                 <div >
                     {productos.map((producto, i) => {
                         return (
-                            <div key={i}>
+                            <div className='listaProductosAComprar' key={i}>
                                 <ul >
                                     <li>{producto.title}</li>
                                     <li>{"$" + producto.unit_price}</li>
-                                    <li>{producto.quantity}</li>
+                                    <li>{producto.quantity} Unidad/es.</li>
                                 </ul>
 
                             </div>
                         )
                     })}
-                    <h3>PAGAR </h3>
+                    <h1>Pagar con Credito/Debito</h1>
                     <form onSubmit={submitTarjeta} className='finalizarCompra'>
                         <h1>Datos de la tarjeta</h1>
                         <input key="Numero de tarjeta" onChange={cambios} type="number" placeholder="Numero de tarjeta" name="numeroDeTarjeta" />
                         <input key="Nombre" onChange={cambios} type="text" placeholder="Nombre" name="nombreT" />
                         <input key="Fecha de expiracion" onChange={cambios} type="text" placeholder="Fecha de expiracion" name="fechaDeExpiracion" />
                         <input key="Codigo de Seguridad" onChange={cambios} type="number" placeholder="Codigo de Seguridad" name="codigoDeSeguridad" />
-                        <input className='botonfinalizarCompra' key="boton" onChange={cambios} type="submit" value="Cargar datos de la tarjeta" />
+                        <div className='divBotonCargarDatosTarjeta'>    
+                            <input className='botonCargarDatosTarjeta' key="boton" onChange={cambios} type="submit" value="Cargar datos" />
+                        </div>
                     </form>
 
-                    <h3>PAGAR CON MERCADO PAGO</h3>
+                    <h1>Pagar con Mercado Pago</h1>
                 </div>
             </form >
         </div >
