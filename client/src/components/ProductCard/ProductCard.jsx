@@ -111,7 +111,7 @@ export function ProductCard(props) {
                     <img alt={props.nombre} src={stock.img}></img>
                 </div>
                 <div className='div-precio'>
-                    <h4 className='precio'><span>$</span>{props.precio}</h4>
+                    <h6 className='precio'><span>$</span>{props.precio}</h6>
                 </div>
                 <div className='boton-y-stock'>
                     <div className='div-boton'>
