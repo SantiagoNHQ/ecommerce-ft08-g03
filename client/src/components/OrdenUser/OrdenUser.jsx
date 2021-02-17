@@ -57,6 +57,7 @@ function OrdenUser(props) {
                     title: "Gracias por dejarnos su opinion!!",
                     icon: "success",
                 });
+                window.location.replace("http://localhost:3000/")
             })
             .catch(respuesta => {
                 console.log("HUBO UN ERROR AL CARGAR REVIEW")
