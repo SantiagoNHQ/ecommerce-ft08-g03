@@ -1,48 +1,38 @@
-.nivel1 {
-  height: 1200px;
-  width: 80em;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0px auto;
-}
-
-.detalleProducto {
-  height: 600px;
-  display: flexbox;
+.divFondoDeDetalleDeProducto {
+  background-image: linear-gradient(
+    rgba(112, 69, 69, 0.904),
+    rgba(209, 27, 27, 0.911)
+  );
   margin-top: 20px;
-  column-count: 2;
-  flex-direction: initial;
-
-  margin-bottom: 15px;
-  justify-content: space-around;
-  align-items: center;
+  margin-left: 150px;
+  margin-right: 150px;
+  border-radius: 10px;
+}
+.divDetallesDeProducto h1 {
+  margin-left: 40%;
+  margin-bottom: 10px;
+  color: white;
+  font-family: "Great Vibes", cursive;
+  font-size: 4em;
 }
 
-.cardProducto {
+.divImagenDetalleProducto {
   align-items: center;
-  margin-top: 20px;
-}
-
-.divimagen {
-  /* align-items: center; */
-  height: auto;
-  width: auto;
   display: flex;
-  padding-top: 20px;
-  padding-bottom: 50px;
-  /* margin: 0px auto; */
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.divimagen img {
-  margin: 0px auto;
-  width: 50%;
+.divImagenDetalleProducto img {
   height: auto;
+  width: 300px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-.reviewsClass {
+.divDescripcionDetalleProducto {
   display: flex;
-  /* margin-top: 100px; */
+  align-items: center;
+  justify-content: center;
+  font-family: "Poiret One", cursive;
+  color: white;
 }

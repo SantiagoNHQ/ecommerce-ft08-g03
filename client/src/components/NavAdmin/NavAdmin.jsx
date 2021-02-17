@@ -54,7 +54,7 @@ export default function NavAdmin(props) {
                 </nav>
             </div>
             <button className='botonCerrarSesionAdmin' onClick={salir}>Salir</button>
-            <div style={{marginRight: "10px"}}>
+            <div>
                 <SearchBar history={props.history} />
             </div> {/* La propiedad history solo la reciben los hijos directos de Route, por eso la paso por param! ;)*/}
         </div>

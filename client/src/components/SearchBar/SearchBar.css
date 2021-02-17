@@ -44,7 +44,6 @@ body {
 }
 
 .input {
-  border: none;
   background-color: #792d2d;
   outline: none;
   color: white;
@@ -53,6 +52,7 @@ body {
   height: 40px;
   width: 250px;
   margin-right: -10px;
+  border: none;
 }
 
 .multiselect {
