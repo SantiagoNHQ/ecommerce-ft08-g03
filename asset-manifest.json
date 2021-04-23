@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/ecommerce-ft08-g03/static/css/main.b5fd94ef.chunk.css",
-    "main.js": "/ecommerce-ft08-g03/static/js/main.359f0fe1.chunk.js",
-    "main.js.map": "/ecommerce-ft08-g03/static/js/main.359f0fe1.chunk.js.map",
+    "main.js": "/ecommerce-ft08-g03/static/js/main.2afc8c08.chunk.js",
+    "main.js.map": "/ecommerce-ft08-g03/static/js/main.2afc8c08.chunk.js.map",
     "runtime-main.js": "/ecommerce-ft08-g03/static/js/runtime-main.5def7fe6.js",
     "runtime-main.js.map": "/ecommerce-ft08-g03/static/js/runtime-main.5def7fe6.js.map",
-    "static/js/2.8a8bab69.chunk.js": "/ecommerce-ft08-g03/static/js/2.8a8bab69.chunk.js",
-    "static/js/2.8a8bab69.chunk.js.map": "/ecommerce-ft08-g03/static/js/2.8a8bab69.chunk.js.map",
+    "static/js/2.384202a0.chunk.js": "/ecommerce-ft08-g03/static/js/2.384202a0.chunk.js",
+    "static/js/2.384202a0.chunk.js.map": "/ecommerce-ft08-g03/static/js/2.384202a0.chunk.js.map",
     "static/js/3.ef9029c7.chunk.js": "/ecommerce-ft08-g03/static/js/3.ef9029c7.chunk.js",
     "static/js/3.ef9029c7.chunk.js.map": "/ecommerce-ft08-g03/static/js/3.ef9029c7.chunk.js.map",
     "static/js/4.7bb462e8.chunk.js": "/ecommerce-ft08-g03/static/js/4.7bb462e8.chunk.js",
@@ -15,7 +15,7 @@
     "static/js/5.25b68008.chunk.js.map": "/ecommerce-ft08-g03/static/js/5.25b68008.chunk.js.map",
     "index.html": "/ecommerce-ft08-g03/index.html",
     "static/css/main.b5fd94ef.chunk.css.map": "/ecommerce-ft08-g03/static/css/main.b5fd94ef.chunk.css.map",
-    "static/js/2.8a8bab69.chunk.js.LICENSE.txt": "/ecommerce-ft08-g03/static/js/2.8a8bab69.chunk.js.LICENSE.txt",
+    "static/js/2.384202a0.chunk.js.LICENSE.txt": "/ecommerce-ft08-g03/static/js/2.384202a0.chunk.js.LICENSE.txt",
     "static/js/3.ef9029c7.chunk.js.LICENSE.txt": "/ecommerce-ft08-g03/static/js/3.ef9029c7.chunk.js.LICENSE.txt",
     "static/js/4.7bb462e8.chunk.js.LICENSE.txt": "/ecommerce-ft08-g03/static/js/4.7bb462e8.chunk.js.LICENSE.txt",
     "static/js/5.25b68008.chunk.js.LICENSE.txt": "/ecommerce-ft08-g03/static/js/5.25b68008.chunk.js.LICENSE.txt",
@@ -26,8 +26,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.5def7fe6.js",
-    "static/js/2.8a8bab69.chunk.js",
+    "static/js/2.384202a0.chunk.js",
     "static/css/main.b5fd94ef.chunk.css",
-    "static/js/main.359f0fe1.chunk.js"
+    "static/js/main.2afc8c08.chunk.js"
   ]
 }
