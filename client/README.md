@@ -66,3 +66,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+DB_USER=postgres
+DB_PASSWORD=123456789
+DB_HOST=localhost
+DB_PORT=5432
+ACCESS_TOKEN = TEST-1038812762452250-021116-15f7ba1c08a5da608a01c892bcbd25d6-567646902
