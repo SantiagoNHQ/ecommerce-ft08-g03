@@ -15,7 +15,7 @@ export default function OrderCard({ data }) {
         console.log(datas)
         var obj = { estado: e.target.cat.value }
         console.log(obj)
-        axios.put("http://localhost:3001/user/orders/" + datas, obj)  //  *S44
+        axios.put("/user/orders/" + datas, obj)  //  *S44
             .then(res => {
                 swal({
                     title: "Oden Actualizada correctamente",

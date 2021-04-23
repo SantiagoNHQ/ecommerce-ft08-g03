@@ -30,7 +30,7 @@ export function FinalizarCompra(props) {
         // history.push("/user/finalizarcompra");
 
         if (state.calle && state.numero && state.localidad && state.provincia && state.codigoPostal) {
-            axios.post(`http://localhost:3001/user/compra/${props.user.id}`, state, { withCredentials: true })
+            axios.post(`/user/compra/${props.user.id}`, state, { withCredentials: true })
                 .then(respuesta => {
                     swal({
                         title: "Compra finalizada con éxito!",
@@ -43,7 +43,7 @@ export function FinalizarCompra(props) {
                         subject: "Gracias por su compra en WeAreWine",
                         text: "Este es el texto del email",
                     }
-                    axios.get("http://localhost:3001/auth/send-email/" + props.user.email)
+                    axios.get("/auth/send-email/" + props.user.email)
                         .then(respuesta => {
                             console.log("SI", respuesta)
                             window.location.replace("http://localhost:3000/")

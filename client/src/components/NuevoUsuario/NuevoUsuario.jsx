@@ -16,7 +16,7 @@ function NuevoUsuario(props) {
         console.log("Probando: ", state)
         e.preventDefault()
         if (state.coinciden) {
-            axios.post("http://localhost:3001/user/", {data: state, user: props.user}, { withCredentials: true })
+            axios.post("/user/", {data: state, user: props.user}, { withCredentials: true })
                 .then(res => {
                     console.log("esta es la respuesta con el user", res.data.userId)       
                     swal({
@@ -35,7 +35,7 @@ function NuevoUsuario(props) {
                                 nombre: pos.nombre,
                             }
                             console.log("mi obj", obj)
-                            axios.post("http://localhost:3001/user/"+ res.data.userId + "/cart", {data: obj})
+                            axios.post("/user/"+ res.data.userId + "/cart", {data: obj})
                             .then(res => {
                                 console.log("producto agregado", res)
                             })

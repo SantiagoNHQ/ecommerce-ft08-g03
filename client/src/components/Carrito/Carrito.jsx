@@ -29,7 +29,7 @@ export function Carrito({ carrito, user, onAddCarrito, products }) {
                 precioTotal(aC)
             }
         } else {
-            axios.get(`http://localhost:3001/user/cart/${user.id}`)
+            axios.get(`/user/cart/${user.id}`)
                 .then(response => {
                     onAddCarrito(response.data)
                     precioTotal(response.data)
@@ -59,9 +59,9 @@ export function Carrito({ carrito, user, onAddCarrito, products }) {
         }
         if (e.target.value > 0 && e.target.value <= stock) {
             if (user.id) {
-                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj)
+                axios.put(`/user/cart/${user.id}`, obj)
                     .then(response => {
-                        return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                        return axios.get(`/user/cart/${user.id}`)
                     })
                     .then(response => {
                         onAddCarrito(response.data)
@@ -86,9 +86,9 @@ export function Carrito({ carrito, user, onAddCarrito, products }) {
 
             if (user.id) {
                 obj.cantidad = 1
-                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj)
+                axios.put(`/user/cart/${user.id}`, obj)
                     .then(response => {
-                        return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                        return axios.get(`/user/cart/${user.id}`)
                     })
                     .then(response => {
                         onAddCarrito(response.data)
@@ -117,9 +117,9 @@ export function Carrito({ carrito, user, onAddCarrito, products }) {
 
             if (user.id) {
                 obj.cantidad = stock
-                axios.put(`http://localhost:3001/user/cart/${user.id}`, obj)
+                axios.put(`/user/cart/${user.id}`, obj)
                     .then(response => {
-                        return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                        return axios.get(`/user/cart/${user.id}`)
                     })
                     .then(response => {
                         onAddCarrito(response.data)
@@ -144,9 +144,9 @@ export function Carrito({ carrito, user, onAddCarrito, products }) {
 
     function eliminar(e, producto) {
         if (user.id) {
-            axios.delete(`http://localhost:3001/user/delete/${producto.productId}/${user.id}`)
+            axios.delete(`/user/delete/${producto.productId}/${user.id}`)
                 .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                    return axios.get(`/user/cart/${user.id}`)
                 })
                 .then(response => {
                     onAddCarrito(response.data)
@@ -175,9 +175,9 @@ export function Carrito({ carrito, user, onAddCarrito, products }) {
 
     function vaciarCarrito() {
         if (user.id) {
-            axios.delete(`http://localhost:3001/user/cart/${user.id}`)
+            axios.delete(`/user/cart/${user.id}`)
                 .then(response => {
-                    return axios.get(`http://localhost:3001/user/cart/${user.id}`)
+                    return axios.get(`/user/cart/${user.id}`)
                 })
                 .then(response => {
                     onAddCarrito(response.data)

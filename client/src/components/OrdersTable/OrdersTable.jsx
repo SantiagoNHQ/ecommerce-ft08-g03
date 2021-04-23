@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const baseUrl = "http://localhost:3001/user/orders";
+const baseUrl = "/user/orders";
 var firstObj;
 
 

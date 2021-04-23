@@ -26,7 +26,7 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
     console.log("SOY FORM PRODUCT",categoria)
 
     useEffect(() => {
-        axios.get("http://localhost:3001/category/")
+        axios.get("/category/")
         .then(res => {
             console.log("Categorias: ", res.data)
             onCategoriesLoad(res.data)
@@ -52,7 +52,7 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
         let boton = document.getElementById("boton")
         boton.disabled = true
         console.log("Boton: ", boton)
-        axios.post("http://localhost:3001/product/", formulario)
+        axios.post("/product/", formulario)
         .then(res => {
             console.log ("Producto agregado")
             // Subir la imagen
@@ -70,7 +70,7 @@ function FormProduct({formulario, categoria, onFormChange, onCategoriesLoad}) {
                 }
                 //return  post(url, formData,config)
 
-                axios.post("http://localhost:3001/upload", formData, config).then(r => console.log("Se subió: ", r)).catch(e => console.log("No se subió: ", e))
+                axios.post("/upload", formData, config).then(r => console.log("Se subió: ", r)).catch(e => console.log("No se subió: ", e))
             }
             boton.disabled = false
             onFormChange({formulario: null})

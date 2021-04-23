@@ -33,7 +33,7 @@ function App(props) {
   function checkLogged() {
     if (props.user.id) return;
     axios
-      .get("http://localhost:3001/auth/me", {
+      .get("/auth/me", {
         withCredentials: true,
       })
       .then((r) => {
@@ -85,7 +85,7 @@ function App(props) {
     if (props.logged !== true) return;
 
     axios
-      .get(`http://localhost:3001/user/cart/${props.user.userId}`)
+      .get(`/user/cart/${props.user.userId}`)
       .then((response) => {
         props.onAddCarrito(response.data);
       })

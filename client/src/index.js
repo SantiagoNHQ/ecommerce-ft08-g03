@@ -7,6 +7,12 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
+import dotenv from "dotenv";
+dotenv.config();
+
+axios.defaults.baseURL = "https://santiagonhq.github.io/ecommerce-ft08-g03/";
+
+
 ReactDOM.render(
   <React.StrictMode>
     {/* <link

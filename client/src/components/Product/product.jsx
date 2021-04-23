@@ -14,7 +14,7 @@ export default function Product(props) {
     var id2 = props.match.params.id
 
     useEffect((id = id2) => {
-        axios.get("http://localhost:3001/product/"+id).then(r => {
+        axios.get("/product/"+id).then(r => {
         setProduct(r.data)
         console.log("Respondió: ", r.data)
         }).catch(e => console.log("Error: ", e))

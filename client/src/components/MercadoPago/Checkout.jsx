@@ -38,7 +38,7 @@ export function Checkout({ productos, data, user }) {
 
     function submitTarjeta(e) {
         e.preventDefault()
-        axios.post("http://localhost:3001/user/tarjeta/"+ user.id, {data:state, stock: stock})
+        axios.post("/user/tarjeta/"+ user.id, {data:state, stock: stock})
         .then(res => {
             console.log("SOY",res)
             history.push("/user/finalizarcompra");

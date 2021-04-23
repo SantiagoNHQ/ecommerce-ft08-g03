@@ -9,17 +9,17 @@ export default function EditarProducto(props) {
     const [imagen, setImagen] = useState(null)
 
     function product() {
-        // console.log("Get: " + "http://localhost:3001/product/"+props.id)
-        axios.get("http://localhost:3001/product/" + props.id)
+        // console.log("Get: " + "/product/"+props.id)
+        axios.get("/product/" + props.id)
             .then(res => {
                 console.log("Data de respuesta: ", res.data)
                 if (!res.data.img || !(res.data.img.includes("http") || res.data.img.includes("www"))) {
-                    setImagen("http://localhost:3001/upload/" + res.data.img)
+                    setImagen("/upload/" + res.data.img)
                 } else setImagen(res.data.img)
                 res.data.categories = res.data.categories.map(v => v.nombre)
 
                 setCards((state) => ({ id: res.data.id, productos: res.data/* d */ }))
-                axios.get("http://localhost:3001/category/")
+                axios.get("/category/")
                     .then(res2 => {
                         console.log("Categorias: ", res2.data)
                         setCards((state) => ({ ...state, cats: res2.data }))
@@ -36,7 +36,7 @@ export default function EditarProducto(props) {
     function submitEliminar(id) {
         console.log(" ELIMINAR: ", id)
         // var obj = {nombre: p}
-        axios.delete("http://localhost:3001/product/", { data: { id } }
+        axios.delete("/product/", { data: { id } }
         )
             .then(res => {
                 console.log("bien", res)
@@ -57,7 +57,7 @@ export default function EditarProducto(props) {
     }
 
     function submitEditar() {
-        axios.put("http://localhost:3001/product", cards.productos)
+        axios.put("/product", cards.productos)
             .then(res => {
                 console.log("bien", res)
                 console.log("STATE EDITAR: ", cards.productos)

@@ -11,7 +11,7 @@ export default function UsuariosAdmin(props) {
     const [users, setUsers] = useState()
 
     function cargarUser(){
-        axios.get("http://localhost:3001/user")
+        axios.get("/user")
         .then(res => {
             setUsers(res.data)
             console.log("SOY USERS", res.data)
@@ -26,7 +26,7 @@ export default function UsuariosAdmin(props) {
     function addAdmin(e, id) {
         e.preventDefault()
         console.log(id)
-        axios.post("http://localhost:3001/auth/promote/"+id)
+        axios.post("/auth/promote/"+id)
         .then(res => {
             cargarUser()
         })
@@ -37,7 +37,7 @@ export default function UsuariosAdmin(props) {
     function deleteAdmin(e, id) {
         e.preventDefault()
         console.log(id)
-        axios.post("http://localhost:3001/auth/promoteF/"+id)
+        axios.post("/auth/promoteF/"+id)
         .then(res => {
             cargarUser()
         })

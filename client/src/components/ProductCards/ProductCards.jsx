@@ -29,7 +29,7 @@ function ProductCards({search, products, filtrarCategoria, onProductsLoad}) {
   const [state, setState] = useState()
 
   useEffect(() => {
-    /* axios.get(`http://localhost:3001/product`)
+    /* axios.get(`/product`)
     .then(r => setCards(r.data)).catch(e => console.log("ERROR: ", e)) */
     let ruta = ""
     if (search) ruta = "http://localhost:3001/product/busqueda/"+search
@@ -40,7 +40,7 @@ function ProductCards({search, products, filtrarCategoria, onProductsLoad}) {
       // Iterar sobre r y filtrar por categoría
       
       if (filtrarCategoria) {
-        axios.get("http://localhost:3001/product/categoria/"+filtrarCategoria)
+        axios.get("/product/categoria/"+filtrarCategoria)
         .then(rr => {
           // Data es la categoria
           let data = rr.data
@@ -65,7 +65,7 @@ function ProductCards({search, products, filtrarCategoria, onProductsLoad}) {
       //setCards(r.data)
       onProductsLoad(r.data)
     }).catch(e => console.log("NO RESOLVIÓ: ", e))
-    axios.get("http://localhost:3001/category/")
+    axios.get("/category/")
     .then(respuesta => {
         setState(respuesta.data)
         console.log("CATEGORIAS", respuesta.data)

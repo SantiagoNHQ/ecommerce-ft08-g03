@@ -8,7 +8,7 @@ export function Reviews(props) {
     const [review, setReview] = useState([])
 
     let avoidWarnings = () => {
-        axios.get("http://localhost:3001/product/" + props.id + "/review")
+        axios.get("/product/" + props.id + "/review")
             .then(response => {
                 console.log("Hola es Armando :", response.data);
                 setReview(response.data)

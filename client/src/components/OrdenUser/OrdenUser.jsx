@@ -31,7 +31,7 @@ function OrdenUser(props) {
     console.log("Status: ", estado)
 
     useEffect(() => {
-        axios.get("http://localhost:3001/user/" + props.user.id + "/orders/completas")
+        axios.get("/user/" + props.user.id + "/orders/completas")
             .then(r => {
                 setOrden(r.data)
                 console.log(r.data)
@@ -51,7 +51,7 @@ function OrdenUser(props) {
         setReview({ ...review, [e.target.name]: e.target.value })
     }
     function subirReview(e, data) {
-        axios.post("http://localhost:3001/product/" + data.productId + "/review", review)
+        axios.post("/product/" + data.productId + "/review", review)
             .then(respuesta => {
                 swal({
                     title: "Gracias por dejarnos su opinion!!",

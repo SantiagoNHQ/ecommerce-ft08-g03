@@ -14,7 +14,7 @@ function Perfil(props) {
     //let history = useHistory()
 
     function salir(){
-        axios.get("http://localhost:3001/auth/logout", {
+        axios.get("/auth/logout", {
             withCredentials: true
         })
         .then(r => {

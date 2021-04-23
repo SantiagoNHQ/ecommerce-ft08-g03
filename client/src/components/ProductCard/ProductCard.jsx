@@ -23,7 +23,7 @@ export function ProductCard(props) {
         if (!props.img || !(props.img.includes("http") || props.img.includes("www"))) {
             //props.img = ""
             //console.log("Dir: ", __dirname)
-            setStock((state) => ({ ...state, img: "http://localhost:3001/upload/" + props.img }))
+            setStock((state) => ({ ...state, img: "/upload/" + props.img }))
         }
     }, [props.stock, props.img])
 
@@ -43,10 +43,10 @@ export function ProductCard(props) {
             });
         } else if (props.user.id) { // Si es un usuario
             // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
-            axios.post(`http://localhost:3001/user/${props.user.id}/cart`, { data: obj })
+            axios.post(`/user/${props.user.id}/cart`, { data: obj })
                 .then(res => {
                     console.log('Todo Okey: ', res)
-                    return axios.get(`http://localhost:3001/user/cart/${props.user.id}`)
+                    return axios.get(`/user/cart/${props.user.id}`)
                 })
                 .then(res => {
                     console.log("ESTOS SON TODOS LOS ELEMENTOS DEL CARRITO", res.data)
@@ -85,7 +85,7 @@ export function ProductCard(props) {
         e.preventDefault()
 
         // el ${} lo recibo en el back desde params, y el obj {data: productId} seria mi producto a agregar, lo agarro en req.body
-        /* axios.get(`http://localhost:3001/product/${props.id}`)
+        /* axios.get(`/product/${props.id}`)
         .then(res => {
             console.log('Todo Okey: ', res)
             

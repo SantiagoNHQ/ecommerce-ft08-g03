@@ -33,7 +33,7 @@ export function MercadoPago(props) {
   console.log("OBJJJJ1", obj1)
   console.log("ORDEN IDDD", props.carrito[0].ordenId)
   useEffect(() => {
-    axios.post("http://localhost:3001/mercadopago/" + carrito[0].ordenId, obj1)
+    axios.post("/mercadopago/" + carrito[0].ordenId, obj1)
       .then(data => {
         setDatos(data.data)
         console.info("contenido de data:", data)

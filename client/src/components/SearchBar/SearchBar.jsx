@@ -34,7 +34,7 @@ function SearchBar({ search, onSearchChange, onSearchClick, onCategoria }) { // 
     let history = useHistory()
 
     useEffect(() => {
-        axios.get("http://localhost:3001/category/")
+        axios.get("/category/")
             .then(respuesta => {
                 setState(respuesta.data)
                 console.log("CATEGORIAS", respuesta.data)
@@ -65,7 +65,7 @@ function SearchBar({ search, onSearchChange, onSearchClick, onCategoria }) { // 
     function submit(e) {
         //llamado a la api que retorne los poductos por nombre
         //pasar e.target.value por params
-        /* axios.get("http://localhost:3001/product/busqueda/" + search)
+        /* axios.get("/product/busqueda/" + search)
         .then(response => {
             console.log("RESPUESTA: ", response.data)
         })

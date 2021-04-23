@@ -30,7 +30,7 @@ export default function Home() {
             </div> */}
             </header>
 
-            <ProductCards data={axios.get(`http://localhost:3001/product`)} />
+            <ProductCards data={axios.get(`/product`)} />
         </div>
     )
 }
@@ -53,7 +53,7 @@ export default function Home() {
 //     const [state, setState] = useState()
 
 //     useEffect(() => {
-//         axios.get("http://localhost:3001/category/")
+//         axios.get("/category/")
 //             .then(respuesta => {
 //                 setState(respuesta.data)
 //                 console.log("CATEGORIAS", respuesta.data)
@@ -85,7 +85,7 @@ export default function Home() {
 //                     )}
 //                 </select>
 //             </form>
-//             <ProductCards data={axios.get(`http://localhost:3001/product`)} />
+//             <ProductCards data={axios.get(`/product`)} />
 //         </div>
 //     )
 // }

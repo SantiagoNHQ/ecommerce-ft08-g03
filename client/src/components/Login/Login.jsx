@@ -9,7 +9,7 @@ export default function NuevoUsuario(props) {
 
     function submit(e) {
         e.preventDefault()
-        axios.post("http://localhost:3001/auth/login", state, { withCredentials: true })
+        axios.post("/auth/login", state, { withCredentials: true })
             .then(res => {
                 window.location.replace("http://localhost:3000/")
             })
@@ -28,7 +28,7 @@ export default function NuevoUsuario(props) {
     //     e.preventDefault()
     //     var email = [e.target.value]
     //     console.log(email)
-    //     axios.post('/http://localhost:3001/auth/send-email', email)
+    //     axios.post('//auth/send-email', email)
     //     .then(res => {
     //         console.log("Todo ok...")
     //     }).catch(err => {
@@ -53,7 +53,7 @@ export default function NuevoUsuario(props) {
 
     function google(e) {
         e.preventDefault()
-        window.open("http://localhost:3001/auth/google")
+        window.open("/auth/google")
     }
     return (
         <div className='divLogin'>

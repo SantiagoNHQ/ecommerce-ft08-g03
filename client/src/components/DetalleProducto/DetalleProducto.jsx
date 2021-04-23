@@ -15,12 +15,12 @@ function DetalleProducto(props) {
     const [imagen, setImagen] = useState(null)
 
     function avoidWarnings() {
-        if (!producto) axios.get(`http://localhost:3001/product/${id}`)
+        if (!producto) axios.get(`/product/${id}`)
             .then(response => {
                 console.log(response)
                 setProducto(response.data)
                 if (!response.data.img || !(response.data.img.includes("http") || response.data.img.includes("www"))) {
-                    setImagen("http://localhost:3001/upload/" + response.data.img)
+                    setImagen("/upload/" + response.data.img)
                 } else setImagen(response.data.img)
             })
             .catch(err => {

@@ -30,7 +30,7 @@ import axios from "axios";
 export default function NavAdmin(props) {
 
     function salir(){
-        axios.get("http://localhost:3001/auth/logout", {withCredentials: true})
+        axios.get("/auth/logout", {withCredentials: true})
         .then(respuesta =>{
             window.location.replace("http://localhost:3000/")
         })
