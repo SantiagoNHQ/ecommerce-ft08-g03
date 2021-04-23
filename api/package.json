@@ -1,9 +1,12 @@
 {
   "name": "api",
+  "homepage": "http://SantiagoNHQ.github.io/ecommerce-ft08-g03",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "nodemon -L",
     "forever": "forever index.js",
     "test": "mocha -w ./tests/**/*.spec.js"
