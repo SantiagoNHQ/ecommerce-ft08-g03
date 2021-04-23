@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 //import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import ProductCards from "./components/ProductCards/ProductCards.jsx";
-import { BrowserRouter, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import FormProduct from "./components/FormProduct/FormProduct";
 import FormCategory from "./components/FormCategory/FormCategory";
 import Product from "./components/Product/product";
@@ -102,10 +102,10 @@ function App(props) {
   
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <React.Fragment>
         {/* NAVBAR! */}
-        <Route
+        <Route 
           path="/" component={() => {
             if (props.user.admin) return <NavAdmin />;
             else if (props.user.id) return <NavBar />;
@@ -173,7 +173,7 @@ function App(props) {
         {/* <Route path="/seleccionar" component={NavSelect} /> // ESTO ERA PA TESTEAR EL ADMIN/USER/GUEST VIEW HARDCODED */}
         <Route path="/user/product/:id" component={Product} />
       </React.Fragment>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 // Linea de prueba
